@@ -293,7 +293,7 @@ function handleData(rows) {
     var tableRenderer =  utils.renderers["Table"];
     var sum =  utils.aggregators["Sum"];
 
-    $("#pivot2-title").html("<p>Table. " + params.indicator + " in the United States");
+    $("#pivot2-title").html("<p>Table. Sample size for residents with " + params.indicator + " by sex: United States");
     
     $("#pivot2").pivot(rowsForStateAndCountry, {
          rows: ["year", "locationdesc"],
