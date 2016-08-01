@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NHIS Indicator Explorer</title>
+      
+    <link rel="stylesheet" href="css/index.css">
+      
+    <!-- base dependencies (bootstrap, font-awesome) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="https://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      
+    <!-- visualization dependencies (d3, c3) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/socrata/soda-js/master/lib/soda-js.bundle.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+      
+    <!-- pivot table deps  -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+    <script src='https://marks.github.io/cdc-indicator-explorer/js/pivottable.pivot.js'></script>
+      
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.0.2/pivot.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+      
+    <script src='https://marks.github.io/cdc-indicator-explorer/js/pivottable.c3_renderers.js'></script>
+      
+    <!-- map deps -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+      
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="page-header">
+            <h1>NHIS Indicator Explorer <small>alpha</small></h1></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" id='index-options'>
+            <div class="well">
+              <!-- <h2>Options</h2> -->
+              <!-- <p>Select the indicator, state, and break out you'd like to see data for.</p> -->
+              <form id="form" role="form">
+                <div class="form-group">
+                  <label for="indicatorDropdown">Select an indicator:</label>
+                  <select class="form-control" id="indicatorDropdown">
+                    <option selected>Diabetes</option>
+                    <option>Obesity</option>                     
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="stateDropdown">Select a state:</label>
+                  <select class="form-control" id="stateDropdown">
+                    <option value="US">National Average</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="breakOutDropdown">Select a break out category:</label>
+                  <select class="form-control" id="breakOutDropdown">
+                    <option>Gender</option>
+                    <!--<option>Overall</option>
+                    <option>Age Group</option>
+                    <option>Race/Ethnicity</option>-->
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-default for-accessibility">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 id='visualizations-header'>Loading...</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div id="visualizations"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Data URL</h3>
+                <p>This version of the indicators explorer tool uses a static CSV file with dummy data.</p>
+                <!--<code id="query-url"></code>-->
+                <h3>Interactive Pivot Table</h3>
+                <div id="pivot"></div>
+                  
+                <h3>Static Pivot Table</h3>
+                <div id="pivot2-title"></div>
+                <div id="pivot2"></div>    
+                <div id="pivot2-footnotes">Source: CDC, NCHS. National Health Interview Survey. 2016.</div>                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="">
+              <hr />
+              <h3>About this tool</h3>
+              <p>This tool uses dummy data based on the <a href='https://chronicdata.cdc.gov/Health-Related-Quality-of-Life/Behavioral-Risk-Factor-Data-Health-Related-Quality/xuxn-8kju' target='blank'>Behavioral Risk Factor Data: Health-Related Quality of Life (HRQOL)</a> dataset from <code>chronicdata.cdc.gov</code>. Visit the dataset page to explore the data in your browser, create custom visualizations, and export the data as CSV, JSON, XML, and/or access it via API.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  <script src="js/nhis-explorer.js"></script>
+</body>
+</html>

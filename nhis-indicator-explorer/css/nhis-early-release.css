@@ -1,0 +1,34 @@
+.panel-body h3, h2#visualizations-header {
+    margin-top: 0px;
+}
+
+#options h2{
+	font-size: 18px;
+	margin-top: 0px;
+}
+
+#options .well{
+	padding-top: 25px;
+	min-height: 110px;
+}
+
+/* accessibility ~ http://webaim.org/techniques/css/invisiblecontent */
+.for-accessibility{
+	position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+
+code#query-url{
+	word-break: break-all !important;
+}
+
+/* hide totals in pivottable.js tables */
+.pvtTotal,.pvtGrandTotal,.pvtTotalLabel{
+	display: none
+}
+
+.data-table table {border-collapse:collapse;border-spacing:0;border-color:#ccc; width: 100%;}
+.data-table td{font-size:14px;padding:5px 3px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;}
+.data-table th{font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-top-width:2px;border-bottom-width:2px;border-left-width:0px;border-right-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;}
+.data-table .tg-s6z2{text-align:center}
+.data-table .tg-baqh{text-align:center;vertical-align:top}
+.data-table .tg-yw4l{vertical-align:top}
