@@ -321,7 +321,7 @@ function mapTooltipHTML(n, d){ /* function to create html content string in tool
     "</table>";
 }
 
-var c3VisualizationPanelTemplate = _.template('<div class="col-md-6 <%= slug %>"> \
+var c3VisualizationPanelTemplate = _.template('<div class="col-md-4 <%= slug %>"> \
   <div class="panel panel-default"> \
     <div class="panel-body"> \
       <h3><%= title %></h3> \
