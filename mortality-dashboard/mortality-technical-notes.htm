@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="no-js no-nav no-init theme-blue lt-ie10 lt-ie9 lt-ie8" lang="en-us"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js no-nav no-init theme-blue lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js no-nav no-init theme-blue lt-ie10" lang="en-us"> <![endif]-->
+<!--[if !IE]><!-->     <html class="no-js no-nav no-init theme-blue" lang="en-us"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<title>TEST - VSRR DEMO</title>
+
+		<meta name="description" content="NCHS Training - Applying Best Practices for Reporting Medical and Health Information on Birth Certificates" />
+		<meta name="keywords" content="NCHS,National Center for Health Statistics,National Vital Statistics System,NVSS,birth certificate,reporting" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/TemplatePackage/3.0/images/cdc-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/TemplatePackage/3.0/images/cdc-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/TemplatePackage/3.0/images/cdc-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" href="/TemplatePackage/3.0/images/cdc-touch-icon-57x57.png" />
+		<link rel="shortcut icon" href="/TemplatePackage/3.0/images/favicon.ico" />
+
+		<meta name="robots" content="index,follow" />
+		<meta property="cdc:template_version" content="3.0" />
+		<!--#include virtual="/TemplatePackage/3.0/includes/head.html" -->
+
+		<!-- Local CSS reference to allow overrides for the page/site -->
+		<link rel="stylesheet" href="natality-dashboard.css" />
+
+		<!--
+			In WCMS templates there is a local SSI for other includes, references,
+			and head content (e.g., JavaScript).
+		-->
+
+	</head>
+	<body>
+		<!--
+			In WCMS templates there is a local SSI for other content/assets that
+			must appear at the start of the body tag.
+		-->
+
+		<!--#include virtual="/TemplatePackage/3.0/includes/skipMenuNoNav.html" -->
+		<div id="wrapper">
+			<!--#include virtual="/TemplatePackage/3.0/includes/chromeFrame.html" -->
+			<header id="header">
+				<div class="container">
+					<!-- header -->
+					<div class="row">
+						<div id="logo" class="span14" style="margin-bottom: 20px;">
+							<!--#include virtual="/TemplatePackage/3.0/includes/logo.html" -->
+						</div>
+						<!-- search viewport 3/4 -->
+						<div id="searchArea" class="span10 hidden-one hidden-two hide">
+							<!--#include virtual="/TemplatePackage/3.0/includes/search.html" -->
+							<!--include virtual="/TemplatePackage/3.0/local/includes/localSearch.html" -->
+							<div class="a2z-button pull-right hidden-one hidden-two"><a href="#" id="azTab">CDC A-Z Index <span class="icon-angle-down"></span></a></div>
+						</div>
+						<!-- /search viewport 3/4 -->
+					</div>
+					<!--#include virtual="/TemplatePackage/3.0/includes/menu.html" -->
+					<div class="a2z-bar hide">
+						<!--#include virtual="/TemplatePackage/3.0/includes/a2z.html" -->
+					</div>
+					<!-- search viewport 1/2 -->
+					<div id="searchArea-two-column" class="span24 searchbar hide hidden-three hidden-four">
+						<!--#include virtual="/TemplatePackage/3.0/includes/search.html" -->
+						<!--include virtual="/TemplatePackage/3.0/modules/local/includes/localSearch.html" -->
+					</div>
+					<!-- /search viewport 1/2 -->
+					<!--#include virtual="/TemplatePackage/3.0/includes/emergency.html" -->
+					<!-- /header -->
+					<div class="titlebar">
+						<!-- When this template is used for a topic home page then the following should be an <h1> tag. -->
+						<h2>National Center for Health Statistics</h2>
+					</div>
+					<!--#include virtual="/TemplatePackage/3.0/includes/noscript.html" -->
+				</div>
+			</header>
+			<div class="container">
+				<div id="featureArea"><!-- Feature Option - begin editable -->
+					<div class="row">
+						<div class="span24">
+							<!--  // This area is optional
+
+							<section class="feature-hero-sample">
+								<span class="header">Lorem ipsum</span>
+								<span>Proin sagittis nibh eget ipsum commodo.</span>
+							</section>
+
+							-->
+						</div>
+					</div>
+				</div><!--  /end #featureArea - end editable -->
+				<div id="content">
+					<div class="row">
+						<div class="breadcrumbs hidden-one span24">
+							<!--#include virtual="/nchs/~inc~/localRDBreadcrumbs.html" -->
+						</div>
+						<div class="span24 pagetitle">
+							<!-- div class='syndicate' --><!-- uncomment div for content syndication-->
+								<!-- When this template is used for a topic home page then the following should be an <h2> tag. -->
+								<!--<h1>Applying Best Practices for Reporting Medical and Health Information on Birth Certificates</h1>-->
+							<!--/div--><!-- uncomment div for content syndication-->
+						</div>
+						<div id="share-bar" class="span24">
+							<div class="socialmediabar">
+								<div class="row">
+									<div class="hidden-one pull-right">
+										<!--BEGIN PAGE OPTIONS - FOR DEMO PURPOSES ONLY - REMOVE INCLUDES BEFORE TEMPLATE USE. The markup in this region for page format & languages will be generated by the CMS via editorial options. -->
+
+										<!-- END PAGE OPTIONS -->
+									</div>
+									<div class="span9">
+										<!--#include virtual="/TemplatePackage/3.0/includes/socialMediaShare.html" -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- body -->
+						<div id="body" class="span24">
+							<div id="contentArea">
+								<!-- begin editable -->
+								<!-- div class='syndicate' --><!-- uncomment div for content syndication-->
+
+									<!-- MAIN BODY CONTENT GOES HERE -->
+
+								<h1>Technical Notes</h1>
+<h2>Nature and  sources of data</h2>
+<p>Provisional  estimates are based on all complete birth records received and processed by the  National Center for Health Statistics (NCHS) as of a specified cutoff date (<a href="#ref1">1</a>).  National provisional estimates include events occurring to U.S. residents within  the 50 states and District of Columbia. NCHS receives the birth records and  monthly provisional occurrence counts from state vital registration systems  through the Vital Statistics Cooperative Program.&nbsp;Provisional quarterly estimates  are compared with final data when available (<a href="#ref2">2</a>). </p>
+<p>Individual  records are weighted, when necessary, to independent provisional counts of  births occurring in each state by month. These monthly state-specific  provisional counts serve as control totals and are the basis for the record  weights used for computing provisional estimates. If the number of complete  records is greater than the provisional count received from the state, the  state-specific number of complete records is used instead, and the weight is  set at 1.</p>
+<a href="#tablei">Table I</a> shows the percent  completeness of the provisional data by month for the United States and each  jurisdiction based on where the births occurred. The percent completeness is  obtained by dividing the number of complete records from each state for each  month by the corresponding provisional count and multiplying by 100. The record  weights described above are calculated by taking the inverse of the percent  completeness (divided by 100) by state and month. Although data by place of  occurrence are used to compute the weights, all rate estimates are for the  residents of the 50 states and District of Columbia.
+<p>&nbsp;</p>
+
+<div id="vssr_completeness">
+<table id="tablei">
+<caption>
+Table I. Natality data completeness as a percentage of monthly  provisional count: United States, each state, District of Columbia, and New  York City, 2015 through Quarter 1, 2016
+</caption>
+
+<thead>
+<tr>
+<th rowspan="2" scope="col">Area</th>
+<th colspan="12" scope="col">2015</th>
+<th colspan="3" scope="col">2016</th>
+</tr>
+
+<tr>
+<th scope="col">Jan</th>
+<th scope="col">Feb</th>
+<th scope="col">Mar</th>
+<th scope="col">Apr</th>
+<th scope="col">May</th>
+<th scope="col">Jun</th>
+<th scope="col">Jul</th>
+<th scope="col">Aug</th>
+<th scope="col">Sep</th>
+<th scope="col">Oct</th>
+<th scope="col">Nov</th>
+<th scope="col">Dec</th>
+<th scope="col">Jan</th>
+<th scope="col">Feb</th>
+<th scope="col">Mar</th>
+</tr>
+
+</thead><tbody>
+<tr>
+	<td>Total U.S.</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>99 </td>
+	<td>99 </td>
+	<td>98 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Alabama</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Alaska</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Arizona</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>99 </td>
+	<td>99 </td>
+	</tr>
+
+<tr>
+	<td>Arkansas</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>California</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Colorado</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Connecticut</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Delaware</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>District of Columbia</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Florida</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Georgia</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Hawaii</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Idaho</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Illinois</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Indiana</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Iowa</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Kansas</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Kentucky</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>98 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Louisiana</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>98 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Maine</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Maryland</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Massachusetts</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Michigan</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>96 </td>
+	<td>97 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Minnesota</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Mississippi</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Missouri</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Montana</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Nebraska</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Nevada</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>New Hampshire</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>New Jersey</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>93 </td>
+	<td>91 </td>
+	<td>89 </td>
+	<td>77 </td>
+	<td>70 </td>
+	<td>72 </td>
+	<td>69 </td>
+	<td>96 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>New Mexico</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>98 </td>
+	<td>89 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>88 </td>
+	</tr>
+
+<tr>
+	<td>New York City<sup>1</sup></td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>New York State</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>North Carolina</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>North Dakota</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Ohio</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Oklahoma</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Oregon</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Pennsylvania</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Rhode Island</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>98 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>South Carolina</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>South Dakota</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Tennessee</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>46 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Texas</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>99 </td>
+	<td>99 </td>
+	</tr>
+
+<tr>
+	<td>Utah</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Vermont</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Virginia</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Washington</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>West Virginia</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>99 </td>
+	<td>97 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Wisconsin</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+<tr>
+	<td>Wyoming</td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	<td>100 </td>
+	</tr>
+
+</tbody></table>
+</div>
+<p><sup>1</sup> Excludes New York  City.</p>
+<p>NOTE: Percent completeness equals 100 times the  number of birth records received at NCHS divided by an individual provisional  count of births reported by each jurisdiction. NCHS receives the birth records  and monthly provisional occurrence counts from state vital registration systems  through the Vital Statistics Cooperative Program.</p>
+<p>&nbsp;</p>
+
+<h2>Population  denominators</h2>
+<p>Population estimates used for computing rates  are postcensal estimates, which originate from the U.S. Census Bureau and are  based on the 2010 census (<a href="#ref4">4</a>). All population estimates used for a single data  year are based on population estimates of the same vintage (i.e., the same  reference year). Changes in rates between years in part reflect differences  between vintages of the population estimates. Quarterly rates are based on the  population estimates for the month in the midpoint of the quarter. Rates for  12-month periods are based on the midyear population estimate.</p>
+<p>&nbsp;</p>
+<h2>Computing rates</h2>
+<p>The &ldquo;12 months ending with quarter&rdquo; birth rates  are on an annual basis per 1,000 estimated population within specified age groups. The general fertility rate refers to the total number  of births per 1,000 women aged 15-44. Birth rates for women aged 50 and over have  historically been too small to compute reliable age-specific birth rates.  Consistent with other reports, birth rates to women aged 45 and over are  computed by including all births to women aged 45 and over in the numerator,  while the denominator includes population estimates of women aged 44-49 years (<a href="#ref1">1-2</a>).  For comparability to the annual birth rate  estimates, quarterly birth rates (i.e., a 3-month period) have been annualized  to represent births per year per 1,000 population that would be expected if the  quarter-specific rate prevailed for the year. Other rates are presented as per  100 births. Estimates of birth rates at 42 weeks gestation or later (post-term)  are not presented due to the small number of births in this group.</p>
+<p>&nbsp;</p>
+<h2>Accuracy of  estimates</h2>
+<p>Provisional estimates are subject to some  nonrandom sampling error. The quarterly provisional estimates are based on data  that is potentially more incomplete for the most recent months. Data are  weighted to independent control counts of births, and no imputations have been  performed, because it is assumed that the data are missing at random (i.e., the  degree of missing data is unrelated to estimates of reproductive health). Estimates  of completion rates by month were all above 80% for the United States. However,  certain states may have more delayed reporting, and it is unknown whether  indicators of reproductive health may be different for these states compared with  states having complete reporting. Even if no differential delay occurred, some  sampling error would still exist for rate estimates, because they are based on  incomplete data. A guideline for the size of this sampling error is given by deriving  the variation that would occur if the data were missing at random (<a href="#ref5">5</a>); standard errors for birth rates have been calculated  according to these methods, accounting for sampling error.  </p>
+<p> Partly  because of the factors discussed above, provisional estimates of birth rates are  rarely higher than the true rate.&nbsp;Historically, provisional estimates of birth  rates track closely with estimates based on final data (6). Based on simulations  of various levels of data completeness, ranging from 50% through 90%, both  quarterly and 12 month-ending estimates of the indicators included in this release  can be expected to be within 1% of the estimates based on complete data. Exceptions  were noted for birth rates among women aged 10-14 and 45 and over under  scenarios where data completeness was 80% or lower. For these two age groups,  the percent differences between estimates based on complete data and those  based on various levels of incomplete data were larger than 1% because the  birth rates are small (0.2 and 0.9 per 1,000, respectively).  However, the absolute differences between the  rates across various levels of data completeness was approximately 0.1 for both  of these age groups. For example, estimated birth rates for females aged 10–14  under various levels of completeness ranged from 0.2 through 0.3 per 1,000, while  those for women aged 45 and over ranged from 0.8 through 0.9 per 1,000. Notably,  these simulations assumed data were missing at random. </p>
+<p> Because the timeliness of birth reporting has been  improving, accuracy of the estimates may change over time. Estimates for  previously released quarters are revised based on  new data and updates received since the previous release.&nbsp; As a result,  the reliability of estimates for a specific quarter will improve with each quarterly  release, and estimates for previous quarters may change with the addition of  updated data. Estimates may differ from previously published preliminary data due  to rounding, application of different record weights, or the use of updated  population estimates.</p>
+<p>&nbsp;</p>
+<h2>Interpretation  of changes over time</h2>
+<p>Unless otherwise specified, a difference in age-specific  birth rates is reported only if statistically significant at the 0.05 level by  the <em>z</em> test given in <a href="#ref4">reference  4</a>. That <em>z</em> test uses a variance  estimate that includes both the random fluctuation in the true number of births  and the random sampling error. Similarly, differences in percentages (e.g.,  cesarean delivery and preterm birth) between the most recent quarter and the same  quarter of the preceding year are reported only if statistically significant at  the 0.05 level according to methods outlined in <a href="#ref7">reference 7</a>.  </p>
+<p>&nbsp;</p>
+<h2>References</h2>
+<ol>
+	<li>Hamilton BE, Martin  JA, Osterman MJK et al. <a href="/nchs/data/nvsr/nvsr65/nvsr65_03.pdf">Births: Preliminary data for 2015 [PDF - 419 KB]</a>. National vital  statistics reports; vol 65, no 3. Hyattsville, MD: National Center for Health  Statistics. 2016. </li>
+	<li>Hamilton BE, Martin  JA, Osterman MJK et al. <a href="/nchs/data/nvsr/nvsr64/nvsr64_12.pdf">Births: Final data for 2014 [PDF - 2.8 MB]</a>. National vital statistics  reports; vol 64, no 12. Hyattsville, MD: National Center for Health Statistics.  2015. </li>
+	<li>National Center for Health  Statistics, National Vital Statistics System. <a href="/nchs/data/dvs/GuidetoCompleteFacilityWks.pdf">Guide to completing the facility  worksheets for the certificate of live birth and report of fetal death (2003  revision) [PDF - 577 KB]</a>. 2016 update. </li>
+	<li>U.S. Census Bureau.  <a href="https://www.census.gov/popest/data/national/asrh/2014/2014-nat-detail.html">Population estimates: 2014 monthly national population estimates</a>. </li>
+	<li>Hamilton BE, Martin  JA, Ventura SJ. <a href="/nchs/data/nvsr/nvsr55/nvsr55_11.pdf">Births: Preliminary data for 2005 [PDF - 473 KB]</a>. National vital statistics  reports; vol 55 no 11. Hyattsville, MD: National Center for Health Statistics.  2006. </li>
+	<li>Hamilton BE, Sutton  PD. <a href="/nchs/data/hestat/births_fertility_june_2012/births_june_2012.html">Recent trends in births and fertility rates through June 2012</a>. Health  E-Stats. 2012. </li>
+	<li>National Center for Health Statistics. <a href="ftp://ftp.cdc.gov/pub/Health_statistics/NCHs/Dataset_Documentation/DVS/natality/UserGuide2010.pdf">User  guide to the 2010 natality public-use file [PDF - 1.3 MB]</a>. Hyattsville, MD. </li>
+</ol>
+
+
+<!--/div--><!-- uncomment div for content syndication-->
+								<!-- /end editable -->
+								<!-- Persistent Content Area -->
+								<div id="content-secondary">
+									<!-- begin editable -->
+									<!--  // This area is optional
+									// All content in the Right Column (except for Page Option links and GovD) will be moved to the Persistent Content Area upon migration
+									-->
+									<!-- /end editable -->
+								</div><!-- /end #content-secondary -->
+							</div><!-- /end #contentArea -->
+						</div><!-- /end #body -->
+					</div>
+
+					<!-- left nav included after content on pages where it doesn't display -->
+					<nav id="left" class="hidden-one hidden-two">
+						<!--#include virtual="/nchs/~inc~/localRDleftNav.html" -->
+					</nav>
+					<div class="row">
+						<div class="span24 visible-one">
+							<!--BEGIN PAGE OPTIONS - FOR DEMO PURPOSES ONLY - REMOVE INCLUDES BEFORE TEMPLATE USE. The markup in this region for page format & languages will be generated by the CMS via editorial options. -->
+
+							<!-- END PAGE OPTIONS -->
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="span24">
+							<!--#include virtual="/TemplatePackage/3.0/includes/pluginsLegend.html" -->
+						</div>
+					</div>
+
+					<!-- date stamp -->
+					<div id="datestamp" class="row" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+						<div class="span24">
+							<ul>
+								<li class="last-reviewed">Page last reviewed:<span itemprop="lastReviewed"> June 1, 2016</span></li>
+								<li class="last-updated">Page last updated: <span itemprop="dateModified">June 1, 2016</span></li>
+								<li class="content-source">Content source: <span itemprop="sourceOrganization">CDC, National Center for Health Statistics</span></li>
+							</ul>
+									
+							
+						</div>
+					</div>
+				</div><!-- /end #content -->
+			</div><!-- / end .container -->
+
+			<!-- footer -->
+			<!--#include virtual="/TemplatePackage/3.0/includes/footerSlimAlt.html" -->
+			<!-- /#footer -->
+			<div id="totop" class="off visible-one">TOP</div>
+		</div>
+		<!--#include virtual="/TemplatePackage/3.0/includes/js-core.html" -->
+
+
+
+		<!--#include virtual="/TemplatePackage/3.0/includes/js-modules.html" -->
+		<!--#include virtual="/TemplatePackage/3.0/includes/survey.html" -->
+		<!-- The following include is for including any local JS code to the page -->
+
+		<!--#include virtual="/TemplatePackage/3.0/includes/metricsTop.html" -->
+		<!-- The following include is where local metrics settings for SiteCatalyst and GA are made -->
+		<!--#include virtual="/nchs/~inc~/localRDSiteCatalystMiddle.html" -->
+		<!--#include virtual="/TemplatePackage/3.0/includes/metricsBottom.html" -->
+		<!-- The following include is for nav/breadcrumb rendering functionality and is needed in all templates -->
+
+		<!--
+			In WCMS templates there is a local SSI for other content/assets that
+			must appear before the closing body tag.
+		-->
+
+
+		<!--
+			Some applications may wish to launch the Template code after their application logic has completed.
+			In order to do so, call the CDC.App.init() method after the Template Package JavaScript libraries.
+			Below is an example of simulated application logic, followed by a call to CDC.App.init(), which starts the Template Application
+
+			NOTE: all of this requires that a no-init class is set in the HTML tag of the page. See the top of this page for an example.
+		-->
+
+		<script src="/TemplatePackage/3.0/js/libs/d3/d3.min.js"></script>
+		<script src="/nchs/test/birth-indicators-v2.js"></script>	
+
+	</body>
+</html>

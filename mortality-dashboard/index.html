@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mortality Dashboard</title>
+      
+    <link rel="stylesheet" href="mortality-dashboard.css">
+      
+    <!-- base dependencies (bootstrap, font-awesome) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="https://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      
+    <!-- visualization dependencies (d3, c3) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+      
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+          
+        <div class="row">
+          <div class="col-md-12">
+            <div class="page-header">
+            <h1>Mortality Dashboard</h1>
+            </div>
+          </div>
+        </div>
+          
+        <div class="row">
+          <div class="col-md-3" id='index-options'>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Instructions</div>
+			<div class="panel-body">
+				<p>Select options for indicator and rate type. Once options are selected, click 'Generate Chart'.</p>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Options</div>		
+
+			<div class="panel-body">
+
+				<div class="form-group">
+					<h4>Indicator:</h4>	
+					
+					<fieldset>
+
+					<div id="indicators">
+					<select style="width: 100%;" id="vsrr_indicator" class="form-control"></select>	
+					</div>							
+										
+					</fieldset>					
+								
+				</div>
+			
+				<div class"form-group">
+
+					<h4>Rate Type:</h4>
+					<fieldset>
+					
+					<label for="RATE-CRUDE" class="hanging-indent"><input id="RATE-CRUDE" type="radio" name="RATE" value="Crude" checked />&nbsp;Crude</label>
+					<label for="RATE-AGE" class="hanging-indent"><input id="RATE-AGE" type="radio" name="RATE" value="Age-adjusted" />&nbsp;Age-adjusted</label>
+					
+					</fieldset>
+				
+				</div>		
+				
+            <input type="button" onclick="updateChart();" value="Generate Chart" style="margin-top: 10px;"/>                
+                
+			</div>	
+
+
+
+			
+		</div>	          
+              
+		
+		<div class="panel panel-default">
+            <div class="panel-heading">Additional Resources</div>
+			
+			<div class="panel-body">
+				<ul>
+                    <li><a href="#" onclick="savePNG();" id="save" class="noDecoration">Save as PNG Image</a></li>
+                    <li><a href="mortality-dashboard.csv" class="noDecoration">Download CSV Dataset</a></li>
+                </ul>
+			</div>
+		</div>              
+              
+              
+          </div>
+          <div class="col-md-9">
+          
+              
+		<div id="trends">
+			
+			<div name="trend-All Causes" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for all causes: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>In 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for all causes was 841.9 per 100,000 population, an increase from 823.6 in 2014. The age-adjusted death rate remained higher in 2015 than in 2014 (729.5 and 724.6, respectively).</li>
+				<li>For 2015, the crude death rate for all causes was 920.1 in the first quarter, 822.5 in the second quarter, 790.6 in the third quarter, and 835.6 in the fourth quarter. The rates for the first three quarters of 2015 were higher than the rates for the same quarters of 2014 (871.9, 802.2, and 773.9, respectively). However, the death rate for the fourth quarter of 2015 was lower than the rate for the fourth quarter of 2014 (847.0). The age-adjusted death rate for the first three quarters remained higher in 2015 (800.0, 714.3, and 684.7, respectively) than in 2014 (769.6, 706.9, and 679.1, respectively), and the rate for the fourth quarter remained lower in 2015 (719.1) than in 2014 (735.8).</li>
+				</ul>
+			</div>
+			
+			<div name="trend-Alzheimer's disease" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for Alzheimer's disease: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for Alzheimer's disease was 34.3 per 100,000 population, an increase from 29.3 in 2014. The age-adjusted death rate remained higher in 2015 than in 2014 (29.2 and 25.4, respectively).</li>
+				<li>In 2015, the crude death rate for Alzheimer's disease was 38.6 deaths per 100,000 population for the first quarter, 32.0 for the second quarter, 31.0 for the third quarter, and 35.8 for the fourth quarter. These rates were higher than the rates for the same quarters of 2014 (30.1, 26.6, 26.4, and 34.2, respectively). After adjustment for age, death rates for all four quarters remained higher in 2015 (33.1, 27.3, 26.3, and 30.2, respectively) than in 2014 (26.2, 23.1, 22.8, and 29.2, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Cancer" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for cancer: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for cancer was 185.1 per 100,000 population, similar to the death rate of 185.6 in 2014. The age-adjusted death rate was lower in 2015 than in 2014 (157.9 and 161.2, respectively).</li>
+				<li>In 2015, the crude death rate for cancer was 187.6 deaths per 100,000 population for the first quarter, 183.2 for the second quarter, 183.9 for the third quarter and 185.6 for the fourth quarter.&#160; The rates for the first three quarters were similar to the rates for the same quarters of 2014 (187.8, 183.7, and 182.8, respectively).&#160; The crude death rate for the fourth quarter of 2015 was lower than the rate for the fourth quarter of 2014 (187.8). With age-adjustment, the death rates for all four quarters of 2015 (160.1, 156.6, 156.5, and 157.3, respectively) were lower than the rates for 2014 (164.0, 160.0, 158.2, and 161.0, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Chronic liver disease and cirrhosis" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for chronic liver disease and cirrhosis: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for chronic liver disease and cirrhosis was 12.5 per 100,000 population, higher than the death rate of 12.0 for 2014. The age-adjusted rate remained higher in 2015 than in 2014 (10.8 and 10.4, respectively).</li>
+				<li>In 2015, the crude death rate for chronic liver disease and cirrhosis was 12.9 deaths per 100,000 population for the first quarter, 12.5 for the second quarter, 11.9 for the third quarter, and 12.6 for the fourth quarter. The rates for the first two quarters were higher than the rates for the same quarters of 2014 (12.3 and 11.6, respectively) but the rates for the third and fourth quarters were similar to those of 2014 (11.6 and 12.4, respectively). After adjustment for age, the first two quarter death rates for chronic liver disease and cirrhosis remained higher in 2015 (11.1 and 10.8, respectively) than in 2014 (10.7 and 10.1, respectively). Rates were similar for the third and fourth quarters of 2015 (10.2 and 10.9, respectively) and 2014 (10.1 and 10.7, respectively).</li>
+				</ul>
+			</div>	
+					
+			<div name="trend-Chronic lower respiratory diseases" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for chronic lower respiratory diseases: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for chronic lower respiratory diseases was 48.1 per 100,000 population, higher than the death rate of 46.1 for 2014. The age-adjusted rate remained higher in 2015 than in 2014 (41.3 and 40.5, respectively).</li>
+				<li>In 2015, the crude death rate for chronic lower respiratory diseases was 57.6 deaths per 100,000 population for the first quarter, 49.0 for the second quarter, 40.6 for the third quarter, and 45.2 for the fourth quarter. The first and second quarter rates were higher than the rates for the same quarters of 2014 (52.7 and 45.4, respectively), but the rates for the third and fourth quarters were similar to those of 2014 (40.2 and 46.4, respectively). The age-adjusted death rates for the first two quarters remained higher in 2015 (50.0 and 42.2, respectively) than in 2014 (46.5 and 39.9, respectively).&#160; Rates were similar for the third and fourth quarters in 2015 (34.8 and 38.6, respectively) and 2014 (35.1 and 40.1, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Diabetes" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for diabetes: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for diabetes was 24.6 per 100,000 population, higher than the death rate of 24.0 for 2014. The age-adjusted death rates were similar for 2015 and 2014 (21.1 and 20.9, respectively).</li>
+				<li>In 2015, the crude death rate for diabetes was 27.5 deaths per 100,000 population for the first quarter, 23.8 for the second quarter, 22.7 for the third quarter, and 24.5 for the fourth quarter. The crude death rates for the first three quarters were higher in 2015 than in 2014 (26.2, 23.2, and 22.0, respectively). The crude death rate was similar for the fourth quarters of 2015 and 2014 (24.5). With age-adjustment, the death rate for the first quarter of 2015 remained higher than that for 2014 (23.8 and 23.0, respectively). The age-adjusted death rates for the last three quarters of 2015 (20.5, 19.4, and 20.8 respectively) were similar to the rates in 2014 (20.2, 19.2, and 21.2, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Drug overdose" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for drug overdose: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>The crude death rate for drug overdose for the 12-month period ending with the second quarter of 2015 was 15.3 deaths per 100,000 population, higher than the death rate of 14.2 for the same period of 2014. The age-adjusted death rate was also higher in 2015 than in 2014 for the comparable periods (15.2 and 14.1, respectively).</li>
+				<li>In 2015, the crude death rate for drug overdose was 16.2 deaths per 100,000 population for the first quarter and 15.5 for the second quarter.&#160; The crude death rates for drug overdose for the first two quarters were higher in 2015 than in 2014 (15.3 and 14.4, respectively). The age-adjusted death rate for drug overdose was 16.1 for the first quarter of 2015 and 15.5 for the second quarter. These rates are higher than the age-adjusted rates for the first two quarters in 2014 (15.3 and 14.3, respectively).</li>
+				</ul>
+			</div>		
+			
+			<div name="trend-Falls, ages 65 and over" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for falls, ages 65 and over: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for falls among persons aged 65 and over was 59.1 per 100,000 population, similar to the death rate of 58.4 for 2014. The age-adjusted death rate was higher in 2015 than in 2014 for the comparable period (59.8 and 58.7, respectively).</li>
+				<li>In 2015, the crude death rate for falls among persons aged 65 and over was 61.5 deaths per 100,000 population for the first quarter, 57.6 for the second quarter, and 55.8 for the third quarter, and 61.1 in the fourth quarter.&#160; The crude rates for all four quarters of 2015 were similar to the crude rates in 2014 (59.7, 56.6, 56.4, and 60.7 respectively). The age-adjusted death rates for the four quarters of 2015 (62.2, 58.1, 56.6, and 62.3 respectively) were similar to those for 2014 (60.0, 56.7, 56.8, and 61.1 respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Heart disease" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for heart disease: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for heart disease was 196.2 per 100,000 population, higher than the death rate of 192.7 for 2014. The age-adjusted rate in 2015 (167.1) was similar to that in 2014 (167.0).</li>
+				<li>In 2015, the crude death rate for heart disease was 219.6 deaths per 100,000 population for the first quarter, 191.7 for the second quarter, 180.7 for the third quarter, and 193.4 in the fourth quarter. The crude death rates for the first three quarters were higher in 2015 than in 2014 (207.9, 187.5, and 176.5, respectively), but the rate for the fourth quarter was lower in 2015 than in 2014 (199.0). The age-adjusted death rates for the first and third quarters were higher in 2015 (188.1 and 152.6, respectively) than 2014 (181.0 and 152.4, respectively). Age-adjusted rates for the second quarter were similar in 2015 and 2014 (163.6 and 162.7, respectively). In the fourth quarter of 2015, the age-adjusted rate of 163.3 was lower than the rate for the fourth quarter of 2014 (170.3).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-HIV disease" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for HIV disease: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for HIV disease was 2.0 per 100,000 population, lower than that for the same period of 2014 (2.1). The age-adjusted death rate was lower in 2015 than in 2014 (1.8 and 2.0, respectively).</li>
+				<li>In 2015, the crude death rate for HIV disease was 2.2 deaths per 100,000 population for the first quarter, 2.0 for the second quarter, 2.0 for the third quarter, and 1.8 for the fourth quarter. The rates for the first three quarters of 2015 were similar to the rates for the same quarters of 2014 (2.3, 2.0, and 2.0, respectively), but the rate for the fourth quarter was lower than that in 2014 (2.1). After adjustment for age, the death rates for the first three quarters of 2015 (2.1, 1.8, and 1.8, respectively) remained similar to the rates for 2014 (2.2, 1.9, and 1.9, respectively) and rate for the fourth quarter of 2015 (1.7) was lower than that for 2014 (1.9).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Homicide" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for homicide: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>The crude death rate for homicide for the 12-month period ending with the third quarter of 2015 was 5.3 per 100,000 population, higher than the rate for the same period of 2014 (5.0). The age-adjusted death rate in 2015 (5.5) remained higher than in 2014 (5.1) for the comparable period.&#160;</li>
+				<li>In 2015, the crude death rate was 4.9 deaths per 100,000 population for the first quarter, 5.4 for the second quarter, and 5.9 for the third quarter. The rates for 2015 were higher than the rates for the first three quarters of 2014 (4.5, 5.1, and 5.1, respectively). The age-adjusted death rate for homicide for the first three quarters of 2015 (4.9, 5.4, and 6.1 respectively) were higher than those for the same periods of 2014 (4.6, 5.2, and 5.2, respectively).</li>
+				</ul>
+			</div>	
+
+			<div name="trend-Hypertension" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for hypertension: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for hypertension was 10.0 deaths per 100,000 population, higher than that of 2014 (9.5). The age-adjusted rate remained higher in 2015 than in 2014 (8.5 and 8.2, respectively).</li>
+				<li>In 2015, the crude death rate for hypertension was 11.1 deaths per 100,000 population for the first quarter, 9.7 for the second quarter, 9.1 for the third quarter, and 10.1 for the fourth quarter. Rates for the first and second quarters were higher than the rates for the same quarters of 2014 (10.0 and 9.1, respectively), but the rates for the third and fourth quarters were similar to those of 2014 (8.9 and 9.8, respectively). The age-adjusted death rate remained higher for the first two quarters of 2015 (9.5 and 8.3, respectively) than in 2014 (8.7 and 7.9, respectively). Death rates were similar for the third and fourth quarters of 2015 (7.7 and 8.5, respectively) and 2014 (7.7 and 8.4, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Injury by firearms" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for injury by firearms: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>The crude death rate for firearm-related injury for the 12-month period ending with the third quarter of 2015 was 11.2 per 100,000 population, higher than that for the same period of 2014 (10.5). The age-adjusted death rate in 2015 remained higher than the rate in 2014 for the comparable period (10.9 and 10.3, respectively).</li>
+				<li>In 2015, the crude death rate was 10.6 deaths for the first quarter, 11.4 for the second quarter, and 11.8 for the third quarter. The death rates for the first three quarters of 2015 were higher than the rates for 2014 (9.8, 10.9, and 10.9, respectively). After adjustment for age, the death rates for the first three quarters remained higher in 2015 (10.4, 11.1, and 11.6 respectively) than in 2014 (9.6, 10.7, and 10.6, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Kidney disease" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for kidney disease: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for kidney disease was 15.5 deaths per 100,000 population, higher than that for 2014 (15.1). The age-adjusted rate were similar between 2015 and 2014 (13.3 and 13.2, respectively).</li>
+				<li>In 2015, the crude death rate for kidney disease was 17.5 deaths per 100,000 population for the first quarter, 15.2 for the second quarter, 14.2 for the third quarter, and 15.2 for the fourth quarter. The rates for the first two quarters of 2015 were higher than the rates for the same quarters of 2014 (16.5 and 14.5, respectively), but the rates for the third and fourth quarters were similar between 2015 and 2014 (14.0 and 15.4, respectively). After adjustment for age, the first and second quarter death rates remained higher in 2015 (15.1 and 13.1, respectively) than in 2014 (14.5 and 12.7, respectively). Death rates were similar for the third and fourth quarters of 2015 (12.1 and 13.0, respectively) and 2014 (12.2 and 13.2, respectively).</li>
+				</ul>
+			</div>
+			
+			<div name="trend-Parkinson's disease" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for Parkinson's disease: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for Parkinson's disease was 8.7 deaths per 100,000 population, higher than that for 2014 (8.2). The age-adjusted rate remained higher in 2015 than in 2014 (7.7 and 7.4, respectively).</li>
+				<li>In 2015, the crude death rate for Parkinson's disease was 9.6 deaths per 100,000 population for the first quarter, 8.1 for the second quarter, 8.1 for the third quarter, and 8.9 for the fourth quarter. The rates for the first and third quarters of 2015 were higher than the rates for the same quarters of 2014 (8.4 and 7.6, respectively). Death rates for the second and fourth quarters were similar in 2015 and 2014 (7.9 and 8.9, respectively). The age-adjusted death rates for the first and third quarters of 2015 (8.6 and 7.1, respectively) remained higher than the rates in 2014 (7.6 and 6.8, respectively). The second and fourth quarter rates remained similar in 2015 (7.2 and 7.8, respectively) and 2014 (7.2 and 7.9, respectively).</li>
+				</ul>
+			</div>		
+			
+			<div name="trend-Pneumonia and influenza" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for pneumonia and influenza: 2015-Quarter 1, 2016</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for pneumonia and influenza was 17.7 deaths per 100,000 population, higher than that for 2014 (17.3). The age-adjusted death rate in 2015 was the same as in 2014 (15.1).</li>
+				<li>In 2015, the crude death rate for pneumonia and influenza was 27.5 deaths for the first quarter, 15.8 for the second quarter, 12.7 for the third quarter, and 14.9 for the fourth quarter. The crude death rates for the first and second quarters of 2015 were higher than the rates for the same quarters of 2014 (23.8 and 15.4, respectively). The death rate for the third quarter of 2015 was the same as the rate in 2014 (12.7). The rate for the fourth quarter was lower in 2015 than in 2014 (14.9). After age-adjustment, the 2015 death rates were 23.7 for the first quarter, 13.6 for the second quarter, 10.8 for the third quarter, and 12.6 for the fourth quarter. The 2015 age-adjusted death rates were higher than 2014 for the first quarter (20.9), similar for the second and third quarters (13.5 and 11.0, respectively), and lower in the fourth quarter (15.0).</li>
+				</ul>
+			</div>																																															
+			
+			<div name="trend-Pneumonitis due to solids and liquids" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for pneumonitis due to solids and liquids: 2015-Quarter 4, 2015</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for pneumonitis due to solids and liquids was 6.1 deaths per 100,000 population, higher than that for 2014 (5.9). The age-adjusted rates were similar between 2015 and 2014 (5.2 and 5.1, respectively).</li>
+				<li>The crude death rate for pneumonitis due to solids and liquids was 7.3 deaths per 100,000 population for the first quarter, 5.9 for the second quarter, 5.5 for the third quarter, and 5.9 for the fourth quarter. The crude death rate for 2015 was higher than the rate in 2014 for the first quarter (6.4), but similar to the rate in 2014 for each of the three remaining quarters (5.7, 5.4, and 6.1, respectively). The age-adjusted death rates in 2015 were 6.3 for the first quarter, 5.0 for the second quarter, 4.7 for the third quarter, and 5.0 for the fourth quarter. The first quarter age-adjusted death rate was higher in 2015 than in 2014 (6.3), but rates remained similar in 2015 and 2014 for the remaining three quarters (5.0, 4.6, and 5.2, respectively).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Septicemia" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for septicemia: 2015-Quarter 4, 2015</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for septicemia was 12.6 deaths per 100,000 population, higher than that for 2014 (12.2). The age-adjusted rate remained higher in 2015 than in 2014 (10.9 and 10.7, respectively).</li>
+				<li>In 2015, the crude death rate for septicemia was 14.4 for the first quarter, 11.9 for the second quarter, 11.7 for the third quarter, and 12.5 for the fourth quarter. Crude rates were higher in the first and third quarters of 2015 compared to 2014 (13.5 and 11.1, respectively). Crude death rates were similar for the second and fourth quarters in 2015 and 2014 (11.6 and 12.6, respectively). The age-adjusted death rates in the first and third quarters of 2015 (12.5 and 10.0, respectively) were also higher than the rates in 2014 (11.9 and 9.7, respectively). The age-adjusted death rates remained similar for the second and fourth quarters of 2015 (13.3 and 10.7, respectively) and 2014 (10.2 and 10.9, respectively).</li>
+				</ul>
+			</div>
+			
+			<div name="trend-Stroke" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for stroke: 2015-Quarter 4, 2015</strong></p>
+				<ul>
+				<li>For 2015 (12-month period ending with the fourth quarter of 2015), the crude death rate for stroke was 43.5 deaths per 100,000 population, higher than that for the same period of 2014 (41.7). The age-adjusted rate remained higher in 2015 than in 2014 for the comparable period (37.4 and 36.5, respectively).</li>
+				<li>In 2015, the crude death rate for stroke was 47.3 deaths per 100,000 population for the first quarter, 42.0 for the second quarter, 40.7 for the third quarter, and 44.1 for the fourth quarter. The rates for the first three quarters of 2015 were higher than the rates for the same quarters of 2014 (43.7, 39.9, and 38.9, respectively). The crude rate for the fourth quarter of 2015 was similar to the rate in 2014 (44.4). After age-adjustment, the rates for the first three quarters of 2015 (40.8, 36.1, and 34.7, respectively) remained higher than those for the same quarters of 2014 (38.4, 34.9, and 33.9, respectively). The age-adjusted death rate for the fourth quarter for 2015 (37.7) was lower than the rate for the same quarter in 2014 (38.3).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Suicide" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for suicide: 2015-Quarter 4, 2015</strong></p>
+				<ul>
+				<li>The crude death rate for suicide for the 12-month period ending with the third quarter of 2015 was 13.6 per 100,000 population, higher than that for the same period of 2014 (13.2). The age-adjusted death rate was higher in 2015 than 2014 (13.1 and 12.7, respectively) for the comparable period.</li>
+				<li>In 2015, the crude death rate for suicide was 13.3 for the first quarter, 14.0 for the second quarter, and 13.7 for the third quarter. The rate in 2015 was higher than that in 2014 for the first and second quarters (12.5 and 13.5, respectively), but lower for the third quarter (14.4). The age-adjusted rate in 2015 was 12.8 for the first quarter, 13.6 for the second quarter, and 13.2 in the third quarter. The age-adjusted rate was higher in 2015 than 2014 for the first and second quarters (12.1 and 13.0, respectively), but lower in 2015 (13.9) than in 2014 for the third quarter (13.2).</li>
+				</ul>
+			</div>	
+			
+			<div name="trend-Unintentional injuries" class="hiddenFN">
+				<p id="trend_name"><strong>Crude and age-adjusted death rates for unintentional injuries: 2015-Quarter 4, 2015</strong></p>
+				<ul>
+				<li>The crude death rate for unintentional injury for the 12-month period ending with the third quarter of 2015 was 44.4 per 100,000 population, higher than that for the same period of 2014 (42.0). The age-adjusted death rate remained higher in 2015 than in 2014 for the comparable period (42.0 and 39.9, respectively).</li>
+				<li>In 2015, the crude death rate for unintentional injury was 43.9 deaths per 100,000 population for the first quarter, 44.3 deaths for the second quarter, and 45.4 for the third quarter. Crude death rates were higher in 2015 than in 2014 for the first three quarters (41.9, 42.1, and 42.9 respectively). The age-adjusted rates for 2015 were 41.5 for the first quarter, 42.0 for the second quarter, and 43.1 for the third quarter. Age-adjusted death rates were higher in 2015 than for the corresponding quarters in 2014 (39.7, 40.0, and 40.8, respectively).</li>
+				</ul>
+			</div>														
+																						
+		
+		</div>
+		
+		<div id="vssr_visual" aria-hidden="true"></div>
+
+		<div id="vssr_table"></div>
+
+		
+		<div id="vssr_footnotes">
+			
+			<div name="fn-All Causes" class="hiddenFN">
+				<p><strong>NOTES:</strong> The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>
+			
+			<div name="fn-Alzheimer's disease" class="hiddenFN">
+				<p><strong>NOTES:</strong> Alzheimer's disease deaths were identified using underlying cause-of-death code G30 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Cancer" class="hiddenFN">
+				<p><strong>NOTES:</strong> Cancer deaths were identified using underlying cause-of-death codes C00–C97 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Chronic liver disease and cirrhosis" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from chronic liver disease and cirrhosis were identified using underlying cause-of-death codes K70 and K73–K74 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+					
+			<div name="fn-Chronic lower respiratory diseases" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from chronic lower respiratory diseases were identified using underlying cause-of-death codes J40–J47 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Diabetes" class="hiddenFN">
+				<p><strong>NOTES:</strong> Diabetes deaths were identified using underlying cause-of-death codes E10–E14 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Drug overdose" class="hiddenFN">
+				<p>--- Not available.&#160; Reliable estimate could not be computed based on available data.&#160; See Technical Notes.</p>
+				<p><strong>NOTES:</strong> Drug overdose deaths were identified using underlying cause-of-death codes X40–X44, X60-64, X85, and Y10-14 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis.&#160; Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter-specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>		
+			
+			<div name="fn-Falls, ages 65 and over" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from falls were identified using underlying cause-of-death codes W00–W19 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Heart disease" class="hiddenFN">
+				<p><strong>NOTES:</strong> Heart disease deaths were identified using underlying cause-of-death codes I00–I09, I11, I13, and I20–I51 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-HIV disease" class="hiddenFN">
+				<p><strong>NOTES:</strong> HIV is human immunodeficiency virus. Deaths from HIV disease were identified using underlying cause-of-death codes B20–B24 in the <em>International Classification of Diseases, Tenth Revision</em>.</p>
+				<p>The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Homicide" class="hiddenFN">
+				<p>--- Not available.&#160; Reliable estimate could not be computed based on available data.&#160; See Technical Notes.</p>
+				<p><strong>NOTES:</strong> Homicide deaths were identified using underlying cause-of-death codes U01–U02, X85–X99, Y00–Y09, Y871 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. The provisional death rate for homicide may be underestimated by 1%–2% for the 2014 12-month estimates and 3%–5% for the 2015 3-month estimates. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+
+			<div name="fn-Hypertension" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from hypertension were identified using underlying cause-of-death codes I10, I12, and I15 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Injury by firearms" class="hiddenFN">
+				<p><strong>NOTES:</strong> Firearm-related deaths were identified using underlying cause-of-death codes U014, W32-W34, X72–X74, X93–X95, Y22–Y24, and Y350 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Kidney disease" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from kidney disease were identified using underlying cause-of-death codes N00–N07, N17–N19, and N25–N27 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>
+			
+			<div name="fn-Parkinson's disease" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from Parkinson's disease were identified using underlying cause-of-death codes G20–G21 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to the seasonality. The rate for the 12-month period ending with the last quarter of 2014 includes deaths that occurred from January through December and represents the annual provisional estimate for 2014. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>		
+			
+			<div name="fn-Pneumonia and influenza" class="hiddenFN">
+				<p><strong>NOTES:</strong> Influenza and pneumonia deaths were identified using underlying cause-of-death codes J09–J18 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System . Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>																																															
+			
+			<div name="fn-Pneumonitis due to solids and liquids" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from pneumonitis due to solids and liquids were identified using underlying cause-of-death code J69 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System . Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Septicemia" class="hiddenFN">
+				<p><strong>NOTES:</strong> Deaths from septicemia were identified using underlying cause-of-death codes A40–A41 in the <em>International Classification of Diseases, Tenth Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System . Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>
+			
+			<div name="fn-Stroke" class="hiddenFN">
+				<p><strong>NOTES:</strong> Stroke deaths were identified using underlying cause-of-death codes I60–I69 in the <em>International Classification of Diseases, 10th Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The rate for the 12-month period ending with the fourth quarter of 2015 includes deaths that occurred from January 2015 through December 2015. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Suicide" class="hiddenFN">
+				<p>--- Not available.&#160; Reliable estimate could not be computed based on available data.&#160; See Technical Notes.</p>
+				<p><strong>NOTES:</strong> Suicide deaths were identified using underlying cause-of-death codes U03, X60–X84, and Y87.0 in the <em>International Classification of Diseases, 10th Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+			
+			<div name="fn-Unintentional injuries" class="hiddenFN">
+				<p>--- Not available.&#160; Reliable estimate could not be computed based on available data.&#160; See Technical Notes.</p>
+				<p><strong>NOTES:</strong> Deaths from unintentional injury were identified using underlying cause-of-death codes V01–X59, and Y85–Y86 in the <em>International Classification of Diseases, 10th Revision</em>. The death rates for "12 months ending with quarter" (also called moving average rate) are the average rates for the 12 months that end with the quarter on the horizontal time axis. Estimates for the 12-month period ending with a specific quarter include all seasons of the year and, thus, are insensitive to seasonality. The provisional death rates for unintentional injury may be underestimated 1-3% for the 2014 12-month estimates and 3-7% for the 2015 3-month estimates. For comparability with rates for 12-month periods, the quarterly (3-month period) rates have been annualized to present deaths per year per 100,000 population that would be expected if the quarter specific rate prevailed for 12 months.</p>
+				<p><strong>SOURCE:</strong> NCHS, National Vital Statistics System. Estimates for 2015 are based on provisional data. Estimates for 2014 are based on final data (available from <a href="http://wonder.cdc.gov/">http://wonder.cdc.gov/</a>).</p>
+			</div>	
+		
+			<p><a href="/nchs/products/vsrr/mortality-technical-notes.htm">Quarterly Provisional Estimates Technical Notes</a></p>
+			<p><strong>Suggested Citation:</strong><br />National Center for Health Statistics. Quarterly provisional estimates for selected indicators of reproductive health, 2014–Quarter 1, 2016. National Vital Statistics System, Vital Statistics Rapid Release Program. 2016.</p>
+		</div>              
+              
+              
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  
+<script src="mortality-indicators.js"></script>	
+</body>
+</html>
