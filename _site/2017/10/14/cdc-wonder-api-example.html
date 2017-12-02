@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CDC WONDER API - Detailed Mortality Database Example</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2017/10/14/cdc-wonder-api-example.html">
+  <link rel="alternate" type="application/rss+xml" title="Data Science Portfolio" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Data Science Portfolio</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">CDC WONDER API - Detailed Mortality Database Example</h1>
+    <p class="post-meta">
+      <time datetime="2017-10-14T00:00:00-04:00" itemprop="datePublished">
+        
+        Oct 14, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <iframe width="750" height="450" src="https://www.youtube.com/embed/ttchrtCZ46Y?rel=0" frameborder="0" allowfullscreen=""></iframe>
+<p><br /></p>
+
+<p><a href="https://wonder.cdc.gov/">CDC WONDER</a> is a query tool from the Centers for Disease Control (CDC) that provides access to a collection of online databases for the analysis of public health data.</p>
+
+<p>The following are a sampling of databases available through WONDER that provide vital statistics data through CDC’s National Center for Health Statistics</p>
+
+<ul>
+  <li><a href="https://wonder.cdc.gov/natality.html">Births</a></li>
+  <li><a href="https://wonder.cdc.gov/ucd-icd10.html">Detailed Mortality</a></li>
+  <li><a href="https://wonder.cdc.gov/mortSQL.html">Compressed Mortality</a></li>
+  <li><a href="https://wonder.cdc.gov/mcd.html">Multiple cause of death</a></li>
+  <li><a href="https://wonder.cdc.gov/lbd.html">Infant Deaths</a></li>
+</ul>
+
+<p>For this example, we will focus on the <a href="https://wonder.cdc.gov/ucd-icd10.html">Detailed Mortality</a> database, which provides number of deaths and death rates (crude or age-adjusted) for underlying cause of death at the national, state and county levels. Using the query tool, the user can select grouping and filtering variables that are use to generate a dataset. Results are provided as a data table which can then be exported to a tab delimited file or visualized.</p>
+
+<p>WONDER provides an API that allows the same queries (with some limitations) to be issued through a POST request to WONDER’s web server. Requests and responses are issued in XML format and are detailed in the <a href="https://wonder.cdc.gov/wonder/help/WONDER-API.html">API Documentation</a> page.</p>
+
+<p>Each XML request consists of a series of parameter tags with name and value children in the following format:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;request-parameters&gt;
+    &lt;parameter&gt;
+        &lt;name&gt;&lt;/name&gt;
+        &lt;value&gt;&lt;/value&gt;
+    &lt;parameter&gt;
+    ...
+&lt;/request-parameters&gt;
+</code></pre></div></div>
+
+<p>A reference of available parameter names and values can be found on my <a href="https://github.com/alipphardt/cdc-wonder-api">cdc-wonder-api repo README</a>. Additional references for the other databases may be added in the future.</p>
+
+<h2 id="creating-a-request">Creating a Request</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># by-variables" or those parameters selected in the "Group Results By" and the "And By" drop-down lists </span>
+<span class="c"># in the "Request Form." These "by-variables" are the cross-tabulations, stratifications or indexes </span>
+<span class="c"># to the query results. Expect the results data table to show a row for each category in the by-variables, </span>
+<span class="c"># and a column for each measure. For example, if you wish to compare data by sex, then "group results by" gender, </span>
+<span class="c"># to get a row for females and a row for males in the output.</span>
+<span class="c"># For this example, will group by year and race</span>
+
+<span class="n">b_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"B_1"</span><span class="p">:</span> <span class="s">"D76.V1-level1"</span><span class="p">,</span> 
+    <span class="s">"B_2"</span><span class="p">:</span> <span class="s">"D76.V8"</span><span class="p">,</span> 
+    <span class="s">"B_3"</span><span class="p">:</span> <span class="s">"*None*"</span><span class="p">,</span> 
+    <span class="s">"B_4"</span><span class="p">:</span> <span class="s">"*None*"</span><span class="p">,</span> 
+    <span class="s">"B_5"</span><span class="p">:</span> <span class="s">"*None*"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># M paremeters are measures to return, the default measures plus any optional measures.</span>
+<span class="c"># For this example, include deaths, population, and crude rate</span>
+
+<span class="n">m_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"M_1"</span><span class="p">:</span> <span class="s">"D76.M1"</span><span class="p">,</span>   <span class="c"># Deaths, must be included</span>
+    <span class="s">"M_2"</span><span class="p">:</span> <span class="s">"D76.M2"</span><span class="p">,</span>   <span class="c"># Population, must be included</span>
+    <span class="s">"M_3"</span><span class="p">:</span> <span class="s">"D76.M3"</span><span class="p">,</span>   <span class="c"># Crude rate, must be included</span>
+    <span class="c">#"M_31": "D76.M31",        # Standard error (crude rate)</span>
+    <span class="c">#"M_32": "D76.M32"         # 95% confidence interval (crude rate)</span>
+    <span class="s">"M_41"</span><span class="p">:</span> <span class="s">"D76.M41"</span><span class="p">,</span> <span class="c"># Standard error (age-adjusted rate)</span>
+    <span class="s">"M_42"</span><span class="p">:</span> <span class="s">"D76.M42"</span>  <span class="c"># 95% confidence interval (age-adjusted rate)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Values highlighted in a "Finder" control for hierarchical lists, </span>
+<span class="c"># such as the "Regions/Divisions/States/Counties hierarchical" list.</span>
+<span class="c"># For this example, include all years, months, census regions, hhs regions, states. Only include ICD-10 K00-K92</span>
+<span class="c"># for disease of the digestive system</span>
+
+<span class="n">f_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"F_D76.V1"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># year/month</span>
+    <span class="s">"F_D76.V10"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># Census Regions - dont change</span>
+    <span class="s">"F_D76.V2"</span><span class="p">:</span> <span class="p">[</span><span class="s">"K00-K92"</span><span class="p">],</span> <span class="c"># ICD-10 Codes</span>
+    <span class="s">"F_D76.V27"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># HHS Regions - dont change</span>
+    <span class="s">"F_D76.V9"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">]</span> <span class="c"># State County - dont change</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Contents of the "Currently selected" information areas next to "Finder" controls in the "Request Form."</span>
+<span class="c"># For this example, include all dates, census regions, hhs regions, and states.</span>
+<span class="c"># Only include ICD-10 code K00-K92 for disease of the digestive system</span>
+
+<span class="n">i_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"I_D76.V1"</span><span class="p">:</span> <span class="s">"*All* (All Dates)"</span><span class="p">,</span>  <span class="c"># year/month</span>
+    <span class="s">"I_D76.V10"</span><span class="p">:</span> <span class="s">"*All* (The United States)"</span><span class="p">,</span> <span class="c"># Census Regions - dont change</span>
+    <span class="s">"I_D76.V2"</span><span class="p">:</span> <span class="s">"K00-K92 (Diseases of the digestive system)"</span><span class="p">,</span> <span class="c"># ICD-10 Codes</span>
+    <span class="s">"I_D76.V27"</span><span class="p">:</span> <span class="s">"*All* (The United States)"</span><span class="p">,</span> <span class="c"># HHS Regions - dont change</span>
+    <span class="s">"I_D76.V9"</span><span class="p">:</span> <span class="s">"*All* (The United States)"</span> <span class="c"># State County - dont change</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Variable values to limit in the "where" clause of the query, found in multiple select </span>
+<span class="c"># list boxes and advanced finder text entry boxes in the "Request Form."</span>
+<span class="c"># For this example, we want to include ten-year age groups for ages 15-44.</span>
+<span class="c"># For all other categories, include all values</span>
+
+<span class="n">v_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"V_D76.V1"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>         <span class="c"># Year/Month</span>
+    <span class="s">"V_D76.V10"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>        <span class="c"># Census Regions</span>
+    <span class="s">"V_D76.V11"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># 2006 Urbanization</span>
+    <span class="s">"V_D76.V12"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># ICD-10 130 Cause List (Infants)</span>
+    <span class="s">"V_D76.V17"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Hispanic Origin</span>
+    <span class="s">"V_D76.V19"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># 2013 Urbanization</span>
+    <span class="s">"V_D76.V2"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>         <span class="c"># ICD-10 Codes</span>
+    <span class="s">"V_D76.V20"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Autopsy</span>
+    <span class="s">"V_D76.V21"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Place of Death</span>
+    <span class="s">"V_D76.V22"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Injury Intent</span>
+    <span class="s">"V_D76.V23"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Injury Mechanism and All Other Leading Causes</span>
+    <span class="s">"V_D76.V24"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Weekday</span>
+    <span class="s">"V_D76.V25"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Drug/Alcohol Induced Causes</span>
+    <span class="s">"V_D76.V27"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>        <span class="c"># HHS Regions</span>
+    <span class="s">"V_D76.V4"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>    <span class="c"># ICD-10 113 Cause List</span>
+    <span class="s">"V_D76.V5"</span><span class="p">:</span> <span class="p">[</span><span class="s">"15-24"</span><span class="p">,</span> <span class="s">"25-34"</span><span class="p">,</span> <span class="s">"35-44"</span><span class="p">],</span> <span class="c"># Ten-Year Age Groups</span>
+    <span class="s">"V_D76.V51"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Five-Year Age Groups</span>
+    <span class="s">"V_D76.V52"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Single-Year Ages</span>
+    <span class="s">"V_D76.V6"</span><span class="p">:</span> <span class="s">"00"</span><span class="p">,</span>       <span class="c"># Infant Age Groups</span>
+    <span class="s">"V_D76.V7"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>    <span class="c"># Gender</span>
+    <span class="s">"V_D76.V8"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>    <span class="c"># Race</span>
+    <span class="s">"V_D76.V9"</span><span class="p">:</span> <span class="s">""</span>          <span class="c"># State/County</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Other parameters, such as radio buttons, checkboxes, and lists that are not data categories</span>
+<span class="c"># For this example, include age-adjusted rates, use ten-year age groups (D76.V5), use state location by default, </span>
+<span class="c"># show rates per 100,000, use 2013 urbanization and use ICD-10 Codes (D76.V2) for cause of death category</span>
+
+<span class="n">o_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"O_V10_fmode"</span><span class="p">:</span> <span class="s">"freg"</span><span class="p">,</span>    <span class="c"># Use regular finder and ignore v parameter value</span>
+    <span class="s">"O_V1_fmode"</span><span class="p">:</span> <span class="s">"freg"</span><span class="p">,</span>     <span class="c"># Use regular finder and ignore v parameter value</span>
+    <span class="s">"O_V27_fmode"</span><span class="p">:</span> <span class="s">"freg"</span><span class="p">,</span>    <span class="c"># Use regular finder and ignore v parameter value</span>
+    <span class="s">"O_V2_fmode"</span><span class="p">:</span> <span class="s">"freg"</span><span class="p">,</span>     <span class="c"># Use regular finder and ignore v parameter value</span>
+    <span class="s">"O_V9_fmode"</span><span class="p">:</span> <span class="s">"freg"</span><span class="p">,</span>     <span class="c"># Use regular finder and ignore v parameter value</span>
+    <span class="s">"O_aar"</span><span class="p">:</span> <span class="s">"aar_std"</span><span class="p">,</span>       <span class="c"># age-adjusted rates</span>
+    <span class="s">"O_aar_pop"</span><span class="p">:</span> <span class="s">"0000"</span><span class="p">,</span>      <span class="c"># population selection for age-adjusted rates</span>
+    <span class="s">"O_age"</span><span class="p">:</span> <span class="s">"D76.V5"</span><span class="p">,</span>        <span class="c"># select age-group (e.g. ten-year, five-year, single-year, infant groups)</span>
+    <span class="s">"O_javascript"</span><span class="p">:</span> <span class="s">"on"</span><span class="p">,</span>     <span class="c"># Set to on by default</span>
+    <span class="s">"O_location"</span><span class="p">:</span> <span class="s">"D76.V9"</span><span class="p">,</span>   <span class="c"># select location variable to use (e.g. state/county, census, hhs regions)</span>
+    <span class="s">"O_precision"</span><span class="p">:</span> <span class="s">"1"</span><span class="p">,</span>       <span class="c"># decimal places</span>
+    <span class="s">"O_rate_per"</span><span class="p">:</span> <span class="s">"100000"</span><span class="p">,</span>   <span class="c"># rates calculated per X persons</span>
+    <span class="s">"O_show_totals"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>  <span class="c"># Show totals for </span>
+    <span class="s">"O_timeout"</span><span class="p">:</span> <span class="s">"300"</span><span class="p">,</span>
+    <span class="s">"O_title"</span><span class="p">:</span> <span class="s">"Digestive Disease Deaths, by Age Group"</span><span class="p">,</span>    <span class="c"># title for data run</span>
+    <span class="s">"O_ucd"</span><span class="p">:</span> <span class="s">"D76.V2"</span><span class="p">,</span>        <span class="c"># select underlying cause of death category</span>
+    <span class="s">"O_urban"</span><span class="p">:</span> <span class="s">"D76.V19"</span>      <span class="c"># select urbanization category</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Values for non-standard age adjusted rates (see mortality online databases).</span>
+<span class="c"># For this example, these parameters are ignored as standard age adjusted rates are used</span>
+
+<span class="n">vm_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"VM_D76.M6_D76.V10"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>        <span class="c"># Location</span>
+    <span class="s">"VM_D76.M6_D76.V17"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>   <span class="c"># Hispanic-Origin</span>
+    <span class="s">"VM_D76.M6_D76.V1_S"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>  <span class="c"># Year</span>
+    <span class="s">"VM_D76.M6_D76.V7"</span><span class="p">:</span> <span class="s">"*All*"</span><span class="p">,</span>    <span class="c"># Gender</span>
+    <span class="s">"VM_D76.M6_D76.V8"</span><span class="p">:</span> <span class="s">"*All*"</span>     <span class="c"># Race</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Miscellaneous hidden inputs/parameters usually passed by web form. These do not change.</span>
+<span class="n">misc_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"action-Send"</span><span class="p">:</span> <span class="s">"Send"</span><span class="p">,</span>
+    <span class="s">"finder-stage-D76.V1"</span><span class="p">:</span> <span class="s">"codeset"</span><span class="p">,</span>
+    <span class="s">"finder-stage-D76.V1"</span><span class="p">:</span> <span class="s">"codeset"</span><span class="p">,</span>
+    <span class="s">"finder-stage-D76.V2"</span><span class="p">:</span> <span class="s">"codeset"</span><span class="p">,</span>
+    <span class="s">"finder-stage-D76.V27"</span><span class="p">:</span> <span class="s">"codeset"</span><span class="p">,</span>
+    <span class="s">"finder-stage-D76.V9"</span><span class="p">:</span> <span class="s">"codeset"</span><span class="p">,</span>
+    <span class="s">"stage"</span><span class="p">:</span> <span class="s">"request"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">createParameterList</span><span class="p">(</span><span class="n">parameterList</span><span class="p">):</span>
+    <span class="s">"""Helper function to create a parameter list from a dictionary object"""</span>
+    
+    <span class="n">parameterString</span> <span class="o">=</span> <span class="s">""</span>
+    
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameterList</span><span class="p">:</span>
+        <span class="n">parameterString</span> <span class="o">+=</span> <span class="s">"&lt;parameter&gt;</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">parameterString</span> <span class="o">+=</span> <span class="s">"&lt;name&gt;"</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">"&lt;/name&gt;</span><span class="se">\n</span><span class="s">"</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameterList</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parameterList</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                <span class="n">parameterString</span> <span class="o">+=</span> <span class="s">"&lt;value&gt;"</span> <span class="o">+</span> <span class="n">value</span> <span class="o">+</span> <span class="s">"&lt;/value&gt;</span><span class="se">\n</span><span class="s">"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parameterString</span> <span class="o">+=</span> <span class="s">"&lt;value&gt;"</span> <span class="o">+</span> <span class="n">parameterList</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+</span> <span class="s">"&lt;/value&gt;</span><span class="se">\n</span><span class="s">"</span>
+        
+        <span class="n">parameterString</span> <span class="o">+=</span> <span class="s">"&lt;/parameter&gt;</span><span class="se">\n</span><span class="s">"</span>
+        
+    <span class="k">return</span> <span class="n">parameterString</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xml_request</span> <span class="o">=</span> <span class="s">"&lt;request-parameters&gt;</span><span class="se">\n</span><span class="s">"</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">b_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">m_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">f_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">i_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">o_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">vm_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">v_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">misc_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="s">"&lt;/request-parameters&gt;"</span>
+</code></pre></div></div>
+
+<h2 id="sending-the-request">Sending the Request</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"https://wonder.cdc.gov/controller/datarequest/D76"</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">"request_xml"</span><span class="p">:</span> <span class="n">xml_request</span><span class="p">,</span> <span class="s">"accept_datause_restrictions"</span><span class="p">:</span> <span class="s">"true"</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"something went wrong"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="processing-the-request">Processing the Request</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># BeautifulSoup library facilitates parsing of XML response</span>
+<span class="kn">import</span> <span class="nn">bs4</span> <span class="k">as</span> <span class="n">bs</span>
+
+<span class="c"># This library faciliates 2-dimensional array operations and visualization</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">xml2df</span><span class="p">(</span><span class="n">xml_data</span><span class="p">):</span>
+    <span class="s">""" This function grabs the root of the XML document and iterates over
+        the 'r' (row) and 'c' (column) tags of the data-table
+        Rows with a 'v' attribute contain a numerical value
+        Rows with a 'l attribute contain a text label and may contain an
+        additional 'r' (rowspan) tag which identifies how many rows the value
+        should be added. If present, that label will be added to the following
+        rows of the data table.
+    
+        Function returns a two-dimensional array or data frame that may be 
+        used by the pandas library."""</span>
+    
+    <span class="n">root</span> <span class="o">=</span> <span class="n">bs</span><span class="o">.</span><span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">xml_data</span><span class="p">,</span><span class="s">"lxml"</span><span class="p">)</span>
+    <span class="n">all_records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row_number</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"r"</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">row_number</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_records</span><span class="p">):</span>
+            <span class="n">all_records</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+              
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s">"c"</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s">'v'</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">all_records</span><span class="p">[</span><span class="n">row_number</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"v"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">','</span><span class="p">,</span><span class="s">''</span><span class="p">)))</span>
+                <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+                    <span class="n">all_records</span><span class="p">[</span><span class="n">row_number</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"v"</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s">'r'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+                    <span class="n">all_records</span><span class="p">[</span><span class="n">row_number</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"l"</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                
+                    <span class="k">for</span> <span class="n">row_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"r"</span><span class="p">])):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">row_number</span> <span class="o">+</span> <span class="n">row_index</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_records</span><span class="p">):</span>
+                            <span class="n">all_records</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+                            <span class="n">all_records</span><span class="p">[</span><span class="n">row_number</span> <span class="o">+</span> <span class="n">row_index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"l"</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">all_records</span><span class="p">[</span><span class="n">row_number</span> <span class="o">+</span> <span class="n">row_index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">"l"</span><span class="p">])</span>
+                                           
+        <span class="n">row_number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">all_records</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data_frame</span> <span class="o">=</span> <span class="n">xml2df</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">"Year"</span><span class="p">,</span> <span class="s">"Race"</span><span class="p">,</span> <span class="s">"Deaths"</span><span class="p">,</span> <span class="s">"Population"</span><span class="p">,</span> <span class="s">"Crude Rate"</span><span class="p">,</span> <span class="s">"Age-adjusted Rate"</span><span class="p">,</span> <span class="s">"Age-adjusted Rate Standard Error"</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style>
+
+    .dataframe {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Race</th>
+      <th>Deaths</th>
+      <th>Population</th>
+      <th>Crude Rate</th>
+      <th>Age-adjusted Rate</th>
+      <th>Age-adjusted Rate Standard Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1999</td>
+      <td>American Indian or Alaska Native</td>
+      <td>210.0</td>
+      <td>1375207.0</td>
+      <td>15.3</td>
+      <td>17.2</td>
+      <td>1.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1999</td>
+      <td>Asian or Pacific Islander</td>
+      <td>73.0</td>
+      <td>5813970.0</td>
+      <td>1.3</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1999</td>
+      <td>Black or African American</td>
+      <td>1176.0</td>
+      <td>17026405.0</td>
+      <td>6.9</td>
+      <td>7.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999</td>
+      <td>White</td>
+      <td>5067.0</td>
+      <td>99715532.0</td>
+      <td>5.1</td>
+      <td>5.1</td>
+      <td>0.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>American Indian or Alaska Native</td>
+      <td>213.0</td>
+      <td>1438695.0</td>
+      <td>14.8</td>
+      <td>16.4</td>
+      <td>1.1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="basic-visualizations">Basic Visualizations</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load matplotlib for plotting and instruct jupyter to display figures inline</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c"># Group total number of deaths by year</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'Year'</span><span class="p">])</span><span class="o">.</span><span class="nb">sum</span><span class="p">()[</span><span class="s">'Deaths'</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">'Deaths from Digestive Disease: United States'</span><span class="p">);</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/images/CDC%252BWONDER%252BAPI%252BExample_files/CDC%252BWONDER%252BAPI%252BExample_19_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create mult-line chart for deaths by race </span>
+
+<span class="c"># Store figure and axis for shared plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c"># Store labels for all race groups</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c"># For each group in the groupby object, grab the 'Race' label and create a line plot for it</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Race'</span><span class="p">]):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s">'line'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Year'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Deaths'</span><span class="p">)</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="c"># Set the labels for each line using the group labels</span>
+<span class="n">lines</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s">'best'</span><span class="p">)</span>
+
+<span class="c"># Configure chart size and title</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Deaths from Digestive Disease, by Race: United States"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="/images/CDC%252BWONDER%252BAPI%252BExample_files/CDC%252BWONDER%252BAPI%252BExample_20_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># New query, this time we wish to group by year, month, and cause of death</span>
+
+<span class="n">b_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"B_1"</span><span class="p">:</span> <span class="s">"D76.V1-level1"</span><span class="p">,</span> <span class="c"># Year</span>
+    <span class="s">"B_2"</span><span class="p">:</span> <span class="s">"D76.V1-level2"</span><span class="p">,</span> <span class="c"># Month </span>
+    <span class="s">"B_3"</span><span class="p">:</span> <span class="s">"D76.V2-level3 "</span><span class="p">,</span><span class="c"># Cause of death </span>
+    <span class="s">"B_4"</span><span class="p">:</span> <span class="s">"*None*"</span><span class="p">,</span> 
+    <span class="s">"B_5"</span><span class="p">:</span> <span class="s">"*None*"</span>
+<span class="p">}</span>
+
+<span class="n">f_parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"F_D76.V1"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># year/month</span>
+    <span class="s">"F_D76.V10"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># Census Regions - dont change</span>
+    <span class="s">"F_D76.V2"</span><span class="p">:</span> <span class="p">[</span><span class="s">"X40"</span><span class="p">,</span><span class="s">"X41"</span><span class="p">,</span><span class="s">"X42"</span><span class="p">,</span><span class="s">"X43"</span><span class="p">,</span><span class="s">"X44"</span><span class="p">,</span><span class="s">"X60"</span><span class="p">,</span><span class="s">"X61"</span><span class="p">,</span><span class="s">"X62"</span><span class="p">,</span><span class="s">"X63"</span><span class="p">,</span><span class="s">"X64"</span><span class="p">,</span><span class="s">"X85"</span><span class="p">,</span><span class="s">"Y10"</span><span class="p">,</span><span class="s">"Y11"</span><span class="p">,</span><span class="s">"Y12"</span><span class="p">,</span><span class="s">"Y13"</span><span class="p">,</span><span class="s">"Y14"</span><span class="p">],</span> 
+        <span class="c"># ICD-10 Codes - Drug overdose deaths are identified using ICD–10 underlying cause-of-death codes: </span>
+        <span class="c"># X40–X44, X60–X64, X85, and Y10–Y14.</span>
+    <span class="s">"F_D76.V27"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">],</span> <span class="c"># HHS Regions - dont change</span>
+    <span class="s">"F_D76.V9"</span><span class="p">:</span> <span class="p">[</span><span class="s">"*All*"</span><span class="p">]</span> <span class="c"># State County - dont change</span>
+<span class="p">}</span>
+
+<span class="n">v_parameters</span><span class="p">[</span><span class="s">"V_D76.V5"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"*All*"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xml_request</span> <span class="o">=</span> <span class="s">"&lt;request-parameters&gt;</span><span class="se">\n</span><span class="s">"</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">b_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">m_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">f_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">i_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">o_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">vm_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">v_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="n">createParameterList</span><span class="p">(</span><span class="n">misc_parameters</span><span class="p">)</span>
+<span class="n">xml_request</span> <span class="o">+=</span> <span class="s">"&lt;/request-parameters&gt;"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">url</span> <span class="o">=</span> <span class="s">"https://wonder.cdc.gov/controller/datarequest/D76"</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">"request_xml"</span><span class="p">:</span> <span class="n">xml_request</span><span class="p">,</span> <span class="s">"accept_datause_restrictions"</span><span class="p">:</span> <span class="s">"true"</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"something went wrong"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data_frame</span> <span class="o">=</span> <span class="n">xml2df</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_frame</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">"Year"</span><span class="p">,</span> <span class="s">"Month"</span><span class="p">,</span> <span class="s">"Cause of Death"</span><span class="p">,</span> <span class="s">"Deaths"</span><span class="p">,</span> <span class="s">"Population"</span><span class="p">,</span> <span class="s">"Crude Rate"</span><span class="p">,</span> <span class="s">"Age-adjusted Rate"</span><span class="p">,</span> <span class="s">"Age-adjusted Rate Standard Error"</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Cause of Death</th>
+      <th>Deaths</th>
+      <th>Population</th>
+      <th>Crude Rate</th>
+      <th>Age-adjusted Rate</th>
+      <th>Age-adjusted Rate Standard Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1999</td>
+      <td>Jan., 1999</td>
+      <td>Accidental poisoning by and exposure to nonopi...</td>
+      <td>19.0</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1999</td>
+      <td>Jan., 1999</td>
+      <td>Accidental poisoning by and exposure to antiep...</td>
+      <td>47.0</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1999</td>
+      <td>Jan., 1999</td>
+      <td>Accidental poisoning by and exposure to narcot...</td>
+      <td>460.0</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999</td>
+      <td>Jan., 1999</td>
+      <td>Accidental poisoning by and exposure to other ...</td>
+      <td>4.0</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1999</td>
+      <td>Jan., 1999</td>
+      <td>Accidental poisoning by and exposure to other ...</td>
+      <td>370.0</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+      <td>Not Applicable</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s">'Year'</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Deaths</th>
+    </tr>
+    <tr>
+      <th>Year</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1999</th>
+      <td>16849.0</td>
+    </tr>
+    <tr>
+      <th>2000</th>
+      <td>17415.0</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>19394.0</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>23518.0</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>25785.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_groups</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'Year'</span><span class="p">,</span><span class="s">'Cause of Death'</span><span class="p">],</span><span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_groups</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s">'Year'</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s">'Cause of Death'</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="s">'Deaths'</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">'Drug overdose deaths: United States'</span><span class="p">)</span>
+<span class="n">legend_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">"X40"</span><span class="p">,</span><span class="s">"X41"</span><span class="p">,</span><span class="s">"X42"</span><span class="p">,</span><span class="s">"X43"</span><span class="p">,</span><span class="s">"X44"</span><span class="p">,</span><span class="s">"X60"</span><span class="p">,</span><span class="s">"X61"</span><span class="p">,</span><span class="s">"X62"</span><span class="p">,</span><span class="s">"X63"</span><span class="p">,</span><span class="s">"X64"</span><span class="p">,</span><span class="s">"X85"</span><span class="p">,</span><span class="s">"Y10"</span><span class="p">,</span><span class="s">"Y11"</span><span class="p">,</span><span class="s">"Y12"</span><span class="p">,</span><span class="s">"Y13"</span><span class="p">,</span><span class="s">"Y14"</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_labels</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Deaths per 100,000"</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/images/CDC%252BWONDER%252BAPI%252BExample_files/CDC%252BWONDER%252BAPI%252BExample_26_0.png" alt="png" /></p>
+
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Data Science Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Anthony Lipphardt
+            
+            </li>
+            
+            <li><a href="mailto:alipphardt@gmail.com">alipphardt@gmail.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/alipphardt"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">alipphardt</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/a_lipphardt"><span class="icon icon--twitter"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">a_lipphardt</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
