@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Howard County Police Department Calls for Service, 2014-2016</title>
+  <meta name="description" content="This visualization, created with Tableau Public, incorporates data on Howard County Police Department Calls for Service (2014-2016) and started as part of a ...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2017/12/17/HCPD-Tableau.html">
+  <link rel="alternate" type="application/rss+xml" title="Data Science Portfolio" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Data Science Portfolio</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Howard County Police Department Calls for Service, 2014-2016</h1>
+    <p class="post-meta">
+      <time datetime="2017-12-17T16:27:59-05:00" itemprop="datePublished">
+        
+        Dec 17, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>This visualization, created with Tableau Public, incorporates data on <a href="https://opendata.howardcountymd.gov/Public-Safety/Howard-County-Police-Department-Call-For-Service-2/qccx-65fg">Howard County Police Department Calls for Service (2014-2016)</a> and started as part of a final exam for my <em>Business Analytics and Strategic Decision Making</em> class, which asked to create a data visualization in Tableau with a dataset of my choosing.</p>
+
+<div class="tableauPlaceholder" id="viz1513567263140" style="position: relative"><noscript><a href="#"><img alt="Howard County Police Department Calls for Service, 2014-2016 " src="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" /> <param name="embed_code_version" value="3" /> <param name="site_root" value="" /><param name="name" value="HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016&#47;1.png" /> <param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /><param name="filter" value="publish=yes" /></object></div>
+<script type="text/javascript">                    var divElement = document.getElementById('viz1513567263140');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='825px';vizElement.style.height='1027px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
+<p>The initial dashboard created - on the second tab of this storyboard - presents high level summaries on which events generated the most calls for service, monthly trends for top 10 events, and a breakdown of event types for locations with the most events.</p>
+
+<p>At the time the dashboard was created, it showed a couple disparities such as:</p>
+<ul>
+  <li>Traffic stops occurring 3 to 4 times then the remaining top 10 events</li>
+  <li>Locations such as Washington Blvd (AKA Route 1) generating the most calls for service - heavily traffic stops - followed by obvious locations such as the county courthouse and police department, primarily comprised of administrative and special assignments.</li>
+</ul>
+
+<p>Although obvious from the visualization, these trends are ultimately not very informative or interesting and with so many event types and locations it is difficult to tease out additional trends.</p>
+
+<h2 id="issues-with-data-quality-and-coding">Issues with Data Quality and Coding</h2>
+<p>Several issues identified originally when creating this visualization were in data quality or coding, including:</p>
+
+<ul>
+  <li>
+    <p>Inconsistent coding of the ‘Date Reported’ column (e.g., 01/01/2014 versus 01-Jan-2015), causing the majority of data to be excluded when charting time series data. (UPDATE: This issue appears to have been addressed in the most recent update to the dataset on the open data portal)</p>
+  </li>
+  <li>
+    <p>Broad versus specialized categories for ‘Computer Aided Dispatch Event Type’. TRAFFIC STOP event type as a potential catch-all category, as we see more specific events such as DWI, LICENSE PLATE READER, M/V ACCIDENT, MOTOR VEHICLE VIOLATION, PROP DAMAGE, TRAFFIC HAZARD, TRAFFIC PURSUIT, VEH CRASH that could be interpreted as special sub-category of TRAFFIC STOP. For example, when viewing monthly trends there are drops in TRAFFIC STOP events where there are spikes in TRAFFIC HAZARD or MOTOR VEHICLE VIOLATION events. This leads one to wonder whether there was actually a decrease or just that events were inconsistenly coded in each time period. With so many categories, it could be useful to develop a heirarchy so that major event categories could be summarized at a high level, allowing the user to further drill down into more specific sub-categories. Documentation on the exact meaning and methodology for each event type would also be useful for developers and data entry alike.</p>
+  </li>
+  <li>
+    <p>Location field is inconsistent in it’s use of primary roads, intersections, or XY coordinates. WASHINGTON BLVD (also known as Route 1) is particularly problematic as it stretches across the entire county and state and therefore dominates other entries when visualized. The dataset is filled with numerous entries including WASHINGTON BLVD, RT 1, or some intersection of WASHINGTON BLVD/RT 1. For greater flexibility in reporting and visualization, the dataset would benefit from a dedicated XY coordinates column, alleviating in part the issue of consistency for the Location field.</p>
+  </li>
+</ul>
+
+<p>Also recorded for each event is the assigned Beat and Statistical Reporting Area, which provide information on the general areas or neighborhoods in which each event occurred. At this time there is no provided documentation or spatial data files (i.e., shape files, KML, geojson) indicating the boundaries for these geographic regions. To provide more high quality reporting capability, I set out to create a custom geospatial data file.</p>
+
+<h2 id="creating-custom-spatial-data-file">Creating Custom Spatial Data File</h2>
+
+<p>Although the County was unable to provide a spatial data file (e.g. shp, kml, geojson), they did provide the below image with Beat assignments in Howard County, with areas and boundaries clearly labelled and colored. Since I am working in a Mac environment and Arc GIS is primarily designed for Windows, I made the decision to work with Google Earth, free and open source, to create a KML file.</p>
+
+<p><img src="/images/HCPD-Tableau/Beats.png" alt="Howard County Police Dept Beats" /></p>
+
+<p>The process begins by importing the image into Google Earth as an image overlay and dragging the corners of the image to stretch and skew it until it matches the county boundaries as closely as possible.</p>
+
+<p><img src="/images/HCPD-Tableau/google-earth-map-overlay.png" alt="Screenshot, Google Earth Image Overlay of Howard County Police Dept Beats" /></p>
+
+<p>We then draw polygons in Google Earth for each of the Beat assignments, creating points along the boundaries to draw complex polygons. Name and description are provided for each of the polygons, which will be included in the KML export. The below screenshot shows ‘New Polygon’ dialog which remains open as the polygon is drawn.</p>
+
+<p><img src="/images/HCPD-Tableau/google-earth-draw-polygon.png" alt="Screenshot, Google Earth Draw Polygon feature" /></p>
+
+<p>Once all polygons are created, I exported ‘My Places’ from Google Earth as a KML file, which can then be imported into Tableau as a spatial data file. The initial import was problematic as Tableau noted that KML should provide all placemarks/polygons on a single layer. Opening the KML file within a text editor, I simply move the series of Placemark XML tags outside of their Folder parent tag and reattempted import, successfully.</p>
+
+<h2 id="mapping-events-by-beat">Mapping Events by Beat</h2>
+
+<p>Tableau allows imports of spatial data files as a dataset and once imported can be joined or blended with the primary data source. The imported dataset includes fields for name and description as specified in Google Earth, as well as geometries for the polygons that were drawn. In this case, we link ‘Beat’ from the primary data source with ‘Name’ from the imported KML file. A custom fill map (AKA choropleth map) may then be created by double clicking the Geometry field from the spatial data file to import the appropriate polygons. From there the visualization is created as you would with a typical fill map in Tableau. Coloring is done based on record counts for a given month and year. Filters provided allow the user to examine number of events for a selected month and year, beat, or computer aided dispatch event type on both the fill map as well as an accompanying cross tab with all the individual records.</p>
+
+<h2 id="future-research-and-improvements">Future Research and Improvements</h2>
+
+<p>This mockup was particularly instructive for me in creating custom spatial data files from scratch. I found Google Earth relatively easy to work with although the drawing of the custom polygons was quite cumbersome and Google Earth seemed to lack some basic tools such as the ability to erase points from a polygon once they were drawn, meaning if mistakes were made you had to delete the shape and begin again. I’ll be interested in the future to test additional tools that generate, for example, geoJSON files which can be more easily utilized in JavaScript mapping libraries such as Leaflet.</p>
+
+<p>Although it was not the primary focus of this exercise, more effort could be spent to improve the high level summary of the second storyboard showing top events, trends over time, and events by location. Some ideas include:</p>
+<ul>
+  <li>
+    <p>Filters to show top events types and monthly trends for a particular beat.</p>
+  </li>
+  <li>
+    <p>Dropdown to select level of granularity for time series. The final design settled on monthly numbers, but additional charts by week or day could be developed and swapped in and out through a parameter dropdown.</p>
+  </li>
+  <li>
+    <p>With better understanding of the event types, create a heirarchy that allows the visualization to drill from broad, overarching categories to more specialized event types. Visualizations such as tree maps or bar charts could then be used to select and drill down into a particular category, which would reduce the amount of event types under consideration and better facilitate identification of trends.</p>
+  </li>
+</ul>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Data Science Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Anthony Lipphardt
+            
+            </li>
+            
+            <li><a href="mailto:alipphardt@gmail.com">alipphardt@gmail.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/alipphardt"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">alipphardt</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/a_lipphardt"><span class="icon icon--twitter"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">a_lipphardt</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
