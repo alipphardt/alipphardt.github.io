@@ -85,9 +85,9 @@
 <div class="tableauPlaceholder" id="viz1513567263140" style="position: relative"><noscript><a href="#"><img alt="Howard County Police Department Calls for Service, 2014-2016 " src="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" /> <param name="embed_code_version" value="3" /> <param name="site_root" value="" /><param name="name" value="HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ho&#47;HowardCountyPDCallsforService2014-2016&#47;HowardCountyPoliceDepartmentCallsforService2014-2016&#47;1.png" /> <param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /><param name="filter" value="publish=yes" /></object></div>
 <script type="text/javascript">                    var divElement = document.getElementById('viz1513567263140');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='825px';vizElement.style.height='1027px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 
-<p>The initial dashboard created - on the second tab of this storyboard - presents high level summaries on which events generated the most calls for service, monthly trends for top 10 events, and a breakdown of event types for locations with the most events.</p>
+<p>The initial dashboard created - now titled ‘Top 10 Trends and Selected Date Level’ - presented high level summaries on which events generated the most calls for service, monthly trends for top 10 events, and a breakdown of event types for locations with the most events. It has since been updated with filters for event type, beat, and month and year, as well as the option to select granularity for the time series (e.g. year, month, week, day) and adjust date range displayed.</p>
 
-<p>At the time the dashboard was created, it showed a couple disparities such as:</p>
+<p>At the time the dashboard was created, the initial dashboard showed a couple disparities such as:</p>
 <ul>
   <li>Traffic stops occurring 3 to 4 times then the remaining top 10 events</li>
   <li>Locations such as Washington Blvd (AKA Route 1) generating the most calls for service - heavily traffic stops - followed by obvious locations such as the county courthouse and police department, primarily comprised of administrative and special assignments.</li>
@@ -139,10 +139,10 @@
 <p>Although it was not the primary focus of this exercise, more effort could be spent to improve the high level summary of the second storyboard showing top events, trends over time, and events by location. Some ideas include:</p>
 <ul>
   <li>
-    <p>Filters to show top events types and monthly trends for a particular beat.</p>
+    <p>Filters to show top events types and monthly trends for a particular beat (UPDATED: 12/21/2017)</p>
   </li>
   <li>
-    <p>Dropdown to select level of granularity for time series. The final design settled on monthly numbers, but additional charts by week or day could be developed and swapped in and out through a parameter dropdown.</p>
+    <p>Dropdown to select level of granularity for time series. The final design settled on monthly numbers, but additional charts by week or day could be developed and swapped in and out through a parameter dropdown (UPDATED 12/21/2017)</p>
   </li>
   <li>
     <p>With better understanding of the event types, create a heirarchy that allows the visualization to drill from broad, overarching categories to more specialized event types. Visualizations such as tree maps or bar charts could then be used to select and drill down into a particular category, which would reduce the amount of event types under consideration and better facilitate identification of trends.</p>
