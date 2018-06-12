@@ -1,4 +1,523 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-03T17:34:14-05:00</updated><id>http://localhost:4000/</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Twitter Bot Project</title><link href="http://localhost:4000/2017/11/30/twitterbot.html" rel="alternate" type="text/html" title="Twitter Bot Project" /><published>2017-11-30T16:27:59-05:00</published><updated>2017-11-30T16:27:59-05:00</updated><id>http://localhost:4000/2017/11/30/twitterbot</id><content type="html" xml:base="http://localhost:4000/2017/11/30/twitterbot.html">&lt;p&gt;This project stems from a Twitter post from my good friend Andrew Naber, who jokingly suggested the creation of a bot that sends the ‘Old Man Yells at Cloud’ every time a news article about millennials appears on the web. Having just covered web scraping and APIs in my &lt;em&gt;Programming for Data Science&lt;/em&gt; class, I happily obliged. Thanks to &lt;a href=&quot;https://www.linkedin.com/in/noah-diekemper-46152492/&quot;&gt;Noah Diekemper&lt;/a&gt; for introducing and demoing the News API.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-06-11T23:11:04-04:00</updated><id>http://localhost:4000/</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Classifying Drug Mention with Involvement (DMI) Deaths</title><link href="http://localhost:4000/2018/06/11/DMI-Deaths.html" rel="alternate" type="text/html" title="Classifying Drug Mention with Involvement (DMI) Deaths" /><published>2018-06-11T22:00:00-04:00</published><updated>2018-06-11T22:00:00-04:00</updated><id>http://localhost:4000/2018/06/11/DMI-Deaths</id><content type="html" xml:base="http://localhost:4000/2018/06/11/DMI-Deaths.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification/blob/master/dmi-classification-presentation.pdf&quot;&gt;Full PDF presentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;project-data-and-general-approach&quot;&gt;Project, Data, and General Approach&lt;/h2&gt;
+
+&lt;h3 id=&quot;problem&quot;&gt;Problem&lt;/h3&gt;
+&lt;p&gt;The Centers for Disease Control and Prevention’s (CDC) National Center for Health Statistics (NCHS) works in partnership with state and local governments to collect, analyze, and disseminate data on vital statistics, including birth and death events. This data is used to monitor trends of public health importance such as the ongoing opioid crisis. The most current data from 2016 indicates that deaths from opioids were 5 times higher than in 1999, and provisional estimates indicate that these numbers are continuing to rise.&lt;/p&gt;
+
+&lt;p&gt;Mortality data is currently coded using the International Classification of Diseases, Tenth Revision (ICD-10), which is used to identify underlying and contributory causes of death. Coding for drug involved deaths are currently problematic for a number of reasons including:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Initial coding of ICD-10 classifications&lt;/strong&gt; -  NCHS uses automated programs to assign 1 underlying cause of death and up to 20 multiple causes of death. In general, the program rejects about one fifth of death records which must be reviewed and coded by trained nosologists. However, for deaths with an underlying cause of drug overdose, about two-thirds of records are manually coded.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Limited codes for specific drugs&lt;/strong&gt; - ICD-10 is limited in capturing drug-involved mortality as it only contains a few codes pertaining to specific drugs (e.g. heroin, methadone, cocaine) and these codes are only applied in specific circumstances. Most drugs are coded using broad categories, making it difficult to monitor trends in specific drugs that are not already uniquely classified by ICD-10.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Recent efforts have been placed on developing programs to extract drug mentions from literal text fields of the U.S. Standard Certificate of Death. These fields include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The chain of events leading to death (from Part I)&lt;/li&gt;
+  &lt;li&gt;Other siginificant conditions that contributed to cause of death (from Part II)&lt;/li&gt;
+  &lt;li&gt;How the injury occurred (in the case of deaths due to injuries [from Box 43])&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Programs developed rely on exact pattern matching and significant collaboration between NCHS and the Food and Drug Administration (FDA) to develop search terms for identified drug mentions, descriptors (e.g., illicit, prescription/RX), and contextual phrases (e.g., Ingested, History/HX of Abuse). Use of literal text analysis provides an opportunity for an enhanced understanding of the national picture of drug involvement in deaths in the United States, but is also problematic in the time involved to develop and maintain programs based on exact pattern matching.&lt;/p&gt;
+
+&lt;h3 id=&quot;data&quot;&gt;Data&lt;/h3&gt;
+&lt;p&gt;NCHS performs literal text analysis using final death files from NCHS’ National Vital Statistics System linked to literal text data. This data is collected from state and local vital records offices and cleaned and coded in preparation for analysis. Due to privacy and confidentiality concerns, literal text data files are unavailable outside of the CDC/NCHS secure data platform.&lt;/p&gt;
+
+&lt;p&gt;However, &lt;a href=&quot;https://www.doh.wa.gov/DataandStatisticalReports/HealthStatistics/Death&quot;&gt;Washington State’s Department of Health&lt;/a&gt; provides both annual files and literal text files for purchase, which are largely similar to the information collected by NCHS.&lt;/p&gt;
+
+&lt;p&gt;For the purpose of this analysis, the most recent 2 years of data (i.e., 2015 and 2016 annual files and literal text files) were purchased for use. Each dataset was provided as a CSV dataset and has been linked through common attributes such as year and death certificate number. Each dataset includes records for approximately 50,000 deaths in the State of Washington.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Original annual and literal text files have been excluded from the GitHub repo. However, preprocessed data with the combined literal text fields are made available as a CSV.&lt;/p&gt;
+
+&lt;p&gt;The annual files, have approximately 133 fields, which are described by the &lt;a href=&quot;https://www.doh.wa.gov/Portals/1/Documents/5300/DeathStatisticalFileLayout.xlsx&quot;&gt;File Layout [XLSX]&lt;/a&gt; on the Washington Department of Health website.&lt;/p&gt;
+
+&lt;p&gt;Of interest in the annual file is the certificate number, used for linking, and the ICD-10 code for underlying cause of death and up to 20 multiple causes of death.&lt;/p&gt;
+
+&lt;p&gt;The literal text files, have the following layout:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;‘State File Number’,&lt;/li&gt;
+  &lt;li&gt;‘Cause of Death - Line A’&lt;/li&gt;
+  &lt;li&gt;‘Cause of Death - Line B’&lt;/li&gt;
+  &lt;li&gt;‘Cause of Death - Line C’,&lt;/li&gt;
+  &lt;li&gt;‘Cause of Death - Line D’&lt;/li&gt;
+  &lt;li&gt;‘Interval Time - Line A’,&lt;/li&gt;
+  &lt;li&gt;‘Interval Time - Line B’&lt;/li&gt;
+  &lt;li&gt;‘Interval Time - Line C’,&lt;/li&gt;
+  &lt;li&gt;‘Interval Time - Line D’&lt;/li&gt;
+  &lt;li&gt;‘Other Significant Conditions’,&lt;/li&gt;
+  &lt;li&gt;‘How Injury Occurred’&lt;/li&gt;
+  &lt;li&gt;‘Place of Injury’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;From the linked file, a derived feature will be created as a label to classify a record as a drug mentioned with involvement (DMI) death or not. Death records coded with an underlying cause of death ICD code (i.e., X40–X44, X60–X64, X85, or Y10–Y14) will be marked as a DMI death. Additionally, remaining records with flagged drug mentions will be reviewed manually and classified as a DMI death.&lt;/p&gt;
+
+&lt;p&gt;Preprocessed data includes CSV with literal text field and DMI target and is named: &lt;strong&gt;literal-text.csv&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The final dataset created within the experiments will consist of a matrix of binary term-frequencies and a class label called DMI. The full term-frequency matrix is not stored due to large file size (12 GB) depending on hyper-parameters used by CountVectorizer.&lt;/p&gt;
+
+&lt;h3 id=&quot;objectives&quot;&gt;Objectives&lt;/h3&gt;
+&lt;p&gt;This project will address whether machine learning techniques can be used to train a classifier to predict with high precision and specificity whether a death record is a drug mention with involvement (DMI) death or not.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Precision, also known as positive predictive value, is the proportion of records predicted to be in the positive class (in this case a DMI death) that were correctly classified (TP/TP+FP).&lt;/li&gt;
+  &lt;li&gt;Specificity, also known as true negative rate, is the proportion of records in the negative class that were accurately predicted (TN/TN+FP).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We wish to maximize these two metrics as the problem demands that we find a solution that accurately determines whether a record is in the positive class (DMI death) or not and reduces or avoids instances of false positives. Current programs within NCHS that rely on exact pattern matching achieve a precision score of 95.8 percent on the DMI class. The objective of this project is to find a solution that exceeds this baseline.&lt;/p&gt;
+
+&lt;p&gt;The linked dataset will be converted to a term-frequency matrix that stores each word/term as a 1 if the term is used in a given record and 0 if it is not. As discussed previously, a derived feature will be created using existing ICD codes and flagged drug mentions to identify whether a record is a DMI death or not.&lt;/p&gt;
+
+&lt;p&gt;The intended benefits of the described solution are as follows:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Improve identification of DMI deaths, potentially reducing the amount of manual reviews for drug overdose deaths.&lt;/li&gt;
+  &lt;li&gt;Develop a generalized solution that removes the need for development of exhaustive lists of search terms, descriptors, and contextual phrases.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once a classifier is obtained to more accurately identify DMI deaths, we can extract drug mentions from those records to better track trends of drug involvement in deaths.&lt;/p&gt;
+
+&lt;h3 id=&quot;approach&quot;&gt;Approach&lt;/h3&gt;
+&lt;p&gt;Our approach will use the following machine learning techniques:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Bag-of-words/Term Frequencies Model (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html&quot;&gt;CountVectorizer in scikit-learn&lt;/a&gt;)&lt;/strong&gt; - The dataset will be transformed into a matrix of binary term-frequencies (0 or 1), which is common in text mining tasks. Words that appear more than 3 times will be included and combinations of individual words and adjacent word pairings will be tested.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Support Vector Machine (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&quot;&gt;SVC in scikit-learn&lt;/a&gt;)&lt;/strong&gt; - This algorithm is popular in text classification tasks and is suitable for datasets that are not too large. Since our task is a binary classification, our solution only requires a single SVM. Our dataset consists of 100,000 records, but it is expected to be a fraction of that once we obtain our class labels and balance the dataset. SVMs are popular in text classification as they scale well for high dimensionality data and can perform with high accuracy and stability on both linear and nonlinear problems.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Latent Semantic Analysis (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html&quot;&gt;TruncatedSVD in scikit-learn&lt;/a&gt;)&lt;/strong&gt; - Given that the creation of a term-frequency matrix will likely result in thousands of features, dimensionality reduction may prove useful in improving training speed and predictive power of the classifier, particularly if pairs of terms are heavily correlated. Note that we are only applying this to SVM as Naive Bayes expects discrete data.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Naive Bayes (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html&quot;&gt;Bernoulli Naive Bayes in scikit-learn&lt;/a&gt;)&lt;/strong&gt;- Despite the assumption of independence, Naive Bayes has been found to work well in text classification. It works well for this scenario as the algorithm is quick to train and scales well on high dimensionality data. Because our term-frequency matrix will only consist of 0s and 1s, we have discrete values, which Naive Bayes works well on.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pre-processing&quot;&gt;Pre-processing&lt;/h2&gt;
+
+&lt;h3 id=&quot;data-cleaning&quot;&gt;Data Cleaning&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;2015 and 2016 documents used different names for columns. Renaming was done to conform to standard column labels. This would facilitate concatenation and merging of the datasets.&lt;/li&gt;
+  &lt;li&gt;The following fields were retained:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;State file number&lt;/strong&gt; (i.e., certificate number)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Underlying Cause-of-Death&lt;/strong&gt; (single cause)&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Multiple Cause-of-Death&lt;/strong&gt; (up to 20 causes)&lt;/li&gt;
+      &lt;li&gt;The chain of events leading to death (from Part I)
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Cause-of-Death Line A&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Cause-of-Death Line B&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Cause-of-Death Line C&lt;/strong&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Cause-of-Death Line D&lt;/strong&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Other siginificant conditions that contributed to cause of death (from Part II)
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Other Significant Conditions&lt;/strong&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;How the injury occurred (in the case of deaths due to injuries [from Box 43])
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;How the Injury Occurred&lt;/strong&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Irrelevant fields were dropped from the dataset. These include but are not limited to:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Interval Time - Line (A/B/C/D)&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;COD-DUE-TO-(B/C/D)&lt;/strong&gt; - Further inspection shows only one record in 2015 using this field&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Injury Place&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;A left join between the annual and literal text files was performed to create a single dataset with DMI targets and literal text fields. Literal text fields including Part I cause of death variables, How Injury Occurred, and Other Significant Conditions were combined into a single literal text field.&lt;/li&gt;
+  &lt;li&gt;Rows with missing values for the literal text and DMI fields were removed.&lt;/li&gt;
+  &lt;li&gt;Literal text field was stripped of punctuation and stop words using NLTK module, as well as removing numbers.&lt;/li&gt;
+  &lt;li&gt;Standardization was not performed as term-frequency matrix will consist of discrete 0’s or 1’s in order to use classifiers such as Naive Bayes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;feature-engineering&quot;&gt;Feature Engineering&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Year&lt;/strong&gt; field was added to 2015-2016 annual and literal text files for the purpose of linkage between these datasets&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DMI&lt;/strong&gt; field was added as a target label. Deaths with an underlying or multiple cause of death for the following ICD codes were flagged as a DMI death: X40–X44, X60–X64, X85, or Y10–Y14. Following pre-processing, the following counts for DMI were obtained:
+    &lt;ul&gt;
+      &lt;li&gt;DMI (1) - 2498&lt;/li&gt;
+      &lt;li&gt;Not DMI (0) - 109407&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The literal-text field was converted to a &lt;strong&gt;term-frequency matrix&lt;/strong&gt; using scikit-learn’s &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html&quot;&gt;CountVectorizer&lt;/a&gt; module. Model was created specifying binary frequencies (0 or 1) and a minimum frequency of 5 in the dataset to select a feature. This term frequency matrix was pickled and written out to a file for the next phase of the project, which will combine into a a single data frame with the DMI targets. The python notebook &lt;strong&gt;preprocessing.ipynb&lt;/strong&gt; includes an example of this transformation. This data frame itself was too large to pickle/write to a file (11 GB).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-plan&quot;&gt;Experimental Plan&lt;/h2&gt;
+
+&lt;p&gt;Four machine learning techniques from scikit-learn will be utilized in this experiment: CountVectorizer, Latent Semantic Analysis, Naïve Bayes, and Support Vector Machine.&lt;/p&gt;
+
+&lt;p&gt;The first step will be to fit the literal text dataset using CountVectorizer to convert the single literal text field into a bag-of-words or term frequencies model with binary frequencies. The results of this dataset will then be included in one of three pipelines:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Fit to a Naïve Bayes classifier.&lt;/li&gt;
+  &lt;li&gt;Fit to a Support Vector Machine (SVM) classifier without dimensionality reduction.&lt;/li&gt;
+  &lt;li&gt;Perform dimensionality reduction using Latent Semantic Analysis (LSA) and fit to a SVM classifier.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Note: PCA was originally planned as the means for dimensionality reduction in this project. However, scikit-learn’s implementation cannot work with the sparse datasets produced by CountVectorizer. Therefore, LSA was used in a similar manner to reduce dimensions while retaining 85-95 percent of explained variance in the dataset.&lt;/p&gt;
+
+&lt;p&gt;The workflow will be managed using scikit-learn’s grid search and pipeline constructs. Grid search allows you to set up a parameter grid for each machine learning technique you plan to use and will test every combination within the parameter grid to find an optimal configuration based on your chosen scoring metric. In this experiment, we will use 10-fold cross validation using precision as our scoring metric in the grid search. The pipeline construct allows you to chain together multiple machine learning techniques in scikit-learn while performing the grid search.&lt;/p&gt;
+
+&lt;p&gt;Below we detail the combination of parameters that will be supplied to the parameter grids in the initial grid search. Additional parameters may be added as needed.&lt;/p&gt;
+
+&lt;p&gt;Based on three pipelines, we will have 35 combinations of parameters: 16 combinations for Naïve Bayes, 16 for SVM, and 3 for SVM without dimensionality. Grid search will perform 10-fold cross validation and select the best parameters based on average precision score.&lt;/p&gt;
+
+&lt;p&gt;Prior to running the grid search, the data will be balanced, under-sampling the over-represented class (Non-DMI) to balance the two classes. This is particularly important as the class ratio before under-sampling is roughly 50 to 1. The dataset will then be split into training and test sets using a 75:25 split given the relatively small dataset size once balanced. The portion of the data set aside for training will be passed to the grid search, while the remaining data will be used for final testing and scored on precision and specificity for the DMI class.&lt;/p&gt;
+
+&lt;p&gt;The process for these experiments are shown in the provided &lt;strong&gt;experiments.ipynb&lt;/strong&gt; Jupyter notebook. Results of the grid search are in the &lt;strong&gt;results&lt;/strong&gt; folder as a CSV file.&lt;/p&gt;
+
+&lt;h3 id=&quot;ml-technique-1-bag-of-wordsterm-frequencies-model-countvectorizer-in-scikit-learn&quot;&gt;ML Technique #1: Bag-of-Words/Term Frequencies Model (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html&quot;&gt;CountVectorizer in scikit-learn&lt;/a&gt;)&lt;/h3&gt;
+
+&lt;p&gt;The bag-of-words model is a common representation for text classification tasks which represents each record as a bag or collection of words - pulled from all records/documents in the dataset - and their frequencies within that particular record. No consideration is given to order, and so the model may be extended to include N-grams which contain groups of N adjacent words.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Combination&lt;/th&gt;
+      &lt;th&gt;lowercase&lt;/th&gt;
+      &lt;th&gt;binary&lt;/th&gt;
+      &lt;th&gt;min_df&lt;/th&gt;
+      &lt;th&gt;ngram_range&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;False&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;(1,1)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;False&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;(1,2)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;False&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;(1,1)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;False&lt;/td&gt;
+      &lt;td&gt;True&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;(1,2)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Each combination of parameters will disable conversion to lower-case, since the dataset is already converted to all uppercase, and binary will be set to True, which will set term frequencies to either 0 or 1, giving us the flexibility to use popular ML techniques such as Naive Bayes which requires discrete data.&lt;/p&gt;
+
+&lt;p&gt;The min_df parameter specifies the minimum number of times a word must appear within the dataset for it to be included in the vocabulary for the bag of words model. Three and five are chosen to rule out the potential for typos and misspellings.&lt;/p&gt;
+
+&lt;p&gt;N-gram range will be set to (1,1) or (1,2) to include individual words and adjacent word pairs in the bag of words model.&lt;/p&gt;
+
+&lt;h3 id=&quot;ml-technique-2-latent-semantic-analysis-truncatedsvd-in-scikit-learn&quot;&gt;ML Technique #2: Latent Semantic Analysis (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html&quot;&gt;TruncatedSVD in scikit-learn&lt;/a&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Dimensionality reduction is a useful technique that can assist ML algorithms in more quickly converging on a solution by combining variables into n component features that each combine related features. LSA is similar to PCA in that it applies singular value decomposition to find a transformation that rotates axes in a manner that projects the data to a lower dimensional feature space. The main difference is that LSA accepts a sparse term-frequency matrix – obtained here through CountVectorizer – and obtains an approximation by computing three matrices: a term-concept matrix, a singular values matrix with eigenvalues on the diagonal, and a concept-document matrix. These three matrices produce an approximation of the original term-frequencies matrix.&lt;/p&gt;
+
+&lt;p&gt;As discussed in the approach section of the readme file, dimensionality reduction will only be applied to the SVM classifier as Naive Bayes requires discrete data.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Combination&lt;/th&gt;
+      &lt;th&gt;n_components&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;525&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;775&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;1180&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;With scikit-learn’s PCA implementation, we could specify a floating-point number for n_components to indicate what percentage of explained variance we would like to retain in the dataset with our chosen components. However, scikit-learn’s implementation of LSA only accepts an integer for the n_components parameter.&lt;/p&gt;
+
+&lt;p&gt;Since our value for the n_components parameter is dependent on the number of words in our dataset – which relies on the choice of ngram_range for CountVectorizer – we will determine optimal parameters for our experiments after running an initial grid search for the first two pipelines. Using optimal parameters, we will then fit a model using CountVectorizer and TruncatedSVD and determine number of components that retain approximately 85, 90, and 95 percent of explained variance in the dataset. The values in the above table reflect this approach.&lt;/p&gt;
+
+&lt;h3 id=&quot;ml-technique-3-support-vector-machine-svc-in-scikit-learn&quot;&gt;ML Technique #3: Support Vector Machine (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&quot;&gt;SVC in scikit-learn&lt;/a&gt;)&lt;/h3&gt;
+
+&lt;p&gt;The Support Vector Machine is one of two classifiers that will be used in this experiment. SVM have been known to do well in applications for text classification with high dimensionality where the dataset is not too large. For this application, a balanced training set will contain approximately 5,000 records, which is suitable for SVM.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Combination&lt;/th&gt;
+      &lt;th&gt;kernel&lt;/th&gt;
+      &lt;th&gt;C&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Linear&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;Linear&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;Linear&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;Linear&lt;/td&gt;
+      &lt;td&gt;1000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The main choice in configuring SVM is the choice of kernel, followed by the appropriate hyperparameters asscoaited with that kernel.&lt;/p&gt;
+
+&lt;p&gt;A linear kernel will be used in this experiment as many applications of text classification can be linearly separable, particularly as a result of the high dimensionality and large dataset sizes for text classification datasets. Linear classifiers are also much faster to train and only require tuning of the regularization parameter C. For this experiment we will test values of 1, 10, 100, and 1000 for the C parameter.&lt;/p&gt;
+
+&lt;p&gt;If it is found that the SVM does poorly with a linear kernel, additional experiments will be conducted with other types of kernel to see if performance improves.&lt;/p&gt;
+
+&lt;h3 id=&quot;ml-technique-4-naive-bayes-bernoulli-naive-bayes-in-scikit-learn&quot;&gt;ML Technique #4: Naive Bayes (&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html&quot;&gt;Bernoulli Naive Bayes in scikit-learn&lt;/a&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Since our bag of words model uses binary frequencies of 0 or 1, we use the Bernoulli Naive Bayes classifier in scikit-learn, which is optimized for binary counts.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Combination&lt;/th&gt;
+      &lt;th&gt;binarize&lt;/th&gt;
+      &lt;th&gt;alpha&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;None&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;None&lt;/td&gt;
+      &lt;td&gt;0.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;None&lt;/td&gt;
+      &lt;td&gt;0.5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;None&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The binarize parameter is set to None in all instances to disable the conversion to binary counts since this has already been performed by CountVectorizer.&lt;/p&gt;
+
+&lt;p&gt;The alpha parameter controls the level of smoothing applied in the training set. This can be useful when items in the test set would have zero probability based on the training set. There is no good rule of thumb for setting this parameter, so the experiment will include several values within a parameter Grid Search.&lt;/p&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;h3 id=&quot;naïve-bayes&quot;&gt;Naïve Bayes&lt;/h3&gt;
+
+&lt;p&gt;The alpha parameter is the main hyper-parameter adjusted in Naïve Bayes and controls the level of smoothing applied to the model, accounting for features in the test set not encountered in the training set and would otherwise compute a probability of zero.&lt;/p&gt;
+
+&lt;p&gt;The below graph shows mean precision score over 10-fold cross validation for each value of alpha tested and is grouped by values for min_df and ngram_range used in CountVectorizer. We can see that an alpha value of 1 (the default Laplace smoothing using in scikit-learn) results in the best average precision score and that in general lower values for alpha (Lidstone smoothing) result in lower average precision scores. In general, we can also see that for Naïve Bayes that including bi-grams (ngram_range = (1,2)) generally performs better than the alternative of singles words in the term-frequencies matrix.&lt;/p&gt;
+
+&lt;p&gt;The grid search object returned by scikit-learn also returns basic statistics on average time to fit and score each combination of parameters. Naïve Bayes is popular as it is relatively fast to both train and make predictions. For this particular dataset, there was an average fit time of 0.0987 seconds and an average scoring time of 0.0104 seconds.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dmi-deaths/nb-results.png&quot; alt=&quot;Naive Bayes Results&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;support-vector-machine-without-dimensionality-reduction&quot;&gt;Support Vector Machine without Dimensionality Reduction&lt;/h3&gt;
+
+&lt;p&gt;Using a linear kernel, the C parameter is the main hyper-parameter adjusted for the Support Vector Machine and controls the error penalty used when misclassifying an example. Larger values of C generally mean a smaller margin around the separating hyperplane.&lt;/p&gt;
+
+&lt;p&gt;The below graph shows mean precision score over 10-fold cross validation for each value of C tested and is grouped by values for min_df and ngram_range used in CountVectorizer. We can see that for this particular dataset a smaller value of C generally results in a better classification score, particularly when min_df is set to 5. For min_df of 3 there is a very small difference. In general, we can also see that including bi-grams (ngram_range = (1,2)) generally performs
+better than the alternative of singles words in the term-frequencies matrix.&lt;/p&gt;
+
+&lt;p&gt;Support Vector Machines can be problematic in that they are slow to train for larger datasets. However, for this particular dataset, it worked fairly well with an average fit time of 0.2176 seconds and an average scoring time of 0.0190 seconds.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dmi-deaths/svm1-results.png&quot; alt=&quot;SVM Results&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;support-vector-machine-and-latent-semantic-analysis&quot;&gt;Support Vector Machine and Latent Semantic Analysis&lt;/h3&gt;
+
+&lt;p&gt;As discussed in the Experimental Plan, the n_components parameter for TruncatedSVD/LSA is dependent on the number of features in the dataset and is therefore dependent on the parameters set in CountVectorizer. After running grid search against Naïve Bayes and SVM, we selected chose the best performing estimator and parameters, which was SVM with C=1 and CountVectorizer using min_df=3 and ngram_range=(1,2). Using these parameters, the training model was fit using a variety of values to determine the approximate number of components that would result in 85, 90, and 95 percent of explained variance given the dataset. This resulted in the chosen values 525, 775, and 1180.&lt;/p&gt;
+
+&lt;p&gt;The below graph shows mean precision score over 10-fold cross validation for each value of n_components tested with LSA and SVM. We can see that in general the larger values of n_components that retains explained variance results in better precision scores. Given this finding it will be interesting to see whether LSA provides better performance than when all
+terms are retained in the dataset.&lt;/p&gt;
+
+&lt;p&gt;With LSA added to the third pipeline for grid search, it computed an average fit time of 5.67 seconds and an average scoring time of 0.1321 seconds, significantly longer than Naïve Bayes and SVM without dimensionality reduction.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dmi-deaths/svm2-results.png&quot; alt=&quot;SVM with LSA Results&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;comparison-of-three-options&quot;&gt;Comparison of Three Options&lt;/h3&gt;
+
+&lt;p&gt;The below chart includes a side-by-side comparison of the average precision scores for 10-fold cross validation using optimal parameters for each classifier option. Both Naïve Bayes and SVM options work particularly well for this application, with average precision above 98 percent. The top performing classifier was SVM in conjunction with LSA retaining 95 percent of explained variance.&lt;/p&gt;
+
+&lt;p&gt;As discussed in prior sections, SVM can be problematic for larger datasets and when adding LSA we saw an additional 20 times increase in computing time. This is worth considering for training sets that surpass millions of records. However, in this scenario we will choose the SVM with LSA option in scoring against our test dataset.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dmi-deaths/comparison.png&quot; alt=&quot;Model Comparison&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;performance-with-test-data&quot;&gt;Performance with Test Data&lt;/h3&gt;
+
+&lt;p&gt;Using optimal parameters for CountVectorizer (min_df=3, ngram_range=(1,2)), TruncatedSVD/LSA (n_components=1180), and SVM (kernel=linear, C=1), models were fit to the training data and then test data was transformed.&lt;/p&gt;
+
+&lt;p&gt;Predicted class labels were obtained for each transformed row in the test set and a classification report was produced in scikit-learn (below) which provides precision, recall, and F1 scores for each class label.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Precision&lt;/th&gt;
+      &lt;th&gt;Recall&lt;/th&gt;
+      &lt;th&gt;F1 Score&lt;/th&gt;
+      &lt;th&gt;Support&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Non-DMI&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;0.99&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;621&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DMI&lt;/td&gt;
+      &lt;td&gt;0.99&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;627&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Avg/Total&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;0.98&lt;/td&gt;
+      &lt;td&gt;1248&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The original problem statement noted that we were particularly interested in maximizing precision and specificity for the DMI class in order to correctly classify DMI deaths while avoiding false positives. The results for our test data show that we have 99 percent precision and specificity for the DMI class (Note: for binary classification, specificity is the same as recall for the negative class).&lt;/p&gt;
+
+&lt;p&gt;A confusion matrix was also produced for the test data (below) and shows that for the Non-DMI class only 8 records were misclassified and for DMI only 15 were misclassified.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Actual\Predicted&lt;/th&gt;
+      &lt;th&gt;Non-DMI&lt;/th&gt;
+      &lt;th&gt;DMI&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Non-DMI&lt;/td&gt;
+      &lt;td&gt;613&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DMI&lt;/td&gt;
+      &lt;td&gt;15&lt;/td&gt;
+      &lt;td&gt;612&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;In this project, we linked annual death statistical files and cause of death literal text files from the State of Washington and used this data to train Naïve Bayes and Support Vector Machine classifiers to distinguish with high precision and specificity whether a given record was a drug mention with involvement death (DMI) or not. Natural language processing techniques were used to remove stop words and punctuation, as well as to convert the linked data to a matrix of term frequencies using unigrams and bigrams. The optimal classifier, Support Vector Machine using Latent Semantic Analysis for dimensionality reduction, achieved precision and specificity of approximately 99 percent for the DMI class on test data. The model exceeded expectations set by exact pattern matching programs, which identified DMI deaths with 95.8 percent precision.&lt;/p&gt;
+
+&lt;p&gt;The success in this experiment is largely attributed to the amount of work in cleaning and preprocessing the data, including the use of natural language processing techniques. With additional cleaning, I believe the model could be further improved. One thought within NCHS is to incorporate systems such as UMLS from the National Institutes of Health, which provide an extensive thesaurus of millions of biomedical concepts and can be used to map synonyms and variations of a term to a principle concept. Reducing the number of terms/features, as we did with LSA in this experiment, improves the ability of the classifier to find an optimal solution.&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">GitHub Repo</summary></entry><entry><title type="html">Howard County Police Department Calls for Service, 2014-2016</title><link href="http://localhost:4000/2017/12/17/HCPD-Tableau.html" rel="alternate" type="text/html" title="Howard County Police Department Calls for Service, 2014-2016" /><published>2017-12-17T16:27:59-05:00</published><updated>2017-12-17T16:27:59-05:00</updated><id>http://localhost:4000/2017/12/17/HCPD-Tableau</id><content type="html" xml:base="http://localhost:4000/2017/12/17/HCPD-Tableau.html">&lt;p&gt;This visualization, created with Tableau Public, incorporates data on &lt;a href=&quot;https://opendata.howardcountymd.gov/Public-Safety/Howard-County-Police-Department-Call-For-Service-2/qccx-65fg&quot;&gt;Howard County Police Department Calls for Service (2014-2016)&lt;/a&gt; and started as part of a final exam for my &lt;em&gt;Business Analytics and Strategic Decision Making&lt;/em&gt; class, which asked to create a data visualization in Tableau with a dataset of my choosing.&lt;/p&gt;
+
+&lt;div class=&quot;tableauPlaceholder&quot; id=&quot;viz1513567263140&quot; style=&quot;position: relative&quot;&gt;&lt;noscript&gt;&lt;a href=&quot;#&quot;&gt;&lt;img alt=&quot;Howard County Police Department Calls for Service, 2014-2016 &quot; src=&quot;https:&amp;#47;&amp;#47;public.tableau.com&amp;#47;static&amp;#47;images&amp;#47;Ho&amp;#47;HowardCountyPDCallsforService2014-2016&amp;#47;HowardCountyPoliceDepartmentCallsforService2014-2016&amp;#47;1_rss.png&quot; style=&quot;border: none&quot; /&gt;&lt;/a&gt;&lt;/noscript&gt;&lt;object class=&quot;tableauViz&quot; style=&quot;display:none;&quot;&gt;&lt;param name=&quot;host_url&quot; value=&quot;https%3A%2F%2Fpublic.tableau.com%2F&quot; /&gt; &lt;param name=&quot;embed_code_version&quot; value=&quot;3&quot; /&gt; &lt;param name=&quot;site_root&quot; value=&quot;&quot; /&gt;&lt;param name=&quot;name&quot; value=&quot;HowardCountyPDCallsforService2014-2016&amp;#47;HowardCountyPoliceDepartmentCallsforService2014-2016&quot; /&gt;&lt;param name=&quot;tabs&quot; value=&quot;no&quot; /&gt;&lt;param name=&quot;toolbar&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;static_image&quot; value=&quot;https:&amp;#47;&amp;#47;public.tableau.com&amp;#47;static&amp;#47;images&amp;#47;Ho&amp;#47;HowardCountyPDCallsforService2014-2016&amp;#47;HowardCountyPoliceDepartmentCallsforService2014-2016&amp;#47;1.png&quot; /&gt; &lt;param name=&quot;animate_transition&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;display_static_image&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;display_spinner&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;display_overlay&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;display_count&quot; value=&quot;yes&quot; /&gt;&lt;param name=&quot;filter&quot; value=&quot;publish=yes&quot; /&gt;&lt;/object&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;                    var divElement = document.getElementById('viz1513567263140');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='825px';vizElement.style.height='1027px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                &lt;/script&gt;
+
+&lt;p&gt;The initial dashboard created - now titled ‘Top 10 Events and Trends by Selected Date Level’ - presented high level summaries on which events generated the most calls for service, monthly trends for top 10 events, and a breakdown of event types for locations with the most events. It has since been updated with filters for event type, beat, and month and year, as well as the option to select granularity for the time series (e.g. year, month, week, day) and adjust date range displayed.&lt;/p&gt;
+
+&lt;p&gt;At the time the dashboard was created, the initial dashboard showed a couple disparities such as:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Traffic stops occurring 3 to 4 times then the remaining top 10 events&lt;/li&gt;
+  &lt;li&gt;Locations such as Washington Blvd (AKA Route 1) generating the most calls for service - heavily traffic stops - followed by obvious locations such as the county courthouse and police department, primarily comprised of administrative and special assignments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Although obvious from the visualization, these trends are ultimately not very informative or interesting and with so many event types and locations it is difficult to tease out additional trends.&lt;/p&gt;
+
+&lt;h2 id=&quot;issues-with-data-quality-and-coding&quot;&gt;Issues with Data Quality and Coding&lt;/h2&gt;
+&lt;p&gt;Several issues identified originally when creating this visualization were in data quality or coding, including:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Inconsistent coding of the ‘Date Reported’ column (e.g., 01/01/2014 versus 01-Jan-2015), causing the majority of data to be excluded when charting time series data. (UPDATE: This issue appears to have been addressed in the most recent update to the dataset on the open data portal)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Broad versus specialized categories for ‘Computer Aided Dispatch Event Type’. TRAFFIC STOP event type as a potential catch-all category, as we see more specific events such as DWI, LICENSE PLATE READER, M/V ACCIDENT, MOTOR VEHICLE VIOLATION, PROP DAMAGE, TRAFFIC HAZARD, TRAFFIC PURSUIT, VEH CRASH that could be interpreted as special sub-category of TRAFFIC STOP. For example, when viewing monthly trends there are drops in TRAFFIC STOP events where there are spikes in TRAFFIC HAZARD or MOTOR VEHICLE VIOLATION events. This leads one to wonder whether there was actually a decrease or just that events were inconsistenly coded in each time period. With so many categories, it could be useful to develop a heirarchy so that major event categories could be summarized at a high level, allowing the user to further drill down into more specific sub-categories. Documentation on the exact meaning and methodology for each event type would also be useful for developers and data entry alike.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Location field is inconsistent in it’s use of primary roads, intersections, or XY coordinates. WASHINGTON BLVD (also known as Route 1) is particularly problematic as it stretches across the entire county and state and therefore dominates other entries when visualized. The dataset is filled with numerous entries including WASHINGTON BLVD, RT 1, or some intersection of WASHINGTON BLVD/RT 1. For greater flexibility in reporting and visualization, the dataset would benefit from a dedicated XY coordinates column, alleviating in part the issue of consistency for the Location field.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also recorded for each event is the assigned Beat and Statistical Reporting Area, which provide information on the general areas or neighborhoods in which each event occurred. At this time there is no provided documentation or spatial data files (i.e., shape files, KML, geojson) indicating the boundaries for these geographic regions. To provide more high quality reporting capability, I set out to create a custom geospatial data file.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-custom-spatial-data-file&quot;&gt;Creating Custom Spatial Data File&lt;/h2&gt;
+
+&lt;p&gt;Although the County was unable to provide a spatial data file (e.g. shp, kml, geojson), they did provide the below image with Beat assignments in Howard County, with areas and boundaries clearly labelled and colored. Since I am working in a Mac environment and Arc GIS is primarily designed for Windows, I made the decision to work with Google Earth, free and open source, to create a KML file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/HCPD-Tableau/Beats.png&quot; alt=&quot;Howard County Police Dept Beats&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The process begins by importing the image into Google Earth as an image overlay and dragging the corners of the image to stretch and skew it until it matches the county boundaries as closely as possible.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/HCPD-Tableau/google-earth-map-overlay.png&quot; alt=&quot;Screenshot, Google Earth Image Overlay of Howard County Police Dept Beats&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We then draw polygons in Google Earth for each of the Beat assignments, creating points along the boundaries to draw complex polygons. Name and description are provided for each of the polygons, which will be included in the KML export. The below screenshot shows ‘New Polygon’ dialog which remains open as the polygon is drawn.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/HCPD-Tableau/google-earth-draw-polygon.png&quot; alt=&quot;Screenshot, Google Earth Draw Polygon feature&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once all polygons are created, I exported ‘My Places’ from Google Earth as a KML file, which can then be imported into Tableau as a spatial data file. The initial import was problematic as Tableau noted that KML should provide all placemarks/polygons on a single layer. Opening the KML file within a text editor, I simply move the series of Placemark XML tags outside of their Folder parent tag and reattempted import, successfully.&lt;/p&gt;
+
+&lt;h2 id=&quot;mapping-events-by-beat&quot;&gt;Mapping Events by Beat&lt;/h2&gt;
+
+&lt;p&gt;Tableau allows imports of spatial data files as a dataset and once imported can be joined or blended with the primary data source. The imported dataset includes fields for name and description as specified in Google Earth, as well as geometries for the polygons that were drawn. In this case, we link ‘Beat’ from the primary data source with ‘Name’ from the imported KML file. A custom fill map (AKA choropleth map) may then be created by double clicking the Geometry field from the spatial data file to import the appropriate polygons. From there the visualization is created as you would with a typical fill map in Tableau. Coloring is done based on record counts for a given month and year. Filters provided allow the user to examine number of events for a selected month and year, beat, or computer aided dispatch event type on both the fill map as well as an accompanying cross tab with all the individual records.&lt;/p&gt;
+
+&lt;h2 id=&quot;future-research-and-improvements&quot;&gt;Future Research and Improvements&lt;/h2&gt;
+
+&lt;p&gt;This mockup was particularly instructive for me in creating custom spatial data files from scratch. I found Google Earth relatively easy to work with although the drawing of the custom polygons was quite cumbersome and Google Earth seemed to lack some basic tools such as the ability to erase points from a polygon once they were drawn, meaning if mistakes were made you had to delete the shape and begin again. I’ll be interested in the future to test additional tools that generate, for example, geoJSON files which can be more easily utilized in JavaScript mapping libraries such as Leaflet.&lt;/p&gt;
+
+&lt;p&gt;Although it was not the primary focus of this exercise, more effort could be spent to improve the high level summary of the second storyboard showing top events, trends over time, and events by location. Some ideas include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Filters to show top events types and monthly trends for a particular beat (UPDATED: 12/21/2017)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dropdown to select level of granularity for time series. The final design settled on monthly numbers, but additional charts by week or day could be developed and swapped in and out through a parameter dropdown (UPDATED 12/21/2017)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;With better understanding of the event types, create a heirarchy that allows the visualization to drill from broad, overarching categories to more specialized event types. Visualizations such as tree maps or bar charts could then be used to select and drill down into a particular category, which would reduce the amount of event types under consideration and better facilitate identification of trends.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">This visualization, created with Tableau Public, incorporates data on Howard County Police Department Calls for Service (2014-2016) and started as part of a final exam for my Business Analytics and Strategic Decision Making class, which asked to create a data visualization in Tableau with a dataset of my choosing.</summary></entry><entry><title type="html">Twitter Bot Project</title><link href="http://localhost:4000/2017/11/30/twitterbot.html" rel="alternate" type="text/html" title="Twitter Bot Project" /><published>2017-11-30T16:27:59-05:00</published><updated>2017-11-30T16:27:59-05:00</updated><id>http://localhost:4000/2017/11/30/twitterbot</id><content type="html" xml:base="http://localhost:4000/2017/11/30/twitterbot.html">&lt;p&gt;This project stems from a Twitter post from my good friend Andrew Naber, who jokingly suggested the creation of a bot that sends the ‘Old Man Yells at Cloud’ every time a news article about millennials appears on the web. Having just covered web scraping and APIs in my &lt;em&gt;Programming for Data Science&lt;/em&gt; class, I happily obliged. Thanks to &lt;a href=&quot;https://www.linkedin.com/in/noah-diekemper-46152492/&quot;&gt;Noah Diekemper&lt;/a&gt; for introducing and demoing the News API.&lt;/p&gt;
 
 &lt;blockquote class=&quot;twitter-tweet&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;I want to write a bot script, where it finds if the keyword of an article is, &amp;quot;Millennial&amp;quot;, and it sends the &amp;quot;Old Man Yells at Cloud&amp;quot; pic. &lt;a href=&quot;https://t.co/8arrCRftTu&quot;&gt;pic.twitter.com/8arrCRftTu&lt;/a&gt;&lt;/p&gt;&amp;mdash; Andrew M Naber (@AndrewMNaber) &lt;a href=&quot;https://twitter.com/AndrewMNaber/status/927972980210139138?ref_src=twsrc%5Etfw&quot;&gt;November 7, 2017&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;

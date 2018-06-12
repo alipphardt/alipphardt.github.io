@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Classifying Drug Mention with Involvement (DMI) Deaths</title>
+  <meta name="description" content="GitHub Repo">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2018/06/11/DMI-Deaths.html">
+  <link rel="alternate" type="application/rss+xml" title="Data Science Portfolio" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Data Science Portfolio</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Classifying Drug Mention with Involvement (DMI) Deaths</h1>
+    <p class="post-meta">
+      <time datetime="2018-06-11T22:00:00-04:00" itemprop="datePublished">
+        
+        Jun 11, 2018
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><a href="https://github.com/alipphardt/dmi-deaths-classification">GitHub Repo</a></p>
+
+<p><a href="https://github.com/alipphardt/dmi-deaths-classification/blob/master/dmi-classification-presentation.pdf">Full PDF presentation</a></p>
+
+<h2 id="project-data-and-general-approach">Project, Data, and General Approach</h2>
+
+<h3 id="problem">Problem</h3>
+<p>The Centers for Disease Control and Prevention’s (CDC) National Center for Health Statistics (NCHS) works in partnership with state and local governments to collect, analyze, and disseminate data on vital statistics, including birth and death events. This data is used to monitor trends of public health importance such as the ongoing opioid crisis. The most current data from 2016 indicates that deaths from opioids were 5 times higher than in 1999, and provisional estimates indicate that these numbers are continuing to rise.</p>
+
+<p>Mortality data is currently coded using the International Classification of Diseases, Tenth Revision (ICD-10), which is used to identify underlying and contributory causes of death. Coding for drug involved deaths are currently problematic for a number of reasons including:</p>
+
+<ol>
+  <li><strong>Initial coding of ICD-10 classifications</strong> -  NCHS uses automated programs to assign 1 underlying cause of death and up to 20 multiple causes of death. In general, the program rejects about one fifth of death records which must be reviewed and coded by trained nosologists. However, for deaths with an underlying cause of drug overdose, about two-thirds of records are manually coded.</li>
+  <li><strong>Limited codes for specific drugs</strong> - ICD-10 is limited in capturing drug-involved mortality as it only contains a few codes pertaining to specific drugs (e.g. heroin, methadone, cocaine) and these codes are only applied in specific circumstances. Most drugs are coded using broad categories, making it difficult to monitor trends in specific drugs that are not already uniquely classified by ICD-10.</li>
+</ol>
+
+<p>Recent efforts have been placed on developing programs to extract drug mentions from literal text fields of the U.S. Standard Certificate of Death. These fields include:</p>
+<ul>
+  <li>The chain of events leading to death (from Part I)</li>
+  <li>Other siginificant conditions that contributed to cause of death (from Part II)</li>
+  <li>How the injury occurred (in the case of deaths due to injuries [from Box 43])</li>
+</ul>
+
+<p>Programs developed rely on exact pattern matching and significant collaboration between NCHS and the Food and Drug Administration (FDA) to develop search terms for identified drug mentions, descriptors (e.g., illicit, prescription/RX), and contextual phrases (e.g., Ingested, History/HX of Abuse). Use of literal text analysis provides an opportunity for an enhanced understanding of the national picture of drug involvement in deaths in the United States, but is also problematic in the time involved to develop and maintain programs based on exact pattern matching.</p>
+
+<h3 id="data">Data</h3>
+<p>NCHS performs literal text analysis using final death files from NCHS’ National Vital Statistics System linked to literal text data. This data is collected from state and local vital records offices and cleaned and coded in preparation for analysis. Due to privacy and confidentiality concerns, literal text data files are unavailable outside of the CDC/NCHS secure data platform.</p>
+
+<p>However, <a href="https://www.doh.wa.gov/DataandStatisticalReports/HealthStatistics/Death">Washington State’s Department of Health</a> provides both annual files and literal text files for purchase, which are largely similar to the information collected by NCHS.</p>
+
+<p>For the purpose of this analysis, the most recent 2 years of data (i.e., 2015 and 2016 annual files and literal text files) were purchased for use. Each dataset was provided as a CSV dataset and has been linked through common attributes such as year and death certificate number. Each dataset includes records for approximately 50,000 deaths in the State of Washington.</p>
+
+<p><strong>Note:</strong> Original annual and literal text files have been excluded from the GitHub repo. However, preprocessed data with the combined literal text fields are made available as a CSV.</p>
+
+<p>The annual files, have approximately 133 fields, which are described by the <a href="https://www.doh.wa.gov/Portals/1/Documents/5300/DeathStatisticalFileLayout.xlsx">File Layout [XLSX]</a> on the Washington Department of Health website.</p>
+
+<p>Of interest in the annual file is the certificate number, used for linking, and the ICD-10 code for underlying cause of death and up to 20 multiple causes of death.</p>
+
+<p>The literal text files, have the following layout:</p>
+
+<ul>
+  <li>‘State File Number’,</li>
+  <li>‘Cause of Death - Line A’</li>
+  <li>‘Cause of Death - Line B’</li>
+  <li>‘Cause of Death - Line C’,</li>
+  <li>‘Cause of Death - Line D’</li>
+  <li>‘Interval Time - Line A’,</li>
+  <li>‘Interval Time - Line B’</li>
+  <li>‘Interval Time - Line C’,</li>
+  <li>‘Interval Time - Line D’</li>
+  <li>‘Other Significant Conditions’,</li>
+  <li>‘How Injury Occurred’</li>
+  <li>‘Place of Injury’</li>
+</ul>
+
+<p>From the linked file, a derived feature will be created as a label to classify a record as a drug mentioned with involvement (DMI) death or not. Death records coded with an underlying cause of death ICD code (i.e., X40–X44, X60–X64, X85, or Y10–Y14) will be marked as a DMI death. Additionally, remaining records with flagged drug mentions will be reviewed manually and classified as a DMI death.</p>
+
+<p>Preprocessed data includes CSV with literal text field and DMI target and is named: <strong>literal-text.csv</strong></p>
+
+<p>The final dataset created within the experiments will consist of a matrix of binary term-frequencies and a class label called DMI. The full term-frequency matrix is not stored due to large file size (12 GB) depending on hyper-parameters used by CountVectorizer.</p>
+
+<h3 id="objectives">Objectives</h3>
+<p>This project will address whether machine learning techniques can be used to train a classifier to predict with high precision and specificity whether a death record is a drug mention with involvement (DMI) death or not.</p>
+<ul>
+  <li>Precision, also known as positive predictive value, is the proportion of records predicted to be in the positive class (in this case a DMI death) that were correctly classified (TP/TP+FP).</li>
+  <li>Specificity, also known as true negative rate, is the proportion of records in the negative class that were accurately predicted (TN/TN+FP).</li>
+</ul>
+
+<p>We wish to maximize these two metrics as the problem demands that we find a solution that accurately determines whether a record is in the positive class (DMI death) or not and reduces or avoids instances of false positives. Current programs within NCHS that rely on exact pattern matching achieve a precision score of 95.8 percent on the DMI class. The objective of this project is to find a solution that exceeds this baseline.</p>
+
+<p>The linked dataset will be converted to a term-frequency matrix that stores each word/term as a 1 if the term is used in a given record and 0 if it is not. As discussed previously, a derived feature will be created using existing ICD codes and flagged drug mentions to identify whether a record is a DMI death or not.</p>
+
+<p>The intended benefits of the described solution are as follows:</p>
+<ul>
+  <li>Improve identification of DMI deaths, potentially reducing the amount of manual reviews for drug overdose deaths.</li>
+  <li>Develop a generalized solution that removes the need for development of exhaustive lists of search terms, descriptors, and contextual phrases.</li>
+</ul>
+
+<p>Once a classifier is obtained to more accurately identify DMI deaths, we can extract drug mentions from those records to better track trends of drug involvement in deaths.</p>
+
+<h3 id="approach">Approach</h3>
+<p>Our approach will use the following machine learning techniques:</p>
+
+<ul>
+  <li><strong>Bag-of-words/Term Frequencies Model (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer in scikit-learn</a>)</strong> - The dataset will be transformed into a matrix of binary term-frequencies (0 or 1), which is common in text mining tasks. Words that appear more than 3 times will be included and combinations of individual words and adjacent word pairings will be tested.</li>
+  <li><strong>Support Vector Machine (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">SVC in scikit-learn</a>)</strong> - This algorithm is popular in text classification tasks and is suitable for datasets that are not too large. Since our task is a binary classification, our solution only requires a single SVM. Our dataset consists of 100,000 records, but it is expected to be a fraction of that once we obtain our class labels and balance the dataset. SVMs are popular in text classification as they scale well for high dimensionality data and can perform with high accuracy and stability on both linear and nonlinear problems.
+    <ul>
+      <li><strong>Latent Semantic Analysis (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html">TruncatedSVD in scikit-learn</a>)</strong> - Given that the creation of a term-frequency matrix will likely result in thousands of features, dimensionality reduction may prove useful in improving training speed and predictive power of the classifier, particularly if pairs of terms are heavily correlated. Note that we are only applying this to SVM as Naive Bayes expects discrete data.</li>
+    </ul>
+  </li>
+  <li><strong>Naive Bayes (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html">Bernoulli Naive Bayes in scikit-learn</a>)</strong>- Despite the assumption of independence, Naive Bayes has been found to work well in text classification. It works well for this scenario as the algorithm is quick to train and scales well on high dimensionality data. Because our term-frequency matrix will only consist of 0s and 1s, we have discrete values, which Naive Bayes works well on.</li>
+</ul>
+
+<h2 id="pre-processing">Pre-processing</h2>
+
+<h3 id="data-cleaning">Data Cleaning</h3>
+<ul>
+  <li>2015 and 2016 documents used different names for columns. Renaming was done to conform to standard column labels. This would facilitate concatenation and merging of the datasets.</li>
+  <li>The following fields were retained:
+    <ul>
+      <li><strong>State file number</strong> (i.e., certificate number)</li>
+      <li><strong>Underlying Cause-of-Death</strong> (single cause)</li>
+      <li><strong>Multiple Cause-of-Death</strong> (up to 20 causes)</li>
+      <li>The chain of events leading to death (from Part I)
+        <ul>
+          <li><strong>Cause-of-Death Line A</strong></li>
+          <li><strong>Cause-of-Death Line B</strong></li>
+          <li><strong>Cause-of-Death Line C</strong></li>
+          <li><strong>Cause-of-Death Line D</strong></li>
+        </ul>
+      </li>
+      <li>Other siginificant conditions that contributed to cause of death (from Part II)
+        <ul>
+          <li><strong>Other Significant Conditions</strong></li>
+        </ul>
+      </li>
+      <li>How the injury occurred (in the case of deaths due to injuries [from Box 43])
+        <ul>
+          <li><strong>How the Injury Occurred</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Irrelevant fields were dropped from the dataset. These include but are not limited to:
+    <ul>
+      <li><strong>Interval Time - Line (A/B/C/D)</strong></li>
+      <li><strong>COD-DUE-TO-(B/C/D)</strong> - Further inspection shows only one record in 2015 using this field</li>
+      <li><strong>Injury Place</strong></li>
+    </ul>
+  </li>
+  <li>A left join between the annual and literal text files was performed to create a single dataset with DMI targets and literal text fields. Literal text fields including Part I cause of death variables, How Injury Occurred, and Other Significant Conditions were combined into a single literal text field.</li>
+  <li>Rows with missing values for the literal text and DMI fields were removed.</li>
+  <li>Literal text field was stripped of punctuation and stop words using NLTK module, as well as removing numbers.</li>
+  <li>Standardization was not performed as term-frequency matrix will consist of discrete 0’s or 1’s in order to use classifiers such as Naive Bayes.</li>
+</ul>
+
+<h3 id="feature-engineering">Feature Engineering</h3>
+<ul>
+  <li><strong>Year</strong> field was added to 2015-2016 annual and literal text files for the purpose of linkage between these datasets</li>
+  <li><strong>DMI</strong> field was added as a target label. Deaths with an underlying or multiple cause of death for the following ICD codes were flagged as a DMI death: X40–X44, X60–X64, X85, or Y10–Y14. Following pre-processing, the following counts for DMI were obtained:
+    <ul>
+      <li>DMI (1) - 2498</li>
+      <li>Not DMI (0) - 109407</li>
+    </ul>
+  </li>
+  <li>The literal-text field was converted to a <strong>term-frequency matrix</strong> using scikit-learn’s <a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a> module. Model was created specifying binary frequencies (0 or 1) and a minimum frequency of 5 in the dataset to select a feature. This term frequency matrix was pickled and written out to a file for the next phase of the project, which will combine into a a single data frame with the DMI targets. The python notebook <strong>preprocessing.ipynb</strong> includes an example of this transformation. This data frame itself was too large to pickle/write to a file (11 GB).</li>
+</ul>
+
+<h2 id="experimental-plan">Experimental Plan</h2>
+
+<p>Four machine learning techniques from scikit-learn will be utilized in this experiment: CountVectorizer, Latent Semantic Analysis, Naïve Bayes, and Support Vector Machine.</p>
+
+<p>The first step will be to fit the literal text dataset using CountVectorizer to convert the single literal text field into a bag-of-words or term frequencies model with binary frequencies. The results of this dataset will then be included in one of three pipelines:</p>
+
+<ol>
+  <li>Fit to a Naïve Bayes classifier.</li>
+  <li>Fit to a Support Vector Machine (SVM) classifier without dimensionality reduction.</li>
+  <li>Perform dimensionality reduction using Latent Semantic Analysis (LSA) and fit to a SVM classifier.</li>
+</ol>
+
+<p>Note: PCA was originally planned as the means for dimensionality reduction in this project. However, scikit-learn’s implementation cannot work with the sparse datasets produced by CountVectorizer. Therefore, LSA was used in a similar manner to reduce dimensions while retaining 85-95 percent of explained variance in the dataset.</p>
+
+<p>The workflow will be managed using scikit-learn’s grid search and pipeline constructs. Grid search allows you to set up a parameter grid for each machine learning technique you plan to use and will test every combination within the parameter grid to find an optimal configuration based on your chosen scoring metric. In this experiment, we will use 10-fold cross validation using precision as our scoring metric in the grid search. The pipeline construct allows you to chain together multiple machine learning techniques in scikit-learn while performing the grid search.</p>
+
+<p>Below we detail the combination of parameters that will be supplied to the parameter grids in the initial grid search. Additional parameters may be added as needed.</p>
+
+<p>Based on three pipelines, we will have 35 combinations of parameters: 16 combinations for Naïve Bayes, 16 for SVM, and 3 for SVM without dimensionality. Grid search will perform 10-fold cross validation and select the best parameters based on average precision score.</p>
+
+<p>Prior to running the grid search, the data will be balanced, under-sampling the over-represented class (Non-DMI) to balance the two classes. This is particularly important as the class ratio before under-sampling is roughly 50 to 1. The dataset will then be split into training and test sets using a 75:25 split given the relatively small dataset size once balanced. The portion of the data set aside for training will be passed to the grid search, while the remaining data will be used for final testing and scored on precision and specificity for the DMI class.</p>
+
+<p>The process for these experiments are shown in the provided <strong>experiments.ipynb</strong> Jupyter notebook. Results of the grid search are in the <strong>results</strong> folder as a CSV file.</p>
+
+<h3 id="ml-technique-1-bag-of-wordsterm-frequencies-model-countvectorizer-in-scikit-learn">ML Technique #1: Bag-of-Words/Term Frequencies Model (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer in scikit-learn</a>)</h3>
+
+<p>The bag-of-words model is a common representation for text classification tasks which represents each record as a bag or collection of words - pulled from all records/documents in the dataset - and their frequencies within that particular record. No consideration is given to order, and so the model may be extended to include N-grams which contain groups of N adjacent words.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Combination</th>
+      <th>lowercase</th>
+      <th>binary</th>
+      <th>min_df</th>
+      <th>ngram_range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>3</td>
+      <td>(1,1)</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>False</td>
+      <td>True</td>
+      <td>3</td>
+      <td>(1,2)</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>False</td>
+      <td>True</td>
+      <td>5</td>
+      <td>(1,1)</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>False</td>
+      <td>True</td>
+      <td>5</td>
+      <td>(1,2)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each combination of parameters will disable conversion to lower-case, since the dataset is already converted to all uppercase, and binary will be set to True, which will set term frequencies to either 0 or 1, giving us the flexibility to use popular ML techniques such as Naive Bayes which requires discrete data.</p>
+
+<p>The min_df parameter specifies the minimum number of times a word must appear within the dataset for it to be included in the vocabulary for the bag of words model. Three and five are chosen to rule out the potential for typos and misspellings.</p>
+
+<p>N-gram range will be set to (1,1) or (1,2) to include individual words and adjacent word pairs in the bag of words model.</p>
+
+<h3 id="ml-technique-2-latent-semantic-analysis-truncatedsvd-in-scikit-learn">ML Technique #2: Latent Semantic Analysis (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html">TruncatedSVD in scikit-learn</a>)</h3>
+
+<p>Dimensionality reduction is a useful technique that can assist ML algorithms in more quickly converging on a solution by combining variables into n component features that each combine related features. LSA is similar to PCA in that it applies singular value decomposition to find a transformation that rotates axes in a manner that projects the data to a lower dimensional feature space. The main difference is that LSA accepts a sparse term-frequency matrix – obtained here through CountVectorizer – and obtains an approximation by computing three matrices: a term-concept matrix, a singular values matrix with eigenvalues on the diagonal, and a concept-document matrix. These three matrices produce an approximation of the original term-frequencies matrix.</p>
+
+<p>As discussed in the approach section of the readme file, dimensionality reduction will only be applied to the SVM classifier as Naive Bayes requires discrete data.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Combination</th>
+      <th>n_components</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>525</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>775</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1180</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With scikit-learn’s PCA implementation, we could specify a floating-point number for n_components to indicate what percentage of explained variance we would like to retain in the dataset with our chosen components. However, scikit-learn’s implementation of LSA only accepts an integer for the n_components parameter.</p>
+
+<p>Since our value for the n_components parameter is dependent on the number of words in our dataset – which relies on the choice of ngram_range for CountVectorizer – we will determine optimal parameters for our experiments after running an initial grid search for the first two pipelines. Using optimal parameters, we will then fit a model using CountVectorizer and TruncatedSVD and determine number of components that retain approximately 85, 90, and 95 percent of explained variance in the dataset. The values in the above table reflect this approach.</p>
+
+<h3 id="ml-technique-3-support-vector-machine-svc-in-scikit-learn">ML Technique #3: Support Vector Machine (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">SVC in scikit-learn</a>)</h3>
+
+<p>The Support Vector Machine is one of two classifiers that will be used in this experiment. SVM have been known to do well in applications for text classification with high dimensionality where the dataset is not too large. For this application, a balanced training set will contain approximately 5,000 records, which is suitable for SVM.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Combination</th>
+      <th>kernel</th>
+      <th>C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Linear</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Linear</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Linear</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Linear</td>
+      <td>1000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The main choice in configuring SVM is the choice of kernel, followed by the appropriate hyperparameters asscoaited with that kernel.</p>
+
+<p>A linear kernel will be used in this experiment as many applications of text classification can be linearly separable, particularly as a result of the high dimensionality and large dataset sizes for text classification datasets. Linear classifiers are also much faster to train and only require tuning of the regularization parameter C. For this experiment we will test values of 1, 10, 100, and 1000 for the C parameter.</p>
+
+<p>If it is found that the SVM does poorly with a linear kernel, additional experiments will be conducted with other types of kernel to see if performance improves.</p>
+
+<h3 id="ml-technique-4-naive-bayes-bernoulli-naive-bayes-in-scikit-learn">ML Technique #4: Naive Bayes (<a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html">Bernoulli Naive Bayes in scikit-learn</a>)</h3>
+
+<p>Since our bag of words model uses binary frequencies of 0 or 1, we use the Bernoulli Naive Bayes classifier in scikit-learn, which is optimized for binary counts.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Combination</th>
+      <th>binarize</th>
+      <th>alpha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>None</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>None</td>
+      <td>0.1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>None</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>None</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The binarize parameter is set to None in all instances to disable the conversion to binary counts since this has already been performed by CountVectorizer.</p>
+
+<p>The alpha parameter controls the level of smoothing applied in the training set. This can be useful when items in the test set would have zero probability based on the training set. There is no good rule of thumb for setting this parameter, so the experiment will include several values within a parameter Grid Search.</p>
+
+<h2 id="results">Results</h2>
+
+<h3 id="naïve-bayes">Naïve Bayes</h3>
+
+<p>The alpha parameter is the main hyper-parameter adjusted in Naïve Bayes and controls the level of smoothing applied to the model, accounting for features in the test set not encountered in the training set and would otherwise compute a probability of zero.</p>
+
+<p>The below graph shows mean precision score over 10-fold cross validation for each value of alpha tested and is grouped by values for min_df and ngram_range used in CountVectorizer. We can see that an alpha value of 1 (the default Laplace smoothing using in scikit-learn) results in the best average precision score and that in general lower values for alpha (Lidstone smoothing) result in lower average precision scores. In general, we can also see that for Naïve Bayes that including bi-grams (ngram_range = (1,2)) generally performs better than the alternative of singles words in the term-frequencies matrix.</p>
+
+<p>The grid search object returned by scikit-learn also returns basic statistics on average time to fit and score each combination of parameters. Naïve Bayes is popular as it is relatively fast to both train and make predictions. For this particular dataset, there was an average fit time of 0.0987 seconds and an average scoring time of 0.0104 seconds.</p>
+
+<p><img src="/images/dmi-deaths/nb-results.png" alt="Naive Bayes Results" /></p>
+
+<h3 id="support-vector-machine-without-dimensionality-reduction">Support Vector Machine without Dimensionality Reduction</h3>
+
+<p>Using a linear kernel, the C parameter is the main hyper-parameter adjusted for the Support Vector Machine and controls the error penalty used when misclassifying an example. Larger values of C generally mean a smaller margin around the separating hyperplane.</p>
+
+<p>The below graph shows mean precision score over 10-fold cross validation for each value of C tested and is grouped by values for min_df and ngram_range used in CountVectorizer. We can see that for this particular dataset a smaller value of C generally results in a better classification score, particularly when min_df is set to 5. For min_df of 3 there is a very small difference. In general, we can also see that including bi-grams (ngram_range = (1,2)) generally performs
+better than the alternative of singles words in the term-frequencies matrix.</p>
+
+<p>Support Vector Machines can be problematic in that they are slow to train for larger datasets. However, for this particular dataset, it worked fairly well with an average fit time of 0.2176 seconds and an average scoring time of 0.0190 seconds.</p>
+
+<p><img src="/images/dmi-deaths/svm1-results.png" alt="SVM Results" /></p>
+
+<h3 id="support-vector-machine-and-latent-semantic-analysis">Support Vector Machine and Latent Semantic Analysis</h3>
+
+<p>As discussed in the Experimental Plan, the n_components parameter for TruncatedSVD/LSA is dependent on the number of features in the dataset and is therefore dependent on the parameters set in CountVectorizer. After running grid search against Naïve Bayes and SVM, we selected chose the best performing estimator and parameters, which was SVM with C=1 and CountVectorizer using min_df=3 and ngram_range=(1,2). Using these parameters, the training model was fit using a variety of values to determine the approximate number of components that would result in 85, 90, and 95 percent of explained variance given the dataset. This resulted in the chosen values 525, 775, and 1180.</p>
+
+<p>The below graph shows mean precision score over 10-fold cross validation for each value of n_components tested with LSA and SVM. We can see that in general the larger values of n_components that retains explained variance results in better precision scores. Given this finding it will be interesting to see whether LSA provides better performance than when all
+terms are retained in the dataset.</p>
+
+<p>With LSA added to the third pipeline for grid search, it computed an average fit time of 5.67 seconds and an average scoring time of 0.1321 seconds, significantly longer than Naïve Bayes and SVM without dimensionality reduction.</p>
+
+<p><img src="/images/dmi-deaths/svm2-results.png" alt="SVM with LSA Results" /></p>
+
+<h3 id="comparison-of-three-options">Comparison of Three Options</h3>
+
+<p>The below chart includes a side-by-side comparison of the average precision scores for 10-fold cross validation using optimal parameters for each classifier option. Both Naïve Bayes and SVM options work particularly well for this application, with average precision above 98 percent. The top performing classifier was SVM in conjunction with LSA retaining 95 percent of explained variance.</p>
+
+<p>As discussed in prior sections, SVM can be problematic for larger datasets and when adding LSA we saw an additional 20 times increase in computing time. This is worth considering for training sets that surpass millions of records. However, in this scenario we will choose the SVM with LSA option in scoring against our test dataset.</p>
+
+<p><img src="/images/dmi-deaths/comparison.png" alt="Model Comparison" /></p>
+
+<h3 id="performance-with-test-data">Performance with Test Data</h3>
+
+<p>Using optimal parameters for CountVectorizer (min_df=3, ngram_range=(1,2)), TruncatedSVD/LSA (n_components=1180), and SVM (kernel=linear, C=1), models were fit to the training data and then test data was transformed.</p>
+
+<p>Predicted class labels were obtained for each transformed row in the test set and a classification report was produced in scikit-learn (below) which provides precision, recall, and F1 scores for each class label.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1 Score</th>
+      <th>Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Non-DMI</td>
+      <td>0.98</td>
+      <td>0.99</td>
+      <td>0.98</td>
+      <td>621</td>
+    </tr>
+    <tr>
+      <td>DMI</td>
+      <td>0.99</td>
+      <td>0.98</td>
+      <td>0.98</td>
+      <td>627</td>
+    </tr>
+    <tr>
+      <td>Avg/Total</td>
+      <td>0.98</td>
+      <td>0.98</td>
+      <td>0.98</td>
+      <td>1248</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The original problem statement noted that we were particularly interested in maximizing precision and specificity for the DMI class in order to correctly classify DMI deaths while avoiding false positives. The results for our test data show that we have 99 percent precision and specificity for the DMI class (Note: for binary classification, specificity is the same as recall for the negative class).</p>
+
+<p>A confusion matrix was also produced for the test data (below) and shows that for the Non-DMI class only 8 records were misclassified and for DMI only 15 were misclassified.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Actual\Predicted</th>
+      <th>Non-DMI</th>
+      <th>DMI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Non-DMI</td>
+      <td>613</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>DMI</td>
+      <td>15</td>
+      <td>612</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>In this project, we linked annual death statistical files and cause of death literal text files from the State of Washington and used this data to train Naïve Bayes and Support Vector Machine classifiers to distinguish with high precision and specificity whether a given record was a drug mention with involvement death (DMI) or not. Natural language processing techniques were used to remove stop words and punctuation, as well as to convert the linked data to a matrix of term frequencies using unigrams and bigrams. The optimal classifier, Support Vector Machine using Latent Semantic Analysis for dimensionality reduction, achieved precision and specificity of approximately 99 percent for the DMI class on test data. The model exceeded expectations set by exact pattern matching programs, which identified DMI deaths with 95.8 percent precision.</p>
+
+<p>The success in this experiment is largely attributed to the amount of work in cleaning and preprocessing the data, including the use of natural language processing techniques. With additional cleaning, I believe the model could be further improved. One thought within NCHS is to incorporate systems such as UMLS from the National Institutes of Health, which provide an extensive thesaurus of millions of biomedical concepts and can be used to map synonyms and variations of a term to a principle concept. Reducing the number of terms/features, as we did with LSA in this experiment, improves the ability of the classifier to find an optimal solution.</p>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Data Science Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              Anthony Lipphardt
+            
+            </li>
+            
+            <li><a href="mailto:alipphardt@gmail.com">alipphardt@gmail.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/alipphardt"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">alipphardt</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/a_lipphardt"><span class="icon icon--twitter"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">a_lipphardt</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
