@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-06-11T23:11:04-04:00</updated><id>http://localhost:4000/</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Classifying Drug Mention with Involvement (DMI) Deaths</title><link href="http://localhost:4000/2018/06/11/DMI-Deaths.html" rel="alternate" type="text/html" title="Classifying Drug Mention with Involvement (DMI) Deaths" /><published>2018-06-11T22:00:00-04:00</published><updated>2018-06-11T22:00:00-04:00</updated><id>http://localhost:4000/2018/06/11/DMI-Deaths</id><content type="html" xml:base="http://localhost:4000/2018/06/11/DMI-Deaths.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-17T16:01:03-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Clumsy Movie Nights with a Discord Bot</title><link href="http://localhost:4000/2020/10/17/Discord-Bot.html" rel="alternate" type="text/html" title="Clumsy Movie Nights with a Discord Bot" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/2020/10/17/Discord-Bot</id><content type="html" xml:base="http://localhost:4000/2020/10/17/Discord-Bot.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/clumsy-movie-bot&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Saturday night movies via Discord have been a guilty pleasure among friends during quarantine, starting with well known cult films such as &lt;a href=&quot;https://www.imdb.com/title/tt0368226/&quot;&gt;The Room&lt;/a&gt; or &lt;a href=&quot;https://www.imdb.com/title/tt0092549/&quot;&gt;Miami Connection&lt;/a&gt; and delving more into the weird over time. As the selection of movies have broadened its come to be known as ‘Clumsy’ Movie Night, a term that was coined by my daughter.&lt;/p&gt;
+
+&lt;p&gt;Nominations and voting take place on a dedicated Discord text channel, with movie titles submitted as messages and votes submitted through reactions or emojis. In the early days of clumsy movie night, there may have been up to 10 movies at at a time where votes were tallied in an Excel sheet before being populated into a wheel for random selection (&lt;a href=&quot;https://wheelofnames.com&quot;&gt;wheelofnames.com&lt;/a&gt;). Number of entries on the wheel for a given movie are equal to the number of votes received. The first movie to be selected three times is chosen as the movie to be shown that night.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/samples.png&quot; alt=&quot;Sample votes in Discord channel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/wheelofnames.png&quot; alt=&quot;Wheel populated with sample movie titles&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Eventually as more members were added to the Discord channel nominations increased to up to 50 movie titles in a given week, which became unsustainable for manual tallies. Enter the Clumsy Movie Bot, whose likeness was pulled from the killer robot in the 1990 sci-fi thriller, &lt;a href=&quot;https://www.imdb.com/title/tt0099740&quot;&gt;Hardware&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/hardware-robot.jpg&quot; alt=&quot;Robot from 1990 movie Hardware&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;implementation-with-python&quot;&gt;Implementation with Python&lt;/h2&gt;
+
+&lt;p&gt;The bot was developed in Python and primarily uses two libraries for its commands, the &lt;strong&gt;discordpy&lt;/strong&gt; and &lt;strong&gt;imdbpy&lt;/strong&gt; libraries.&lt;/p&gt;
+
+&lt;p&gt;The commands for the bot are broken into three main categories:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Voting commands facilitate the tallying of votes based on reactions/emojis, printing a list of movie titles to be copy/pasted into &lt;a href=&quot;https://wheelofnames.com&quot;&gt;wheelofnames.com&lt;/a&gt;, helper commands for adding winning movies to temporary or permanent lists, as well as the ability to create a list of rollover titles for the following week for movies not in the winners list.&lt;/li&gt;
+  &lt;li&gt;IMDB commands integrate with IMDB.com to run searches for specified titles against the IMDB database. Results returned may be used to add movies into a permanent list of winners, to select movies from the Top 1000 b-movies at random, or to generate trivia for the current winning movie.&lt;/li&gt;
+  &lt;li&gt;Utility commands are used strictly in testing/development. This includes generating sample movie titles with votes, the ability to purge messages from the testing channel, and a user command to force the bot to logout.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For the purposes of documentation, the python scripts are managed in a Jupyter notebook and run from a local laptop, with future plans to run from a Raspberry Pi in order to keep the bot available around the clock.&lt;/p&gt;
+
+&lt;p&gt;All commands are implemented through the use of python decorator functions to extend the command function in the Commands class, with a custom check implemented to ensure that commands are only accepted from specific channels in the testing or production Discord servers.&lt;/p&gt;
+
+&lt;h2 id=&quot;sample-commands&quot;&gt;Sample Commands&lt;/h2&gt;
+
+&lt;p&gt;The following are sample outputs from several of the basic commands.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;tally&lt;/strong&gt; command tallys all votes that occurred since the previous Saturday at 10 PM, creates and saves a Matplotlib bar chart of the votes, and then submits the message to the current channel attaching the plot as an embedded image.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/tally.png&quot; alt=&quot;Tally of sample votes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;.wheel&lt;/strong&gt; command takes the list of vote tallies and prints the titles multiple times according to the number of votes received. This provides a list that is easy for the user to copy and paste into the wheel before spinning.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/wheel.png&quot; alt=&quot;List of movie titles proportional to number of votes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;.winners&lt;/strong&gt; command prints a list of all movies previously selected on Clumsy Movie Night. The titles have associated numbers which may be used with the IMDB trivia command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/winners.png&quot; alt=&quot;List of prior winners&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;By issuing the &lt;strong&gt;.trivia&lt;/strong&gt; command with the specified index, the bot will pull top 10 trivia for the winning movie from IMDB and print the results to the current channel.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/trivia.png&quot; alt=&quot;Sample trivia for The Room&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Searches on IMDB may also be performed using the &lt;strong&gt;.imdb&lt;/strong&gt; command. Given that multiple movies may be returned with similar names, the default behavior is to return a list of numbered options.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/imdb.png&quot; alt=&quot;IMDB query for the Matrix&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Running a followup command &lt;strong&gt;.imdb_summary&lt;/strong&gt; with the specified index will display an IMDB summary with the title, description, IMDB score, running time, and movie poster.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/imdb_summary.png&quot; alt=&quot;IMDB summary for The Matrix&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, a random movie by bot selection is also available to provide an additional level of chaos. By running the &lt;strong&gt;.random&lt;/strong&gt; command, a random movie is selected from the Top 1000 movies on IMDB with keyword b-movie.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/random.png&quot; alt=&quot;Random movie from IMDB&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-the-bot-account-on-discord&quot;&gt;Creating the bot account on Discord&lt;/h2&gt;
+
+&lt;p&gt;In order to create a dedicated account for the bot, login to Discord via &lt;a href=&quot;https://discord.com/developers/applications&quot;&gt;https://discord.com/developers/applications&lt;/a&gt;. Under &lt;strong&gt;General Information&lt;/strong&gt;, create a new application specifying a name, description, and app icon for the application. Then go to the menu labelled &lt;strong&gt;Bot&lt;/strong&gt; and select to Add Bot. This will convert the application to an account that may connect to Discord similar to a regular user.&lt;/p&gt;
+
+&lt;p&gt;In order to add the bot as an accepted user to a given channel, the server admin must accept an invite that may be sent in the form of an OAuth2 URL. This URL can be created by going to the &lt;strong&gt;OAuth2&lt;/strong&gt; menu, selecting ‘Bot’ from the list of Scopes and then assigning the following permissions:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/scope.png&quot; alt=&quot;Screenshot of scope for bot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/permissions.png&quot; alt=&quot;Screenshot of permissions for bot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once all of the desired permissions have been set, the admin accesses the OAuth2 URL and accepts the invite, allowing the bot access with the specified permissions to the Discord channel.&lt;/p&gt;
+
+&lt;p&gt;Running the python script or Jupyter notebook will then initialize the bot with the custom commands and connects it to Discord. From there the bot is ready to receive commands from any user in the channel.&lt;/p&gt;
+
+&lt;h2 id=&quot;considerations-and-next-steps&quot;&gt;Considerations and Next Steps&lt;/h2&gt;
+
+&lt;p&gt;The downside to the current setup is that scripts running from a local laptop may be interrupted when the machine is shutdown, disconnecting the bot from the server. Therefore, next steps are to run the bot from a local server that retains a persistent connection to the Discord server. This can be setup through a Raspberry Pi. Additional options are third party services such as Heroku apps that run your application remotely. This will require some modifications as the current script is set up to pull access tokens, channel IDs, and so forth from environmental variables on the local computer.&lt;/p&gt;
+
+&lt;p&gt;Another area of focus is some exploratory analyses of movies selected using IMDB database information. Findings may be used to inform the development of an improved recommender system that will suggest movies similar to titles chosen in the past, rather than simply selecting randomly from a top 1000 list.&lt;/p&gt;
+
+&lt;p&gt;For example, a quick analyses of keywords for all prior winners shows that the majority of movies have keywords associated with cult-film, psychotronic-film, or surrealism. Using top keywords as selected features might provide a means to generate a training set for supervised machine learning, allowing the bot to select new movies that meet a combination of keyword criteria. This could also be coupled with numeric scores based on how much the audience enjoyed each given movie, which could be implemented with some custom scoring commands.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/imdb-keywords-word-cloud.png&quot; alt=&quot;Word cloud of top keywords for winning movies&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The imdbpy package also has utility functions to download the latest version of the IMDB database for local SQL queries. This could be used to develop more complex queries than what is capable from the imdbpy API. For example, select all movies where the lead actor served as writer and director (e.g. Tommy Wiseau in The Room).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/the-room.gif&quot; alt=&quot;Tommy Wiseau&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">GitHub Repo</summary></entry><entry><title type="html">Classifying Drug Mention with Involvement (DMI) Deaths</title><link href="http://localhost:4000/2018/06/11/DMI-Deaths.html" rel="alternate" type="text/html" title="Classifying Drug Mention with Involvement (DMI) Deaths" /><published>2018-06-11T00:00:00-04:00</published><updated>2018-06-11T00:00:00-04:00</updated><id>http://localhost:4000/2018/06/11/DMI-Deaths</id><content type="html" xml:base="http://localhost:4000/2018/06/11/DMI-Deaths.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification/blob/master/dmi-classification-presentation.pdf&quot;&gt;Full PDF presentation&lt;/a&gt;&lt;/p&gt;
 

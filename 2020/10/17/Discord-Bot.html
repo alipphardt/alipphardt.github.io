@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Clumsy Movie Nights with a Discord Bot | Data Science Portfolio</title>
+<meta name="generator" content="Jekyll v3.6.3" />
+<meta property="og:title" content="Clumsy Movie Nights with a Discord Bot" />
+<meta name="author" content="Anthony Lipphardt" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The process in developing a Discord bot with Python for the purpose of movie polling and IMDB integration for bad movie nights during the COVID-19 pandemic. Movies eventually expanded from the bad to the weird, resulting in the rebranded Clumsy Movie Night" />
+<meta property="og:description" content="The process in developing a Discord bot with Python for the purpose of movie polling and IMDB integration for bad movie nights during the COVID-19 pandemic. Movies eventually expanded from the bad to the weird, resulting in the rebranded Clumsy Movie Night" />
+<link rel="canonical" href="http://localhost:4000/2020/10/17/Discord-Bot.html" />
+<meta property="og:url" content="http://localhost:4000/2020/10/17/Discord-Bot.html" />
+<meta property="og:site_name" content="Data Science Portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-17T00:00:00-04:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-10-17T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/10/17/Discord-Bot.html"},"url":"http://localhost:4000/2020/10/17/Discord-Bot.html","author":{"@type":"Person","name":"Anthony Lipphardt"},"description":"The process in developing a Discord bot with Python for the purpose of movie polling and IMDB integration for bad movie nights during the COVID-19 pandemic. Movies eventually expanded from the bad to the weird, resulting in the rebranded Clumsy Movie Night","headline":"Clumsy Movie Nights with a Discord Bot","dateModified":"2020-10-17T00:00:00-04:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Data Science Portfolio" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Data Science Portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Clumsy Movie Nights with a Discord Bot</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-10-17T00:00:00-04:00" itemprop="datePublished">Oct 17, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://github.com/alipphardt/clumsy-movie-bot">GitHub Repo</a></p>
+
+<h2 id="background">Background</h2>
+
+<p>Saturday night movies via Discord have been a guilty pleasure among friends during quarantine, starting with well known cult films such as <a href="https://www.imdb.com/title/tt0368226/">The Room</a> or <a href="https://www.imdb.com/title/tt0092549/">Miami Connection</a> and delving more into the weird over time. As the selection of movies have broadened its come to be known as ‘Clumsy’ Movie Night, a term that was coined by my daughter.</p>
+
+<p>Nominations and voting take place on a dedicated Discord text channel, with movie titles submitted as messages and votes submitted through reactions or emojis. In the early days of clumsy movie night, there may have been up to 10 movies at at a time where votes were tallied in an Excel sheet before being populated into a wheel for random selection (<a href="https://wheelofnames.com">wheelofnames.com</a>). Number of entries on the wheel for a given movie are equal to the number of votes received. The first movie to be selected three times is chosen as the movie to be shown that night.</p>
+
+<p><img src="/images/clumsy-movies-bot/samples.png" alt="Sample votes in Discord channel" /></p>
+
+<p><img src="/images/clumsy-movies-bot/wheelofnames.png" alt="Wheel populated with sample movie titles" /></p>
+
+<p>Eventually as more members were added to the Discord channel nominations increased to up to 50 movie titles in a given week, which became unsustainable for manual tallies. Enter the Clumsy Movie Bot, whose likeness was pulled from the killer robot in the 1990 sci-fi thriller, <a href="https://www.imdb.com/title/tt0099740">Hardware</a></p>
+
+<p><img src="/images/clumsy-movies-bot/hardware-robot.jpg" alt="Robot from 1990 movie Hardware" /></p>
+
+<h2 id="implementation-with-python">Implementation with Python</h2>
+
+<p>The bot was developed in Python and primarily uses two libraries for its commands, the <strong>discordpy</strong> and <strong>imdbpy</strong> libraries.</p>
+
+<p>The commands for the bot are broken into three main categories:</p>
+
+<ol>
+  <li>Voting commands facilitate the tallying of votes based on reactions/emojis, printing a list of movie titles to be copy/pasted into <a href="https://wheelofnames.com">wheelofnames.com</a>, helper commands for adding winning movies to temporary or permanent lists, as well as the ability to create a list of rollover titles for the following week for movies not in the winners list.</li>
+  <li>IMDB commands integrate with IMDB.com to run searches for specified titles against the IMDB database. Results returned may be used to add movies into a permanent list of winners, to select movies from the Top 1000 b-movies at random, or to generate trivia for the current winning movie.</li>
+  <li>Utility commands are used strictly in testing/development. This includes generating sample movie titles with votes, the ability to purge messages from the testing channel, and a user command to force the bot to logout.</li>
+</ol>
+
+<p>For the purposes of documentation, the python scripts are managed in a Jupyter notebook and run from a local laptop, with future plans to run from a Raspberry Pi in order to keep the bot available around the clock.</p>
+
+<p>All commands are implemented through the use of python decorator functions to extend the command function in the Commands class, with a custom check implemented to ensure that commands are only accepted from specific channels in the testing or production Discord servers.</p>
+
+<h2 id="sample-commands">Sample Commands</h2>
+
+<p>The following are sample outputs from several of the basic commands.</p>
+
+<p>The <strong>tally</strong> command tallys all votes that occurred since the previous Saturday at 10 PM, creates and saves a Matplotlib bar chart of the votes, and then submits the message to the current channel attaching the plot as an embedded image.</p>
+
+<p><img src="/images/clumsy-movies-bot/tally.png" alt="Tally of sample votes" /></p>
+
+<p>The <strong>.wheel</strong> command takes the list of vote tallies and prints the titles multiple times according to the number of votes received. This provides a list that is easy for the user to copy and paste into the wheel before spinning.</p>
+
+<p><img src="/images/clumsy-movies-bot/wheel.png" alt="List of movie titles proportional to number of votes" /></p>
+
+<p>The <strong>.winners</strong> command prints a list of all movies previously selected on Clumsy Movie Night. The titles have associated numbers which may be used with the IMDB trivia command.</p>
+
+<p><img src="/images/clumsy-movies-bot/winners.png" alt="List of prior winners" /></p>
+
+<p>By issuing the <strong>.trivia</strong> command with the specified index, the bot will pull top 10 trivia for the winning movie from IMDB and print the results to the current channel.</p>
+
+<p><img src="/images/clumsy-movies-bot/trivia.png" alt="Sample trivia for The Room" /></p>
+
+<p>Searches on IMDB may also be performed using the <strong>.imdb</strong> command. Given that multiple movies may be returned with similar names, the default behavior is to return a list of numbered options.</p>
+
+<p><img src="/images/clumsy-movies-bot/imdb.png" alt="IMDB query for the Matrix" /></p>
+
+<p>Running a followup command <strong>.imdb_summary</strong> with the specified index will display an IMDB summary with the title, description, IMDB score, running time, and movie poster.</p>
+
+<p><img src="/images/clumsy-movies-bot/imdb_summary.png" alt="IMDB summary for The Matrix" /></p>
+
+<p>Finally, a random movie by bot selection is also available to provide an additional level of chaos. By running the <strong>.random</strong> command, a random movie is selected from the Top 1000 movies on IMDB with keyword b-movie.</p>
+
+<p><img src="/images/clumsy-movies-bot/random.png" alt="Random movie from IMDB" /></p>
+
+<h2 id="creating-the-bot-account-on-discord">Creating the bot account on Discord</h2>
+
+<p>In order to create a dedicated account for the bot, login to Discord via <a href="https://discord.com/developers/applications">https://discord.com/developers/applications</a>. Under <strong>General Information</strong>, create a new application specifying a name, description, and app icon for the application. Then go to the menu labelled <strong>Bot</strong> and select to Add Bot. This will convert the application to an account that may connect to Discord similar to a regular user.</p>
+
+<p>In order to add the bot as an accepted user to a given channel, the server admin must accept an invite that may be sent in the form of an OAuth2 URL. This URL can be created by going to the <strong>OAuth2</strong> menu, selecting ‘Bot’ from the list of Scopes and then assigning the following permissions:</p>
+
+<p><img src="/images/clumsy-movies-bot/scope.png" alt="Screenshot of scope for bot" /></p>
+
+<p><img src="/images/clumsy-movies-bot/permissions.png" alt="Screenshot of permissions for bot" /></p>
+
+<p>Once all of the desired permissions have been set, the admin accesses the OAuth2 URL and accepts the invite, allowing the bot access with the specified permissions to the Discord channel.</p>
+
+<p>Running the python script or Jupyter notebook will then initialize the bot with the custom commands and connects it to Discord. From there the bot is ready to receive commands from any user in the channel.</p>
+
+<h2 id="considerations-and-next-steps">Considerations and Next Steps</h2>
+
+<p>The downside to the current setup is that scripts running from a local laptop may be interrupted when the machine is shutdown, disconnecting the bot from the server. Therefore, next steps are to run the bot from a local server that retains a persistent connection to the Discord server. This can be setup through a Raspberry Pi. Additional options are third party services such as Heroku apps that run your application remotely. This will require some modifications as the current script is set up to pull access tokens, channel IDs, and so forth from environmental variables on the local computer.</p>
+
+<p>Another area of focus is some exploratory analyses of movies selected using IMDB database information. Findings may be used to inform the development of an improved recommender system that will suggest movies similar to titles chosen in the past, rather than simply selecting randomly from a top 1000 list.</p>
+
+<p>For example, a quick analyses of keywords for all prior winners shows that the majority of movies have keywords associated with cult-film, psychotronic-film, or surrealism. Using top keywords as selected features might provide a means to generate a training set for supervised machine learning, allowing the bot to select new movies that meet a combination of keyword criteria. This could also be coupled with numeric scores based on how much the audience enjoyed each given movie, which could be implemented with some custom scoring commands.</p>
+
+<p><img src="/images/clumsy-movies-bot/imdb-keywords-word-cloud.png" alt="Word cloud of top keywords for winning movies" /></p>
+
+<p>The imdbpy package also has utility functions to download the latest version of the IMDB database for local SQL queries. This could be used to develop more complex queries than what is capable from the imdbpy API. For example, select all movies where the lead actor served as writer and director (e.g. Tommy Wiseau in The Room).</p>
+
+<p><img src="/images/clumsy-movies-bot/the-room.gif" alt="Tommy Wiseau" /></p>
+
+  </div><a class="u-url" href="/2020/10/17/Discord-Bot.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Data Science Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Anthony Lipphardt</li><li><a class="u-email" href="mailto:alipphardt@gmail.com">alipphardt@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/alipphardt"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">alipphardt</span></a></li><li><a href="https://www.twitter.com/a_lipphardt"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">a_lipphardt</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
