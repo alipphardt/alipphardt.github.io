@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-17T16:01:03-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Clumsy Movie Nights with a Discord Bot</title><link href="http://localhost:4000/2020/10/17/Discord-Bot.html" rel="alternate" type="text/html" title="Clumsy Movie Nights with a Discord Bot" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/2020/10/17/Discord-Bot</id><content type="html" xml:base="http://localhost:4000/2020/10/17/Discord-Bot.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/clumsy-movie-bot&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-01T15:42:35-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Data Science Portfolio</title><subtitle>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</subtitle><author><name>Anthony Lipphardt</name></author><entry><title type="html">Clumsy Movie Nights with a Discord Bot</title><link href="http://localhost:4000/2020/10/17/Discord-Bot.html" rel="alternate" type="text/html" title="Clumsy Movie Nights with a Discord Bot" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/2020/10/17/Discord-Bot</id><content type="html" xml:base="http://localhost:4000/2020/10/17/Discord-Bot.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/clumsy-movie-bot&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 
@@ -28,7 +28,7 @@
 
 &lt;p&gt;For the purposes of documentation, the python scripts are managed in a Jupyter notebook and run from a local laptop, with future plans to run from a Raspberry Pi in order to keep the bot available around the clock.&lt;/p&gt;
 
-&lt;p&gt;All commands are implemented through the use of python decorator functions to extend the command function in the Commands class, with a custom check implemented to ensure that commands are only accepted from specific channels in the testing or production Discord servers.&lt;/p&gt;
+&lt;p&gt;All commands are implemented through the use of python decorator functions to extend the command function in the Commands class of the &lt;strong&gt;imdbpy&lt;/strong&gt; library, with a custom check implemented to ensure that commands are only accepted from specific channels in the testing or production Discord servers.&lt;/p&gt;
 
 &lt;h2 id=&quot;sample-commands&quot;&gt;Sample Commands&lt;/h2&gt;
 
@@ -88,7 +88,444 @@
 
 &lt;p&gt;The imdbpy package also has utility functions to download the latest version of the IMDB database for local SQL queries. This could be used to develop more complex queries than what is capable from the imdbpy API. For example, select all movies where the lead actor served as writer and director (e.g. Tommy Wiseau in The Room).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/the-room.gif&quot; alt=&quot;Tommy Wiseau&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">GitHub Repo</summary></entry><entry><title type="html">Classifying Drug Mention with Involvement (DMI) Deaths</title><link href="http://localhost:4000/2018/06/11/DMI-Deaths.html" rel="alternate" type="text/html" title="Classifying Drug Mention with Involvement (DMI) Deaths" /><published>2018-06-11T00:00:00-04:00</published><updated>2018-06-11T00:00:00-04:00</updated><id>http://localhost:4000/2018/06/11/DMI-Deaths</id><content type="html" xml:base="http://localhost:4000/2018/06/11/DMI-Deaths.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/clumsy-movies-bot/the-room.gif&quot; alt=&quot;Tommy Wiseau&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">GitHub Repo</summary></entry><entry><title type="html">Automated Identification and Coding of Drug Overdose Records</title><link href="http://localhost:4000/2019/04/23/drug-overdose-records.html" rel="alternate" type="text/html" title=" Automated Identification and Coding of Drug Overdose Records" /><published>2019-04-23T00:00:00-04:00</published><updated>2019-04-23T00:00:00-04:00</updated><id>http://localhost:4000/2019/04/23/drug-overdose-records</id><content type="html" xml:base="http://localhost:4000/2019/04/23/drug-overdose-records.html">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;The National Center for Health Statistics (NCHS), part of the Centers for Disease Control and Prevention (CDC), is a principal agency of the Federal Statistical System which provides statistical information to guide actions and policies to improve the health of the American people. NCHS oversees a number of surveys and data collection systems, including the National Vital Statistics System (NVSS). The NVSS works in partnership with state and local governments to collect, analyze, and disseminate data on vital statistics, including birth and death events. This data is used to monitor trends of public health importance such as the ongoing opioid crisis.&lt;/p&gt;
+
+&lt;p&gt;Mortality data from the NVSS is currently coded using the International Classification of Diseases, Tenth Revision (ICD-10), which is used to identify underlying and contributory causes of death. Coding of records for drug involved deaths in particular is a complex process and faces unique challenges, including:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Manual coding:&lt;/strong&gt; NCHS uses automated programs to assign ICD-10 codes for as many as twenty multiple causes of death and one underlying cause of death based on a complex set of rules. In general, the program rejects about one-fifth of death records which must be reviewed and coded by trained nosologists. However, for the estimated 2.6 percent of deaths with an underlying cause of drug overdose, about two-thirds of records are rejected and require manual coding (Trinidad, Warner, Bastian, Minino &amp;amp; Hedegaard, 2016).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Incomplete information:&lt;/strong&gt; Approximately 20 percent of drug overdose records do not include specific drug mentions (Rudd, Seth, David, &amp;amp; Scholl, 2016). This makes it difficult to categorize records as ICD-10 codes are based on specific drugs or broad drug classes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Limited codes for specific drugs:&lt;/strong&gt; ICD-10 is limited in capturing drug-involved mortality as it contains few codes pertaining to specific drugs (e.g. heroin, methadone, cocaine) and these codes are only applied in specific circumstances. Most drugs are coded using broad categories or drug classes, making it difficult to monitor trends in specific drugs that are not already uniquely classified by ICD-10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current state of the organization allows for release of final mortality data once it has been cleaned and coded, approximately 12-months after data collection. Timely release of mortality data for drug-involved deaths is of critical importance, with the opioid crisis currently recognized as a national public health emergency (The White House, 2018). The CDC (2019) reported that in 2017, the final number of overdose deaths involving opioids was 6 times higher than in 1999. More specifically, the age-adjusted death rate due to poisoning with synthetic opioids (e.g., fentanyl) has increased by a factor of 30. This trend illustrates the need to better understand the specific drugs involved within this broad category.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/drug-class-trends.png&quot; alt=&quot;drug trends by drug class&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;prior-work&quot;&gt;Prior Work&lt;/h2&gt;
+
+&lt;p&gt;Past work by Trinidad, Warner, Bastian, Minino and Hedegaard (2016) have focused on developing programs to identify records containing drug mentions with involvement (DMI) and to extract specific drug mentions from literal text fields of the U.S. Standard Certificate of Death. These fields include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The chain of events leading to death (from Part I)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Other significant conditions that contributed to cause of death (from Part II)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How the injury occurred (in the case of deaths due to injuries from Box 43)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Programs developed rely on exact pattern matching and significant collaboration between NCHS and the Food and Drug Administration (FDA) to develop search terms for identified drug mentions, descriptors (e.g., illicit, prescription/RX), and contextual phrases (e.g., ingested, history/HX of abuse) (Trinidad et. al, 2016). Analysis of literal text in this manner is beneficial as it provides an opportunity for an enhanced understanding of the national picture of drug involvement in deaths in the United States. However, the time involved to develop and maintain keyword lists and programs necessary for exact pattern matching is problematic.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/literal-text-example.png&quot; alt=&quot;literal text example&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2018/06/11/DMI-Deaths.html&quot;&gt;Previous work&lt;/a&gt; as part of Loyola’s graduate course in Machine Learning explored the use of literal text to identify DMI records with high precision and specificity. Within the context of the project, a record was determined to include a DMI if the underlying cause or any of the twenty available multiple causes were assigned a code pertaining to drug overdose (i.e. X40-44, X60-64, X85, Y10-Y14). Results from the program detailed by Trinidad et al. (2016) identified DMI records with a positive predictive rate or precision of 95.8 percent. Using this as a baseline, a program was created in Python using basic natural language processing (NLP) techniques to convert a corpus of literal text records into a sparse document term matrix to train a classifier to identify DMI records. The program  exceeded the baseline with a precision and specificity for DMI records of 98.6 percent. It should be noted that the results in the program were achieved using publicly available data from the Washington State Department of Health and may not completely reflect the quality of text data from all states and territories. This project will develop a similar model using data for the United States and territories from 2005-2017 available to NCHS.&lt;/p&gt;
+
+&lt;h2 id=&quot;research-questions&quot;&gt;Research Questions&lt;/h2&gt;
+&lt;p&gt;The focus of this capstone project is centered on three main questions given the problem as defined:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Can we use machine learning to accurately identify records with an underlying cause of drug overdose?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Can we extend those methods to assign specific ICD-10 codes?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Are there better methods for extracting drug mentions, including novel drugs not yet added to expert lists?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;data-sources&quot;&gt;Data Sources&lt;/h2&gt;
+&lt;p&gt;The project uses two primary data sources from the NCHS’ National Vital Statistics System. Historic mortality data from 2005-2017 and literal text data files.&lt;/p&gt;
+
+&lt;p&gt;The mortality data file includes records of death from all 50 states and territories through 2017. Information in the mortality data file includes general demographics for the decedent, data year, and a variety of codes pertaining to a single underlying cause of death and up to 20 multiple causes of death. Detailed documentation on the public use data files are provided by NCHS (2018). Public use files are provided by year and fields may be added or removed over time.  For the purpose of this project, the specific fields requested were ICD-10 codes pertaining to underlying and multiple causes of death and the manner of death field which is related to the intent of death. All other fields were dropped from the provided data files.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ICD-10 Codes
+    &lt;ul&gt;
+      &lt;li&gt;Multiple causes of death&lt;/li&gt;
+      &lt;li&gt;Underlying cause of death&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Manner of death
+    &lt;ul&gt;
+      &lt;li&gt;Accidental&lt;/li&gt;
+      &lt;li&gt;Intentional&lt;/li&gt;
+      &lt;li&gt;Homicide&lt;/li&gt;
+      &lt;li&gt;Undetermined&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/number-of-records.png&quot; alt=&quot;number of records in mortality file&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The literal text files include text as entered by a physician, medical examiner, or coroner on the U.S. Standard Certificate of Death. Variables from the literal text file include the chain of events leading to death (from Part I, Lines A through D), time intervals for each event in Part I, other significant conditions that contributed to cause of death (from Part II), how the injury occurred (in the case of deaths due to injuries from Box 43), and place of injury. For the purpose of this project, only fields containing literal text for Part I, II, and Box 43 were requested. All other fields from the literal text files were dropped.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/cause-of-death.png&quot; alt=&quot;cause of death section of the u.s. standard death certificate&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/literal-text-dataset.png&quot; alt=&quot;literal-text-dataset&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;a-quick-primer-on-icd-10-codes&quot;&gt;A Quick Primer on ICD-10 Codes&lt;/h2&gt;
+
+&lt;p&gt;Multiple cause codes within the mortality file may be used to indicate cause of death as well as specific substances or broad drug classes contributing to the cause(s) of death.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ICD-10 codes for drug overdose as underlying cause of death are characterized by intent and mechanism:
+    &lt;ul&gt;
+      &lt;li&gt;X40-X44&lt;/li&gt;
+      &lt;li&gt;X60-X64&lt;/li&gt;
+      &lt;li&gt;X85&lt;/li&gt;
+      &lt;li&gt;Y10-Y14&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Additional T, F, or R codes may indicate specific substances or broad drug classes
+    &lt;ul&gt;
+      &lt;li&gt;T40.1 - Heroin&lt;/li&gt;
+      &lt;li&gt;T40.4 - Synthetic Opioids&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Running some cross tabulations for records by ICD code and variables such as intent and mechanism, it is observed that there are significant class imbalances which must be accounted for when developing predictive models.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/icd-by-intent.png&quot; alt=&quot;icd-by-intent&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;primary-objective-identify-and-code-drug-overdose-records&quot;&gt;Primary Objective: Identify and Code Drug Overdose Records&lt;/h2&gt;
+
+&lt;p&gt;Given the heavy class imbalance within the datasets, the metrics of interest for model comparison and selection will be precision and recall. Precision determines the proportion of records assigned to a given class that were correct. minimizing false positives. Recall determines the proportion of records belonging to a class that were correct, minimizing false negatives.&lt;/p&gt;
+
+&lt;p&gt;Models with the best performance in each classifier were combined together to identify records with a status of drug overdose and based on the predicted intent and mechanism categories, assign an ICD-10 code from the subset X40-44, X60-64, X85, and Y10-Y14. The mapping of intent and mechanism categories to individual ICD-10 codes are provided within a lookup table for the final assignment of ICD code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/classifiers.png&quot; alt=&quot;organization of classifiers in project&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-preprocessing&quot;&gt;Data Preprocessing&lt;/h3&gt;
+
+&lt;p&gt;The following pre-processing steps were applied to mortality and literal text data files:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add flag variables for drug overdose status, intent, mechanism&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Remove rows with missing or uninformative literal text&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standardize text - All uppercase, stripped punctuation and numbers&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Concatenate text fields and convert to document term matrix (i.e. bag of words)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/bag-of-words.png&quot; alt=&quot;bag of words transformation&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;sampling&quot;&gt;Sampling&lt;/h3&gt;
+&lt;p&gt;The main limitation of the mortality file is the significant class imbalance between overdose (~500,000 records) and non-overdose (32 million records). To account for this imbalance, a stratified sample of 500,000 overdose and non-overdose records was taken, using simple random sampling without replacement. The records were then divided evenly into training and test sets. Due to class imbalance among specific ICD codes, under-represented classes were oversampled.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/train-test-sets.png&quot; alt=&quot;train and test sets in SAS&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental-design&quot;&gt;Experimental Design&lt;/h3&gt;
+&lt;p&gt;The Scikit-Learn package of Python was used to develop a machine learning pipeline for this project. The pipeline can be broken into three main categories:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/pipeline.png&quot; alt=&quot;Sci-kit learn pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Vectorizer&lt;/strong&gt; - This initial step transforms the pre-processed data into a term-document matrix using a chosen vectorizer. Values could take on binary counts to indicate the presence or absence of a word in a given record, TF-IDF to indicate the relative importance of a word in a record relative to the entire corpus/dataset, or specialized hashing vectorizers which run the terms through a hashing function and indicate presence or absence of a hashed word. The hashing vectorizer removes the need for stored vocabularies saving storage, but can be problematic as multiple words resolve to the same value when passed through the hashing function. This also hinders downstream interpretability of the models. For example, examining coefficients of an SVM model may indicate which terms from the source vocabulary have the most predictive power for overdose or non-overdose status, shown in the below figure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Classifier&lt;/strong&gt; - Methods such as Naive Bayes (NB) and Support Vector Machine (SVM) have been found to be successful for classifying records containing drug mentions with involvement (Lipphardt, 2018). Using the appropriate features, these linear classifiers have often been shown to perform on par with state-of-the-art algorithms in text classification (Wang &amp;amp; Manning, 2012). These are the primary algorithms that were considered within the scope of this project. Results from Wang and Manning (2012) also show that in general Multinomial Naive Bayes outperforms Multivariate Bernoulli Naive Bayes and that binarized values are better than standard counts (pg. 90). Based on these findings the Multinomial Naive Bayes with binarized values are chosen as the preferred model for Naive Bayes classifiers. SVM models are implemented with a linear kernel based on the fact that text classification problems are often found to be linearly separable given the high dimensionality of the feature space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Result&lt;/strong&gt; - To determine optimal hyperparameters for machine learning models, a grid search in Scikit-Learn was used to test combinations of parameters, measuring performance using three fold cross validation. Grid search was configured to select optimal parameters based off a precision macro-average, which computes the unweighted mean precision among all class labels. Once optimal hyperparameters are chosen, model predictions are obtained on the test set to determine final precision scores.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/svm-coefficients.png&quot; alt=&quot;SVM coefficients&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;overdose-status&quot;&gt;Overdose Status&lt;/h3&gt;
+&lt;p&gt;The performance of the model developed in this capstone project is compared to the baseline detailed in work by Trinidad, Warner, Bastian, Minino &amp;amp; Hedegaard (2016). Compared to the baseline model, the capstone models based on machine learning SVM classifiers outperform with a precision score of 99.7 percent.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Baseline Model
+    &lt;ul&gt;
+      &lt;li&gt;Exact Term Matching&lt;/li&gt;
+      &lt;li&gt;2013 data year&lt;/li&gt;
+      &lt;li&gt;2,000 records&lt;/li&gt;
+      &lt;li&gt;Precision: 95.8%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Capstone Model
+    &lt;ul&gt;
+      &lt;li&gt;SVM Classifier&lt;/li&gt;
+      &lt;li&gt;2005-2017 data years&lt;/li&gt;
+      &lt;li&gt;499,187 records&lt;/li&gt;
+      &lt;li&gt;Precision: 99.7%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/confusion-matrix-od-status.png&quot; alt=&quot;confusion matrix for overdose status prediction&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These results support a potential use case for developing near real-time provisional counts of drug overdose deaths, not taking into account individual ICD-10 codes or drug clases. It should be noted that this model does not consider or determine multiple cause codes, which are an important component of the final mortality file. However, given that more than two thirds of drug overdose records must be coded manually, this method would provide a rapid way of flagging records for manual review.&lt;/p&gt;
+
+&lt;p&gt;Organizations working primarily in SAS may conder that Visual Data Mining and Machine Learning product within the SAS Viya platform to develop these machine learning pipelines. Supported CAS libraries or APIs allow integration of Python and R models into the data pipeline.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/sas-vdmml.png&quot; alt=&quot;SAS VDMML pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;individual-icd-10-codes&quot;&gt;Individual ICD-10 Codes&lt;/h3&gt;
+&lt;p&gt;Using the best models or heuristics for overdose status, intent, and mechanism, ICD-10 codes were obtained using the sample of 499,187 records split evenly between overdose and non-overdose deaths.&lt;/p&gt;
+
+&lt;p&gt;Classification on individual ICD-10 codes resulted in a precision weighted macro-average of 0.9627, with precision scores for individual codes ranging from 0.2613 to 0.9586. Recall weighted macro-average was 0.9590, with recall scores for individual classes ranging from 0.81 to 0.9926.&lt;/p&gt;
+
+&lt;p&gt;From these results it can be observed that the model exhibits good sensitivity and typically predicts class labels accurately for more than 95 percent of the records it is passed. However, given the heavy class imbalance, precision scores for ICD-10 codes with little support suffer when the model assigns false positives.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Weighted macro avg.
+    &lt;ul&gt;
+      &lt;li&gt;Precision: 96.2%&lt;/li&gt;
+      &lt;li&gt;Recall: 95.9%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Unweighted macro avg.
+    &lt;ul&gt;
+      &lt;li&gt;Precision: 74.0%&lt;/li&gt;
+      &lt;li&gt;Recall: 92.4%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/icd-code.png&quot; alt=&quot;ICD&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Future work for predictive models may focus on improvements towards mechanism classifier performance, which exhibits low support for select ICD-10 codesw. Improvements might be gained through additional pre-processing - reducing the number of terms considered - and modern techniques such as deep neural networks (e.g. RNN, LSTM) which take advantage of context provided by word order.&lt;/p&gt;
+
+&lt;p&gt;For the purposes of this capstone project, techniques or toolsets were constrained by the amount of training data and availablity of processing power or toolsets on NCHS’ consolidated statistical platform. As additional processing power and toolsets become on the platform, deep learning models may be incorporated.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/icd-by-mechanism.png&quot; alt=&quot;ICD by mechanism&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;secondary-objective-extract-known-and-novel-drug-mentions&quot;&gt;Secondary Objective: Extract Known and Novel Drug Mentions&lt;/h2&gt;
+
+&lt;p&gt;As discussed, prior work by Trinidad et al. (2016) has focused on the use of SAS programs to identify drug mentions with involvement (DMI) within literal text fields via exact matches and regular expressions.&lt;/p&gt;
+
+&lt;p&gt;Trinidad et al. (2016) note:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The importance of creating comprehensive lists to be used by the DMI programs cannot be overstated. The DMI programs are a series of steps that identify drug mentions, descriptors of those drug mentions, and other contextual information. Each step of the processing of literal text requires lists: search terms, descriptors, joining phrases, or contextual phrases. Incomplete lists used by the DMI programs may result in failure in any of the processing steps, which would result in a failure to associate drug mentions with the appropriate contextual information.&lt;/em&gt; (p. 13)&lt;/p&gt;
+
+&lt;p&gt;Although the programs are designed to obtain a high level of agreement with ICD-10 codes assigned through manual review, the process of developing precompiled lists is extremely time intensive and may miss drugs rarely involved in drug overdose deaths as well as uncommon abbreviations or misspellings. Future work is focused on identifying not only known drug mentions, but emerging trends in drug mortality such as the introduction of new fentanyl analogs. In order to improve the quality of reporting for drug overdose deaths, it is desirable to develop a model that can automatically extract both known and novel drug mentions.&lt;/p&gt;
+
+&lt;p&gt;One method considered was to expand the lists maintained for the current NCHS DMI programs using more comprehensive vocabularies such as the Unified Medical Language System (UMLS), which provides access to a metathesaurus containing terms across multiple standards such as ICD-10, MeSH, RxNorm, and SNOMED. This method would potentially miss acronyms, abbreviations, and misspellings. Research from Tolentino et al. has focused on incorporating numerous algorithms to identify and correct these issues in a pre-processing step, but result in low sensitivity and precision (2007). The system also has the potential to miss newly emerging drugs or slang terms.&lt;/p&gt;
+
+&lt;p&gt;An alternative method using unsupervised machine learning comes from research by Simpson, Adams, Brugman, and Conners (2018), which explored the use of word embeddings to detect novel and emerging drug mentions in social media. The original paper explores the use of the word2vec algorithm to identify novel drug mentions for the target substance ‘marijuana’ in social media by querying the model for top terms according to cosine similarity. Candidate terms were then manually reviewed to verify novel mentions. A semi-automated version of this approach may be used to identify known drug mentions by calculating cosine similarity between each word in a record and one or more selected target words, flagging those words which exceed an optimal threshold value. The fastText algorithm introduced by Bojanowski, Grave, Joulin, and Mikolov (2016) extends word2vec by considering not only individual words, but character n-grams within word boundaries. Word vectors for complete words are constructed by summing the character ngram word vectors together, allowing vectors to be generated for out-of-vocabulary words. This algorithm was also tested within the context of this project to identify potential misspellings or novel drug mentions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/tensorflow-vectors.png&quot; alt=&quot;Word Vectors in Tensorflow&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;summary-of-word2vec&quot;&gt;Summary of Word2Vec&lt;/h3&gt;
+
+&lt;p&gt;A complete review of the word2vec and fastText algorithms are outside the scope of this writeup. For detailed information, see original articles by &lt;a href=&quot;https://arxiv.org/pdf/1301.3781.pdf&quot;&gt;Mikolov et al (2013)&lt;/a&gt; and &lt;a href=&quot;https://arxiv.org/pdf/1607.04606.pdf&quot;&gt;Bojanowski et al (2017)&lt;/a&gt;. A brief overview of word2vec is provided below.&lt;/p&gt;
+
+&lt;p&gt;word2vec comes in two flavors, using either a continuous bag of words (CBOW) or a skip-gram approach. The CBOW approach is used within this capstone project.&lt;/p&gt;
+
+&lt;p&gt;CBOW trains a neural network model by passing as input a one hot vector for a word that occurs in a given context, passes it through a hidden layer, and attempts to predict the probability of all other words within the vocabulary occurring in the same context/window using a softmax classifier. The network is optimized to minimize the loss in predicting probabilities for context words in the softmax layer. Once this loss is minimized, values are obtained from the hidden layer, also known as the embedding layer, to construct an embedding matrix of word vectors. The resulting word vectors can be used to compare semantic similarity using various distance measures. Cosine similarity is used within this project to compare word similarity.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/word2vec-example.png&quot; alt=&quot;Word2Vec example&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-preprocessing-1&quot;&gt;Data Preprocessing&lt;/h3&gt;
+&lt;p&gt;Provisioned data files for 2005 through 2017 were used to build the corpus for word embedding models, using a stratified sample of 500,000 overdose and non-overdose records each. Only literal text fields pertaining to Part I, II, and Box 43 of the standard certificate of death were retained. These fields were then unpivoted and stacked into a single column of lines of text. All lines of text were converted to uppercase.&lt;/p&gt;
+
+&lt;p&gt;Using the NLTK Python package, each line was tokenized splitting on non-word characters to convert the corpus to a python list of tokenized sentences (i.e., a list of token lists). The Phrases model of the gensim package was then built using this list to detect common bigrams (i.e., adjacent word pairs) within the corpus. Hyperparameters for the minimum frequency of bigrams and the threshold for forming bigram phrases were initially kept at their defaults of 5 and 10, respectively. Once the phrases model was built, the list of tokenized sentences was passed through the phrases model to replace common pairs of tokens with detected phrases. Performance of models with and without bigrams were evaluated.&lt;/p&gt;
+
+&lt;p&gt;To prevent unimportant numeric values from being included in the word embedding model, regular expressions were used to strip years prior to phrase detection and any remaining numbers following replacement of phrases. This allowed detected phrases such as ‘U_47700’ (a synthetic opioid) and ‘TYPE_2’ (relating to TYPE 2 DIABETES) to be included within the model.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/sample-literal-text.png&quot; alt=&quot;sample literal text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/word-tokens.png&quot; alt=&quot;word tokens&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;task-1-measure-agreement-with-historical-records&quot;&gt;Task 1: Measure Agreement with Historical Records&lt;/h3&gt;
+&lt;p&gt;The first task analyzes NCHS mortality and literal text records for data year 2017 using optimal word vectors to identify target substances based on cosine similarity. Flagged records only consider mentions of the drugs themselves and do not take into consideration contextual information such as degree of certainty (e.g. ‘PROBABLE’, ‘UNKNOWN’) or temporal relationships (e.g. ‘HISTORY’, ‘PAST’, ‘RECENT’, ‘REMOTE’).&lt;/p&gt;
+
+&lt;p&gt;Detailed results of the analysis using word embedding models are provided in the table below and compared with the results of Trinidad et. al (2016) as the baseline.&lt;/p&gt;
+
+&lt;p&gt;The first metric calculates precision, which finds the proportion of records with flagged mentions for the target substance that actually had an applicable ICD-10 code. Given that contextual information was ignored in this approach, performance was remarkably similar to the results by Trinidad et. al, resulting in precision scores between 91.5 and 98.0 percent.&lt;/p&gt;
+
+&lt;p&gt;The second metric calculates sensitivity or recall, which finds the proportion of records assigned a code for the target substance which were identified. The approach using word embedding models performed on par with the DMI programs, resulting in sensitivity between 98.6 and 99.6 percent.&lt;/p&gt;
+
+&lt;p&gt;Given the performance of this approach, it is possible that word embedding models may be designed as a reliable alternative method to identifying known drug mentions, despite the lack of contextual information required to rule out drug mentions without involvement.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/target-substances.png&quot; alt=&quot;target substances&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;task-2-search-for-novel-drug-terms&quot;&gt;Task 2: Search for Novel Drug Terms&lt;/h3&gt;
+
+&lt;p&gt;The second task analyzes public records from Washington state for data year 2016 by comparing cosine similarity of each term or phrase to a list of common metabolites, precursors, and analogs used as search terms for identifying fentanyl.&lt;/p&gt;
+
+&lt;p&gt;A listing of opioid and non-opioid terms were flagged using the word embedding models. Raw counts of the drug mentions were used to measure the rarity of a term within the dataset. Approximately 78 terms were identified in the dataset based on cosine similarity. 24 of these terms were opioid related and 54 terms were non-opioid terms. Drug terms comprised 72 of the 78 identified terms with non-drug terms including INTOXICATION, NEUROMYELITIS, PHLEGMASIA, NOR, SUNDAY, and VINYL.&lt;/p&gt;
+
+&lt;p&gt;Top opioid terms based on counts include known drug mentions such as HEROIN, METHADONE, and FENTANYL. Drugs with smaller counts include infrequently cited metabolites and their typos (e.g. PARAFLOUROFENTANYL, FUNANYL) as well as lesser known illicit drugs (U_47700, U47700, 4_ANPP) not included on the expert list used by Trinidad et. al (2016). The addition of verified typos and fentanyl analogs resulted in a 27 percent increase in fentanyl related mentions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/flagged-drug-mentions.png&quot; alt=&quot;flagged drug mentions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using this approach, a corpus of approximately 22,000 unique terms were narrowed down using automated tools to 78 terms requiring manual review and using raw counts provided a mechanism to quickly identify novel mentions. The limitations of this method are that word vectors are dependent on the size and quality of the training dataset and that false positives may be generated. Therefore, these techniques would be best served as a complementary method to existing search term list approaches to identify new candidate terms. This technique could easily be applied to the most recently available year of mortality and literal text data to identify terms similar to fentanyl.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/capstone/summary.png&quot; alt=&quot;summary of results&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;Aggarwal, C.C., &amp;amp; Zhai, C.X. (2012). A survey of text classification algorithms. In Mining text data (pp 163-222). Boston, MA: Springer.&lt;/p&gt;
+
+&lt;p&gt;Bojanowski, P., Grave, E., Joulin, A., &amp;amp; Mikolov, T. (2016). Enriching word vectors with subword information. Retrieved from https://arxiv.org/pdf/1607.04606.pdf&lt;/p&gt;
+
+&lt;p&gt;Cameron, H.M., &amp;amp; McGoogan, E. (1981). A prospective study of 1152 hospital autopsies: I. Inaccuracies in death certification. The journal of pathology, 133(4). doi: https://doi.org/10.1002/path.1711330402&lt;/p&gt;
+
+&lt;p&gt;Centers for Disease Control and Prevention (CDC). (2018). Understanding the epidemic. Retrieved from: https://www.cdc.gov/drugoverdose/epidemic/index.html&lt;/p&gt;
+
+&lt;p&gt;Hedegaard, H., Miniño, A.M., Warner, M. (2018). Drug overdose deaths in the United States, 1999–2017. NCHS Data Brief, 329. Hyattsville, MD: National Center for Health Statistics. Retrieved from 
+https://www.cdc.gov/nchs/data/databriefs/db329-h.pdf&lt;/p&gt;
+
+&lt;p&gt;Joulin, A., Grave, E., Bojanowski, P., &amp;amp; Mikolov, T. (2016). Bag of tricks for ef icient text classification. Retrieved 
+from https://arxiv.org/pdf/1607.01759.pdf&lt;/p&gt;
+
+&lt;p&gt;Lipphardt, A. (2018). Using cause-of-death literal text from the death certificate for classification. Retrieved from https://github.com/alipphardt/dmi-deaths-classification.&lt;/p&gt;
+
+&lt;p&gt;Mikolov, T., Chen, K., Corrado, G., &amp;amp; Dean, J. (2013). Ef icient estimation of word representations in vector space. Retrieved from: https://arxiv.org/pdf/1301.3781.pdf&lt;/p&gt;
+
+&lt;p&gt;National Center for Health Statistics (NCHS). (2018). Release of 2016 multiple cause-of-death data file. Available from: https://www.cdc.gov/nchs/data/dvs/Multiple_Cause_Record_Layout_2016.pdf&lt;/p&gt;
+
+&lt;p&gt;Quoc, V.L., &amp;amp; Mikolov, T. (2014). Distributed representations of sentences and documents. Retrieved from: https://arxiv.org/pdf/1405.4053.pdf&lt;/p&gt;
+
+&lt;p&gt;Simpson, S.S., Adams, N., Brugman, C.M., &amp;amp; Conners, T.J. (2018). Detecting novel and emerging drug terms using natural language processing: A social media corpus study. JMIR Public Health and Surveillance, 4(1).&lt;/p&gt;
+
+&lt;p&gt;Spencer, M.R., Warner, M., Bastian, B.A., Trinidad, J.P., &amp;amp; Hedegaard, H. (2019) Drug overdose deaths involving fentanyl, 2011–2016. National vital statistics reports, 68(3). Retrieved from https://www.cdc.gov/nchs/data/nvsr/nvsr68/nvsr68_03-508.pdf&lt;/p&gt;
+
+&lt;p&gt;Trinidad, J.P., Warner M., Bastian, B.A., Minino, A.M., &amp;amp; Hedegaard H. (2016). Using literal text from the death certificate to enhance mortality statistics: Characterizing drug involvement in deaths. National vital statistics reports, 65(9). Hyattsville, MD: National Center for Health Statistics.&lt;/p&gt;
+
+&lt;p&gt;Tolentino, H.D., Matters, M. D., Walop, W., Law, B., Tong, W., Liu, F., Fontelo, P., Kohl, K., &amp;amp; Payne, D.C. (2007). A UMLS-based spell checker for natural language processing in vaccine safety. BMC medical informatics and decision making, 7, 3. doi:10.1186/1472-6947-7-3&lt;/p&gt;
+
+&lt;p&gt;Wang, S., &amp;amp; Manning, C.D. (2012). Baselines and bigrams: Simple, good sentiment and topic classification. In Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (pp. 90–94). Retrieved from https://www.aclweb.org/anthology/P12-2018&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">Background</summary></entry><entry><title type="html">Word Embeddings Demo</title><link href="http://localhost:4000/2019/03/20/Word-Embeddings.html" rel="alternate" type="text/html" title="Word Embeddings Demo" /><published>2019-03-20T00:00:00-04:00</published><updated>2019-03-20T00:00:00-04:00</updated><id>http://localhost:4000/2019/03/20/Word-Embeddings</id><content type="html" xml:base="http://localhost:4000/2019/03/20/Word-Embeddings.html">&lt;p&gt;&lt;a href=&quot;https://rpubs.com/alipphardt/478255&quot;&gt;RPubs - Word Embeddings Demo&lt;/a&gt;
+&lt;a href=&quot;https://github.com/alipphardt/visualize_embeddings&quot;&gt;GitHub Repo - Word2Vec Embedding Projector in Tensorflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This R Markdown report, published to RPubs, demonstrates the use of several machine learning and natural language processing techniques surrounding the concept of word embeddings.&lt;/p&gt;
+
+&lt;p&gt;Word embeddings are a form of language modeling using natural language processing and machine learning techniques to map words from a selected vocabulary to a vector of numbers. For example:&lt;/p&gt;
+
+&lt;p&gt;“DRUG” = [-3.2030731e-02, 2.7105689e-01, -4.9149340e-01, 6.1396444e-01, … ]&lt;/p&gt;
+
+&lt;p&gt;By representing words with vectors, we can map words to a point in a high dimensional geometric space. The goal of word embedding models are to place words in this geometric space such that words with high semantic similarity are close together. How these vectors are constructed depend on the models or algorithms used. Word2Vec and FastText algorithms are the focus of this demo.&lt;/p&gt;
+
+&lt;h2 id=&quot;sample-analyses&quot;&gt;Sample Analyses&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Examining the quality of embeddings produced by Word2Vec and FastText algorithms&lt;/li&gt;
+  &lt;li&gt;TSNE dimensionality reduction to visualize high dimensional vectors in 2D&lt;/li&gt;
+  &lt;li&gt;Exploring Word2Vec embeddings using &lt;a href=&quot;https://projector.tensorflow.org/?config=https://gist.githubusercontent.com/alipphardt/9341654aa777b9bf803de0c6e04b0ec5/raw/85ad4bb537b7dfa7116d07e3f4617d2639a654aa/projector-config.json&quot;&gt;Tensorflow Embedding Projector&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/word-embeddings/word-embedding-sample.png&quot; alt=&quot;Word Embedding Sample&quot; /&gt;
+&lt;img src=&quot;/images/word-embeddings/TSNE.png&quot; alt=&quot;TSNE dimensionality reduction&quot; /&gt;
+&lt;img src=&quot;/images/word-embeddings/tensorflow-model.png&quot; alt=&quot;Embedding Projector in Tensorflow&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">RPubs - Word Embeddings Demo GitHub Repo - Word2Vec Embedding Projector in Tensorflow</summary></entry><entry><title type="html">Analysis of Literal Text from the Death Certificate</title><link href="http://localhost:4000/2019/02/20/Literal-Text-Analysis.html" rel="alternate" type="text/html" title="Analysis of Literal Text from the Death Certificate" /><published>2019-02-20T00:00:00-05:00</published><updated>2019-02-20T00:00:00-05:00</updated><id>http://localhost:4000/2019/02/20/Literal-Text-Analysis</id><content type="html" xml:base="http://localhost:4000/2019/02/20/Literal-Text-Analysis.html">&lt;p&gt;&lt;a href=&quot;https://rpubs.com/alipphardt/469311&quot;&gt;RPubs - Analysis of Literal Text from the Death Certificate&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This R Markdown report, published to RPubs, performs text mining analysis on a representative sample of death records from public data available for purchase from the Washington State Department of Health. The purpose of this project is to perform exploratory analyses prior to a larger examination of records for the United States from 2003-2017. The analysis will focus primarily on records pertaining to drug overdose deaths with the following ICD-10 codes: X40-44, X60-64, X85, Y10-Y14.&lt;/p&gt;
+
+&lt;h2 id=&quot;sample-analyses&quot;&gt;Sample Analyses&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Top words among all death records.&lt;/li&gt;
+  &lt;li&gt;Top words according to ICD code and drug overdose status, examining raw counts and term frequency inverse document frequency (TF-IDF).&lt;/li&gt;
+  &lt;li&gt;Top bigrams, including network graph visualizations depicting the relationship of common word pairs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://rpubs.com/alipphardt/469311&quot;&gt;Refer to RPubs Report for Analyses&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/literal-text-analyses/top-words.png&quot; alt=&quot;Top Words&quot; /&gt;
+&lt;img src=&quot;/images/literal-text-analyses/top-words-by-overdose-status.png&quot; alt=&quot;Top Words by overdose status&quot; /&gt;
+&lt;img src=&quot;/images/literal-text-analyses/top-words-by-ICD.png&quot; alt=&quot;Top Words by ICD code&quot; /&gt;
+&lt;img src=&quot;/images/literal-text-analyses/bigrams.png&quot; alt=&quot;Top bigrams, represented by network graph&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">RPubs - Analysis of Literal Text from the Death Certificate</summary></entry><entry><title type="html">2013 Baltimore Speed Camera Citations</title><link href="http://localhost:4000/2019/01/19/Baltimore-Speed-Camera-Citations.html" rel="alternate" type="text/html" title="2013 Baltimore Speed Camera Citations" /><published>2019-01-19T00:00:00-05:00</published><updated>2019-01-19T00:00:00-05:00</updated><id>http://localhost:4000/2019/01/19/Baltimore-Speed-Camera-Citations</id><content type="html" xml:base="http://localhost:4000/2019/01/19/Baltimore-Speed-Camera-Citations.html">&lt;p&gt;&lt;a href=&quot;https://rpubs.com/alipphardt/466021&quot;&gt;RPubs - 2013 Baltimore Speed Camera Citations&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This R Markdown report, published to RPubs, focuses on data cleaning and exploratory analyses of 2.4 million records for speed camera citations in the City of Baltimore from 2013 to the present.&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">RPubs - 2013 Baltimore Speed Camera Citations</summary></entry><entry><title type="html">Face Detection using Open CV</title><link href="http://localhost:4000/2018/12/19/Face-Detection.html" rel="alternate" type="text/html" title="Face Detection using Open CV" /><published>2018-12-19T00:00:00-05:00</published><updated>2018-12-19T00:00:00-05:00</updated><id>http://localhost:4000/2018/12/19/Face-Detection</id><content type="html" xml:base="http://localhost:4000/2018/12/19/Face-Detection.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/face-detection&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;choice-of-dataset&quot;&gt;Choice of Dataset&lt;/h2&gt;
+
+&lt;p&gt;Ring Doorbell videos&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Video surveillance in the event of motion detection or doorbell ring&lt;/li&gt;
+  &lt;li&gt;MP4 videos range in length from 15-30 seconds and run at 15 frames per second&lt;/li&gt;
+  &lt;li&gt;Daytime and night-vision modes which record in color or grayscale&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/face-detection/ring-doorbell-recordings.png&quot; alt=&quot;Ring Doorbell recordings&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;goal&quot;&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Individuals are recognized largely by their facial features, therefore it is desirable to detect and isolate faces within a video. Face detection is import for the purposes of video surveillance as the goal is to extract semantic information such as ‘individual on my doorstep at this timestamp’.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/face-detection/face-detection.png&quot; alt=&quot;Example of face detection&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;techniques&quot;&gt;Techniques&lt;/h2&gt;
+&lt;p&gt;Techniques from multimedia data mining will be used within the project for preprocessing, classification/detection, and segmentation (extracting objects of interest from an image).&lt;/p&gt;
+
+&lt;p&gt;Given that the model of ring doorbell used in this project had variations in quality and a grainy quality, I used several types of pre-processing to see what would work best to bring features of interest to the forefront. This included the use of Gaussian or median blur for denoising, to reduce the amount of pixelation in the images; and locally adaptive histogram equalization, which adjusts the contrast within regions of an image, which can be important when regions of the video are susceptible to glare or poor lighting.&lt;/p&gt;
+
+&lt;p&gt;Haar feature-based cascade classifiers are pre-trained models available in the Open CV package which may be used to detect faces at various angles (frontal, angled, sideways/profile). This is useful for detecting regions within the image with a potential face and returning a bounding box.&lt;/p&gt;
+
+&lt;p&gt;Once the face is detected, it is desirable to segment/extract the face from the background. This is done using the GrabCut algorithm. GrabCut typically works best when accompanied with interactive methods where rectangles or polygons are roughly drawn around the object of interest, so it is expected that this would work well given a bounding box.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/face-detection/haar.png&quot; alt=&quot;Example of HAAR classifier&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;high-level-algorithm&quot;&gt;High Level Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create VideoCapture object and read in keyframes from source video&lt;/li&gt;
+  &lt;li&gt;For each keyframe:
+    &lt;ul&gt;
+      &lt;li&gt;Convert to grayscale (required for equalization)&lt;/li&gt;
+      &lt;li&gt;Apply CLAHE (8x8 tile) to enhance contrast and edges&lt;/li&gt;
+      &lt;li&gt;Run face detection using frontal face classifier to detect all faces, returning bounding boxes&lt;/li&gt;
+      &lt;li&gt;For each bounding box, perform GrabCut segmentation (initializing with bounding box) to obtain a mask and add masks together to obtain a mask that isolates all faces in frame&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Combine variations of image (i.e. original, preprocessed, face bounding boxes, isolated faces) into frame with 4 panel display&lt;/li&gt;
+  &lt;li&gt;Write these frames to a video output file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;demo&quot;&gt;Demo&lt;/h2&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vsYzCad0C6A&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/wZNDZF_limo&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/_i10s4_4uuQ&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/H--FkanYZbU&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/aiYb_fuDMWQ&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;limitationsconsiderations&quot;&gt;Limitations/Considerations&lt;/h2&gt;
+&lt;p&gt;This method was tested against a number of ring doorbell videos using variation in lighting and movement. Generally, this method works well when lighting conditions are favorable, movement is relatively slow, and the face is unobstructed.&lt;/p&gt;
+
+&lt;p&gt;The current model of the Ring Doorbell has large variations in video quality depending on whether the camera was running in daytime or nightime modes. The videos in this model were relatively poor clarity compared to high resolution cameras, and there were high amounts of noise that proved troublesome for pre-processing.&lt;/p&gt;
+
+&lt;p&gt;I found that the placement of the doorbell also made a significant difference with respect to the HAAR classifiers. They generally worked well when taking the face from straight on. However, with our current home, individuals approach the camera initially from lower ground down a set of steps and once they reach the door are over the camera at a significant angle. There is generally a very short window of time where the faces are at an optimal distance and angle. Changing the height or angle in which the doorbell is mounted could improve performance.&lt;/p&gt;
+
+&lt;p&gt;Additionally, the HAAR classifiers chosen provided mixed results with some false positives appearing. For example, the test image with multiple faces picked up not only the faces of the two individuals, but the women’s neck. Additionally, in most cases faces in fair lighting and good visibility were detected, but there were a number of false positives that were detected potentially as a result of poor picture quality or artifacts. To reduce/remove these anomalies, I would recommend doing some temporal analyses to ensure that faces occur across a minimum set of frames before truly being detected.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/face-detection/two-people.jpg&quot; alt=&quot;two people&quot; /&gt;
+&lt;img src=&quot;/images/face-detection/false-positive.png&quot; alt=&quot;false positive&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Additional preprocessing steps to account for disparity in lighting, movement, or angle&lt;/li&gt;
+  &lt;li&gt;Reducing false positives using a combination of classifiers (e.g. a frontal face should contain 2 eyes, a face is part of or adjacent to a body)&lt;/li&gt;
+  &lt;li&gt;Feature matching extracted faces to individual headshots&lt;/li&gt;
+  &lt;li&gt;Produce data on individuals identified at given timestamps that can be queried&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">GitHub Repo</summary></entry><entry><title type="html">Classifying Drug Mention with Involvement (DMI) Deaths</title><link href="http://localhost:4000/2018/06/11/DMI-Deaths.html" rel="alternate" type="text/html" title="Classifying Drug Mention with Involvement (DMI) Deaths" /><published>2018-06-11T00:00:00-04:00</published><updated>2018-06-11T00:00:00-04:00</updated><id>http://localhost:4000/2018/06/11/DMI-Deaths</id><content type="html" xml:base="http://localhost:4000/2018/06/11/DMI-Deaths.html">&lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/alipphardt/dmi-deaths-classification/blob/master/dmi-classification-presentation.pdf&quot;&gt;Full PDF presentation&lt;/a&gt;&lt;/p&gt;
 
@@ -1235,124 +1672,4 @@ terms are retained in the dataset.&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_size_inches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/CDC%252BWONDER%252BAPI%252BExample_files/CDC%252BWONDER%252BAPI%252BExample_26_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html"></summary></entry><entry><title type="html">Dynamic Pivot Tables in JavaScript</title><link href="http://localhost:4000/2016/08/10/large-pivot-table.html" rel="alternate" type="text/html" title="Dynamic Pivot Tables in JavaScript" /><published>2016-08-10T17:27:59-04:00</published><updated>2016-08-10T17:27:59-04:00</updated><id>http://localhost:4000/2016/08/10/large-pivot-table</id><content type="html" xml:base="http://localhost:4000/2016/08/10/large-pivot-table.html">&lt;p&gt;When preparing data for visualization, it’s often easiest to work with datasets in a &lt;em&gt;long format&lt;/em&gt; versus a &lt;em&gt;wide format&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;An example of data in wide format could be a table with multiple columns for different years:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;/th&gt;
-      &lt;th&gt;2015&lt;/th&gt;
-      &lt;th&gt;2016&lt;/th&gt;
-      &lt;th&gt;2017&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Bob&lt;/td&gt;
-      &lt;td&gt;10&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-      &lt;td&gt;25&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Alice&lt;/td&gt;
-      &lt;td&gt;14&lt;/td&gt;
-      &lt;td&gt;16&lt;/td&gt;
-      &lt;td&gt;18&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Converting that to long format, we &lt;em&gt;unpivot&lt;/em&gt; the year columns, creating a single year column and a value column:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Name&lt;/th&gt;
-      &lt;th&gt;Year&lt;/th&gt;
-      &lt;th&gt;Value&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Bob&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-      &lt;td&gt;10&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Bob&lt;/td&gt;
-      &lt;td&gt;2016&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Bob&lt;/td&gt;
-      &lt;td&gt;2017&lt;/td&gt;
-      &lt;td&gt;25&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Alice&lt;/td&gt;
-      &lt;td&gt;2015&lt;/td&gt;
-      &lt;td&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Alice&lt;/td&gt;
-      &lt;td&gt;2016&lt;/td&gt;
-      &lt;td&gt;16&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Alice&lt;/td&gt;
-      &lt;td&gt;2017&lt;/td&gt;
-      &lt;td&gt;18&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;On the one hand, this approach provides added flexibility in manipulating the data through procedures such as filtering and grouping, and allows additional data to be appended as new records rather than adding new columns to the table. On the other hand, the resulting table includes redundant values and loses readability.&lt;/p&gt;
-
-&lt;p&gt;In order to convert the table into a more readable format while keeping the source data in a long format, we can use a library such as &lt;a href=&quot;https://pivottable.js.org/examples/&quot;&gt;PivotTable.js&lt;/a&gt; to create a pivot table. Given a list of row and column headers as well as a column to run an aggregation function (e.g., sum, count, average)&lt;/p&gt;
-
-&lt;p&gt;The following example uses a sample CSV dataset from the NCHS National Health Interview Survey which has been converted from a wide to long format.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://alipphardt.github.io/table-mockup/&quot;&gt;Pivot Table Mockup&lt;/a&gt; | &lt;a href=&quot;https://github.com/alipphardt/alipphardt.github.io/tree/master/table-mockup&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It configures the table as follows:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Row Headers - Sex, Selected Characteristic, Group&lt;/li&gt;
-  &lt;li&gt;Column Headers - Lifetime Alcohol Drinking Status, Measure&lt;/li&gt;
-  &lt;li&gt;Aggregator - Sum on the ‘Value’ column&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The resulting pivot table allows the users to more easily scan nested row and column headings to locate the data value of interest. However, there are a couple limitations to this approach:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Aggregate on a single column&lt;/strong&gt; - This may be an issue if multiple numeric columns are included in each record. For example, a record that includes a rate, a standard error, and lower/upper confidence limits. This might be addressed by further narrowing the dataset so only one of these measures are included per record. The downside is this increases redundancy as well as the physical size of the dataset.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Lack of footnotes&lt;/strong&gt; - Records which include footnotes may not be included as text cannot be reconciled by the aggregate function. This may be an issue if an organization requires that specific values be annotated when, for example, they lack statistical reliability.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Future updates to this example code would seek to overcome these shortcomings and potentially examine alternative code libraries implementing pivot tables.&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">When preparing data for visualization, it’s often easiest to work with datasets in a long format versus a wide format.</summary></entry><entry><title type="html">NVSS Quarterly Provisional Estimates</title><link href="http://localhost:4000/2016/08/08/qpe-estimates.html" rel="alternate" type="text/html" title="NVSS Quarterly Provisional Estimates" /><published>2016-08-08T17:27:59-04:00</published><updated>2016-08-08T17:27:59-04:00</updated><id>http://localhost:4000/2016/08/08/qpe-estimates</id><content type="html" xml:base="http://localhost:4000/2016/08/08/qpe-estimates.html">&lt;p&gt;The following designs were developed for the initial release of the &lt;a href=&quot;https://www.cdc.gov/nchs/nvss/vsrr.htm&quot;&gt;NVSS Rapid Release of Quarterly Provisional Estimates&lt;/a&gt;. This reports series from the National Centers for Health Statistics includes select indicators of mortality, natality and infant mortality.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://alipphardt.github.io/mortality-dashboard/&quot;&gt;Mortality Dashboard&lt;/a&gt; | &lt;a href=&quot;https://github.com/alipphardt/alipphardt.github.io/tree/master/mortality-dashboard&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://alipphardt.github.io/natality-dashboard/&quot;&gt;Natality Dashboard D3 Version&lt;/a&gt; | &lt;a href=&quot;https://github.com/alipphardt/alipphardt.github.io/tree/master/natality-dashboard&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://alipphardt.github.io/natality-dashboard-tableau/&quot;&gt;Natality Dashboard - Tableau Version&lt;/a&gt; | &lt;a href=&quot;https://github.com/alipphardt/alipphardt.github.io/tree/master/natality-dashboard-tableau&quot;&gt;GitHub Repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/qpe-estimates/natality-dashboard-screenshot.png&quot; alt=&quot;Screenshot, Natality Dashboard&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The designs were developed with the D3 JavaScript library and had the following requirements:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Read data locally from CSV file on the web server&lt;/li&gt;
-  &lt;li&gt;Responsive behavior within BootStrap 2 framework&lt;/li&gt;
-  &lt;li&gt;Ability to save the SVG canvas as a PNG image&lt;/li&gt;
-  &lt;li&gt;Ensure accessibilty (i.e. 508 compliance) of the final design&lt;/li&gt;
-  &lt;li&gt;With Natality and Infant Mortality, allow users to select which indicators to include on the chart.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Since the initial release, the designs were updated to incorporate dynamic infographics presenting key trends. This replaced static text provided by the authors with scripted text updated with values dynamically from the dataset.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/qpe-estimates/infographics.png&quot; alt=&quot;Infographics example from Natality Dashboard&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Future updates to the designs may include access of dataset from Socrata API endpoint rather than CSV and modification of the design for BootStrap 4 framework.&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html">The following designs were developed for the initial release of the NVSS Rapid Release of Quarterly Provisional Estimates. This reports series from the National Centers for Health Statistics includes select indicators of mortality, natality and infant mortality.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/images/CDC%252BWONDER%252BAPI%252BExample_files/CDC%252BWONDER%252BAPI%252BExample_26_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;</content><author><name>Anthony Lipphardt</name></author><summary type="html"></summary></entry></feed>

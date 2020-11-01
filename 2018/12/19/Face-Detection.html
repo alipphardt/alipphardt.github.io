@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Face Detection using Open CV | Data Science Portfolio</title>
+<meta name="generator" content="Jekyll v3.6.3" />
+<meta property="og:title" content="Face Detection using Open CV" />
+<meta name="author" content="Anthony Lipphardt" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Ring Doorbell provides video surveillance in the event of motion detection or doorbell ring, allowing the customer to download recorded MP4 videos. This project applies face detection and segmentation using Open CV in Python using pre-trained models." />
+<meta property="og:description" content="The Ring Doorbell provides video surveillance in the event of motion detection or doorbell ring, allowing the customer to download recorded MP4 videos. This project applies face detection and segmentation using Open CV in Python using pre-trained models." />
+<link rel="canonical" href="http://localhost:4000/2018/12/19/Face-Detection.html" />
+<meta property="og:url" content="http://localhost:4000/2018/12/19/Face-Detection.html" />
+<meta property="og:site_name" content="Data Science Portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2018-12-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/12/19/Face-Detection.html"},"url":"http://localhost:4000/2018/12/19/Face-Detection.html","author":{"@type":"Person","name":"Anthony Lipphardt"},"description":"The Ring Doorbell provides video surveillance in the event of motion detection or doorbell ring, allowing the customer to download recorded MP4 videos. This project applies face detection and segmentation using Open CV in Python using pre-trained models.","headline":"Face Detection using Open CV","dateModified":"2018-12-19T00:00:00-05:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Data Science Portfolio" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Data Science Portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Face Detection using Open CV</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-19T00:00:00-05:00" itemprop="datePublished">Dec 19, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://github.com/alipphardt/face-detection">GitHub Repo</a></p>
+
+<h2 id="choice-of-dataset">Choice of Dataset</h2>
+
+<p>Ring Doorbell videos</p>
+<ul>
+  <li>Video surveillance in the event of motion detection or doorbell ring</li>
+  <li>MP4 videos range in length from 15-30 seconds and run at 15 frames per second</li>
+  <li>Daytime and night-vision modes which record in color or grayscale</li>
+</ul>
+
+<p><img src="/images/face-detection/ring-doorbell-recordings.png" alt="Ring Doorbell recordings" /></p>
+
+<h2 id="goal">Goal</h2>
+<p>Individuals are recognized largely by their facial features, therefore it is desirable to detect and isolate faces within a video. Face detection is import for the purposes of video surveillance as the goal is to extract semantic information such as ‘individual on my doorstep at this timestamp’.</p>
+
+<p><img src="/images/face-detection/face-detection.png" alt="Example of face detection" /></p>
+
+<h2 id="techniques">Techniques</h2>
+<p>Techniques from multimedia data mining will be used within the project for preprocessing, classification/detection, and segmentation (extracting objects of interest from an image).</p>
+
+<p>Given that the model of ring doorbell used in this project had variations in quality and a grainy quality, I used several types of pre-processing to see what would work best to bring features of interest to the forefront. This included the use of Gaussian or median blur for denoising, to reduce the amount of pixelation in the images; and locally adaptive histogram equalization, which adjusts the contrast within regions of an image, which can be important when regions of the video are susceptible to glare or poor lighting.</p>
+
+<p>Haar feature-based cascade classifiers are pre-trained models available in the Open CV package which may be used to detect faces at various angles (frontal, angled, sideways/profile). This is useful for detecting regions within the image with a potential face and returning a bounding box.</p>
+
+<p>Once the face is detected, it is desirable to segment/extract the face from the background. This is done using the GrabCut algorithm. GrabCut typically works best when accompanied with interactive methods where rectangles or polygons are roughly drawn around the object of interest, so it is expected that this would work well given a bounding box.</p>
+
+<p><img src="/images/face-detection/haar.png" alt="Example of HAAR classifier" /></p>
+
+<h2 id="high-level-algorithm">High Level Algorithm</h2>
+
+<ul>
+  <li>Create VideoCapture object and read in keyframes from source video</li>
+  <li>For each keyframe:
+    <ul>
+      <li>Convert to grayscale (required for equalization)</li>
+      <li>Apply CLAHE (8x8 tile) to enhance contrast and edges</li>
+      <li>Run face detection using frontal face classifier to detect all faces, returning bounding boxes</li>
+      <li>For each bounding box, perform GrabCut segmentation (initializing with bounding box) to obtain a mask and add masks together to obtain a mask that isolates all faces in frame</li>
+    </ul>
+  </li>
+  <li>Combine variations of image (i.e. original, preprocessed, face bounding boxes, isolated faces) into frame with 4 panel display</li>
+  <li>Write these frames to a video output file</li>
+</ul>
+
+<h2 id="demo">Demo</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vsYzCad0C6A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wZNDZF_limo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_i10s4_4uuQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H--FkanYZbU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aiYb_fuDMWQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="limitationsconsiderations">Limitations/Considerations</h2>
+<p>This method was tested against a number of ring doorbell videos using variation in lighting and movement. Generally, this method works well when lighting conditions are favorable, movement is relatively slow, and the face is unobstructed.</p>
+
+<p>The current model of the Ring Doorbell has large variations in video quality depending on whether the camera was running in daytime or nightime modes. The videos in this model were relatively poor clarity compared to high resolution cameras, and there were high amounts of noise that proved troublesome for pre-processing.</p>
+
+<p>I found that the placement of the doorbell also made a significant difference with respect to the HAAR classifiers. They generally worked well when taking the face from straight on. However, with our current home, individuals approach the camera initially from lower ground down a set of steps and once they reach the door are over the camera at a significant angle. There is generally a very short window of time where the faces are at an optimal distance and angle. Changing the height or angle in which the doorbell is mounted could improve performance.</p>
+
+<p>Additionally, the HAAR classifiers chosen provided mixed results with some false positives appearing. For example, the test image with multiple faces picked up not only the faces of the two individuals, but the women’s neck. Additionally, in most cases faces in fair lighting and good visibility were detected, but there were a number of false positives that were detected potentially as a result of poor picture quality or artifacts. To reduce/remove these anomalies, I would recommend doing some temporal analyses to ensure that faces occur across a minimum set of frames before truly being detected.</p>
+
+<p><img src="/images/face-detection/two-people.jpg" alt="two people" />
+<img src="/images/face-detection/false-positive.png" alt="false positive" /></p>
+
+<h2 id="future-work">Future Work</h2>
+<ul>
+  <li>Additional preprocessing steps to account for disparity in lighting, movement, or angle</li>
+  <li>Reducing false positives using a combination of classifiers (e.g. a frontal face should contain 2 eyes, a face is part of or adjacent to a body)</li>
+  <li>Feature matching extracted faces to individual headshots</li>
+  <li>Produce data on individuals identified at given timestamps that can be queried</li>
+</ul>
+
+
+  </div><a class="u-url" href="/2018/12/19/Face-Detection.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Data Science Portfolio</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Anthony Lipphardt</li><li><a class="u-email" href="mailto:alipphardt@gmail.com">alipphardt@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/alipphardt"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">alipphardt</span></a></li><li><a href="https://www.twitter.com/a_lipphardt"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">a_lipphardt</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Created by Anthony Lipphardt as a portfolio for data science projects, this site includes samples of work that may encompass data visualization, programming, and web development.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
